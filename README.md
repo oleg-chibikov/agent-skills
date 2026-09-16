@@ -6,22 +6,29 @@ open a pull request.
 ## Install
 
 ```sh
-git clone https://github.com/oleg-chibikov/agent-skills.git
-cd agent-skills
-./install.sh --lang English
+curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/install.sh | sh -s -- --lang English
 ```
 
 That is it. The script finds the agents on your machine and installs into all of
-them: Claude Code, Codex, GitHub Copilot, Cursor and 80 more.
+them: Claude Code, Codex, GitHub Copilot, Cursor and 80 more. Run it again any
+time to update.
 
 `--lang` is the language your code review comes back in. Put any language there:
 
 ```sh
-./install.sh --lang Russian
-./install.sh --lang Spanish
+... | sh -s -- --lang Russian
+... | sh -s -- --lang Spanish
 ```
 
 Comments meant for the PR stay English, because the whole team reads them.
+
+Rather read the script before running it? Clone and run it yourself:
+
+```sh
+git clone https://github.com/oleg-chibikov/agent-skills.git
+cd agent-skills
+./install.sh --lang English
+```
 
 ## What you get
 
@@ -49,8 +56,8 @@ Ask in plain words:
 
 ## Change the language later
 
-Run `./install.sh --lang <language>` again. Or open
-`skills/review/LANGUAGE.md`, it holds one word.
+Run the install again with a different `--lang`. Or open
+`~/.agent-skills/skills/review/LANGUAGE.md`, it holds one word.
 
 ## Other flags
 
