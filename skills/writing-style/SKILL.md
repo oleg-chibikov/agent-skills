@@ -30,8 +30,8 @@ Every rule is a MUST unless it says otherwise. RFC 2119 meaning.
 - Say plainly what a thing does before naming what it is called.
 - Be concrete: the file, the command, what happened. Give a number when the
   number is the point, and leave it out when it decorates.
-- Somebody does something. "the page asks the server", «человек нажимает
-  „Сохранить“». Drop "a request is performed", «происходит очистка поля».
+- Somebody does something. "the page asks the server", "the person presses
+  Save". Drop "a request is performed", "a clearing of the field takes place".
 - Repeat the noun. Write "the field" again instead of "it".
 - Digits for numbers: "2 of 11 components".
 - Name at most one example inside a sentence. More names go on their own lines
@@ -52,8 +52,8 @@ appear between words. A hyphen only glues a word together: `data-slot`,
 `parse-row.ts`. Two ideas mean a full stop and a new sentence. A comma,
 brackets or a colon also do the job.
 
-**"Never", and «никогда».** The loudest tell that a machine wrote the line. A
-plain verb says the same:
+**"Never".** The loudest tell that a machine wrote the line. A plain verb says
+the same:
 
 | Instead of | Write |
 | --- | --- |
@@ -61,8 +61,6 @@ plain verb says the same:
 | this never happens | this doesn't happen |
 | components never do this | no component does this |
 | the worker never reads the JSON | the worker doesn't read the JSON |
-| никогда так не делай | так не делаем |
-| этого никогда не происходит | такого нет ни разу |
 
 The ban covers the plain factual sense too, not only emphasis. "The worker never
 reads the JSON" is true and still goes: "doesn't read" says it in a word a
@@ -71,18 +69,20 @@ person would use.
 Same for "always" used as emphasis. "Always quote variables" becomes "quote
 variables". Keep "always" only when it states a real fact about frequency.
 
-**"Nobody", "everyone", "everything", and «никто», «все».** The same family as
-"never": a big word with no facts behind it. Name the real set instead.
+Every language has its own word for this. Drop that one too.
+
+**"Nobody", "everyone", "everything".** The same family as "never": a big word
+with no facts behind it. Name the real set instead.
 
 | Instead of | Write |
 | --- | --- |
 | nobody outside the repo sees them | they change nothing outside the repo |
-| everyone reading our JSON guesses the type | both consumers guess the type |
-| это знают все | это есть в README |
+| everyone reading the JSON guesses the type | both consumers guess the type |
+| everybody knows that | it is in the README |
 
 **Counting things the reader can see.** Leave the count out of a heading, a
 lead-in or a noun phrase: "four PRs", "11 small functions", "three things are
-lost", «два консумера». The list below shows how many. The number also goes
+lost". The list below shows how many. The number also goes
 stale the moment someone adds a row.
 
 | Instead of | Write |
@@ -90,7 +90,7 @@ stale the moment someone adds a row.
 | Four PRs change the app, one changes the config | The first PRs change the app. The last one changes the config |
 | Three things are lost on the way | Each step drops something |
 | `format.js` has 11 small functions calling `trim()` | The helpers in `format.js` call `trim()` |
-| Три причины, почему так | Почему так |
+| Three reasons this happens | Why this happens |
 
 A number stays when the number is the finding: "274 lines the compiler rejects",
 "the build died after 40 minutes", "2 of 11 tests fail". Drop it when the
@@ -107,7 +107,7 @@ sides of the change, "us" and "them" point at the same team.
 | the shape of our JSON | the shape of `orders.json` |
 | it breaks their typecheck | it breaks the `web-app` typecheck |
 | our id reaches them as | the order id reaches the mobile app as |
-| у нас это лежит в конфиге | это лежит в `config.js` |
+| we keep that in the config | that is in `config.js` |
 
 "We" survives when a person is doing something: "we publish the major", "we
 decide before PR 4". Swap it out when it stands for code.
@@ -129,21 +129,22 @@ the text when they change what someone does. Otherwise cut them: "a JSON
 standard", "stable".
 
 **"It's not X, it's Y".** Say it straight, in the positive: "it's Y". Holds when
-the two halves sit in separate sentences. Holds in Russian too: «не X, а Y».
+the two halves sit in separate sentences, and in every language.
 
 | Instead of | Write |
 | --- | --- |
 | This isn't a config problem, it's a PATH problem | The PATH is wrong |
-| Не баг, а фича | Так задумано |
+| It's not a bug, it's a feature | It works as designed |
 
 **AI padding.** "Great question", "Absolutely", "Certainly", "I hope this
 helps", "Let's dive in", "Let me break this down", "Here's the thing", "Here's
 the answer:", "In conclusion", "I'll now proceed to", and emoji. Cut all of it
 and start with the answer.
 
-**Filler connectors, in Russian text.** «который», «что позволяет», «при этом»,
-«используя», «являющийся». Put a full stop and start a new sentence. Every
-language has words like these that carry no fact. Cut yours the same way.
+**Filler connectors.** Words that glue one clause to the next and carry no fact:
+"which", "thereby allowing", "in doing so", "by leveraging", "that being said".
+Put a full stop and start a new sentence. Every language has a set like this,
+and it is usually the set that sounds most formal. Cut yours the same way.
 
 **Inflated words.** Use words a junior would use. Out: "surface" as a verb,
 "thread through", "semantics", "contract", "non-trivial", "leverage",
@@ -154,38 +155,36 @@ Verbs go the same way. "hands us", "buys us", "unlocks", "powers", "drives",
 "is in", "sits in", "goes with", "lets us".
 
 **Emphasis stuck on the end.** "byte for byte", "full stop", "period", "plain
-and simple", "no more, no less", "end of story", «и точка», «от и до», «как
-есть». They add no fact and read as generated. Write the fact, or cut the
-phrase.
+and simple", "no more, no less", "end of story". They add no fact and read as
+generated. Write the fact, or cut the phrase.
 
 | Instead of | Write |
 | --- | --- |
 | the output is the same, byte for byte | `git diff` on the output is empty |
 | this is wrong, full stop | this is wrong |
-| переписали всё, от и до | переписали все 11 функций |
+| we rewrote the whole thing, end to end | we rewrote all 11 functions |
 
 **Pointing at your own text.** "Here is", "Look at", "Notice that", "As you can
-see", "Let's walk through", "Everything below", «как видно», «рассмотрим»,
-«обратите внимание», «ниже описано». The reader already sees it. Start with
-what the thing says or does.
+see", "Let's walk through", "Everything below". The reader already sees it.
+Start with what the thing says or does.
 
 | Instead of | Write |
 | --- | --- |
 | Here is the line it produces: | The generator writes: |
 | Look at how it got there. | It got there by searching the index. |
-| Рассмотрим, что происходит со строкой. | Строка теряет кодировку на первом же шаге. |
+| Let's see what happens to the row. | The row loses its encoding on the first step. |
 
 Same for talking about the document itself. "This page covers", "as we'll see",
-«в этом разделе мы». One scope line at the top is enough, the rest goes.
+"in this section we". One scope line at the top is enough, the rest goes.
 
 **Documents and tools that think.** "the ADR doesn't know about", "the spec has
-no idea", "the file believes", «конфиг считает», «схема думает». A file holds
-text. Write "the ADR predates it", "the spec has no rule for it".
+no idea", "the file believes". A file holds text. Write "the ADR predates it",
+"the spec has no rule for it".
 
 **Three of a kind.** "fast, clean and reliable" reads as generated. Name the one
 thing that matters, or list the real items with real numbers. The same goes for
-three names in a row closed by "all" or «все»: it is the plainest sign a machine
-wrote the line.
+three names in a row closed by "all": it is the plainest sign a machine wrote
+the line.
 
 ## Before and after
 
@@ -200,11 +199,11 @@ seamlessly handles all edge cases."
 Good: "Done. `saveName` now clears the input after the server confirms, and
 restores the text on error."
 
-Bad: «Была произведена очистка поля, что позволяет избежать ошибок, которые
-могут возникнуть при повторной отправке.»
+Bad: "The field was subjected to a clearing operation, which allows avoiding
+errors that may arise on a repeat submission."
 
-Good: «Поле чистится после ответа сервера. Повторная отправка больше не
-затирает текст.»
+Good: "The field clears after the server answers. A second submit no longer
+wipes the text."
 
 A long sentence, a dash and a pile of names, all in one line. This is what a
 machine reads like:
@@ -241,21 +240,44 @@ check:
 
 1. Does the first sentence answer the question?
 2. Any `—`, `–`, `--`, or a hyphen standing alone between words? Rewrite.
-3. Any "never" or «никогда» at all, in any sense? Any "always" as emphasis?
-   Rewrite with a plain verb.
-4. Any "not X, it's Y" or «не X, а Y»? Flip it to the positive.
+3. Any "never" at all, in any sense? Any "always" as emphasis? Rewrite with a
+   plain verb.
+4. Any "not X, it's Y"? Flip it to the positive.
 5. Any sentence with two or more commas? Split it.
 6. Any padding phrase or emoji from the banned list? Delete it.
 7. Any word a junior would look up? Swap it, or explain it once.
-8. Any sentence ending in "byte for byte", "full stop" or «и точка»? Cut it.
-9. Any "Here is", "Look at", "Notice" or «как видно»? Start with the fact.
-10. Any "nobody", "everyone", «никто», «все»? Name the real set.
+8. Any sentence ending in "byte for byte" or "full stop"? Cut it.
+9. Any "Here is", "Look at" or "Notice"? Start with the fact.
+10. Any "nobody", "everyone"? Name the real set.
 11. Any count in front of a list or a noun? Drop it unless it is the point.
 12. Any "us", "our", "them" that means a repo or a package? Write the name.
 13. Any name explained with itself? Say what it replaces instead.
 14. Any "X's own way of" or "this is how you"? Say what it does.
-15. Right language for the reader?
+15. Right language for the reader? Writing something other than English? Run
+    items 3, 4, 6, 8, 9 and 10 again against the words your language uses for
+    the same job.
 
 For a deep audit of a long document,
 [`avoid-ai-writing`](https://github.com/conorbronsdon/avoid-ai-writing) has a
 detector that scores the text.
+
+## Writing in another language
+
+Every rule above holds word for word. The banned phrases are named in English
+because that is the language of this file, and each one has a twin wherever you
+write.
+
+Find your twins once, then check for them every time:
+
+| The English tell | What to look for |
+| --- | --- |
+| never, nobody, everyone | your language's absolute words |
+| it's not X, it's Y | the same flip, however your language builds it |
+| which, thereby allowing, in doing so | the connectors that sound most formal |
+| full stop, end of story | the closers that add emphasis and no fact |
+| Here is, Look at, Notice | the phrases that point at your own text |
+
+Russian, as a worked example. Ban «никогда», «никто», «все»; write «так не
+делаем», «такого нет ни разу». Flip «не X, а Y» into «так задумано». Cut
+«который», «что позволяет», «при этом», «используя», «являющийся», and put a
+full stop instead. Drop «и точка», «от и до», «как видно», «рассмотрим».

@@ -25,8 +25,10 @@ Two languages are in play, and you MUST keep them apart.
 The user asked for a different language in this conversation? Their ask wins,
 and you MUST say nothing about it.
 
-The examples in this skill are written in Russian. Copy their shape and their
-headings, and write your own words in the report language.
+The examples in this skill are written in English. Copy their shape, and write
+your own words in the report language. The bold labels inside a finding,
+**In short**, **When it happens** and the rest, get translated along with
+everything else.
 
 ## How to write every line
 
@@ -45,10 +47,10 @@ review needs.
   person still knows what is broken.
 - Nothing rests on a finding above it. Each one stands on its own, because the
   person reads it on a line in GitHub with nothing else around it.
-- Writing the report in Russian? Drop «который», «что позволяет», «при этом»,
-  «используя», «являющийся». Put a full stop and start a new sentence. Every
-  language has its own filler like that. Cut it.
-- A count beats a pile of names: «`OrderRow` и ещё 2 таких же».
+- Writing the report in a language other than English? The `writing-style` skill
+  ends with a section on that. Its bans hold in every language, and the filler
+  connectors are the first thing to cut.
+- A count beats a pile of names: "`OrderRow` and 2 more like it".
 
 Before you send, read every sentence once. Had to go back to understand it?
 Split it.
@@ -237,14 +239,13 @@ problem the change solves? You MUST say that first and ask, because guessing
 here poisons the rest of the review.
 
 ```markdown
-## О чём это изменение
+## What this change is about
 
-Раньше на странице профиля кнопка «Сохранить» сразу очищала поле с именем, ещё
-до того, как сервер согласился новое имя записать. Если сохранить не удавалось,
-введённое имя пропадало, и человеку приходилось набирать его заново без всяких
-объяснений. Теперь текст остаётся на экране, пока сервер не подтвердит
-сохранение, и возвращается на место, если сохранить не вышло. Видно это в
-Настройках, на вкладке «Профиль», на кнопке «Сохранить».
+The Save button on the profile page used to wipe the name field straight away,
+before the server had agreed to store the new name. When saving failed the typed
+name was gone, and the person had to type it again with nothing explaining why.
+Now the text stays on screen until the server confirms, and comes back if saving
+failed. You see it in Settings, on the Profile tab, on the Save button.
 ```
 
 ### Part 2: the map and the reading order (report language)
@@ -270,34 +271,33 @@ saves them that. Three pieces, all required:
 One file and a test? You MUST write one line saying the map is not needed.
 
 ````markdown
-## Как связаны файлы
+## How the files hang together
 
-Читалка `import-csv.ts` разбирает загруженный файл и достаёт из него строки.
-Опирается на два новых помощника: один разбирает одну строку, второй
-переводит её в запись. Результат несёт `Result`, куда в этом PR
-добавили предупреждения. Тесты и настройки сборки идут отдельной группой: они
-только включают новые файлы в прогон.
+`import-csv.ts` reads the uploaded file and pulls the rows out of it. It leans
+on two new helpers: one parses a single row, the other turns it into a record.
+The outcome travels in `Result`, which this PR taught to carry warnings. Tests
+and build config form their own group, they only pull the new files into the
+run.
 
 ```text
-import-csv.ts (новый)  главный файл PR
-├── parse-row.ts (новый)      разбирает одну строку
-├── to-record.ts (новый)      переводит её в запись
-└── result.ts                 сюда добавили предупреждения
-    └── collect-results.ts (не менялся)   доводит их до вывода
+import-csv.ts (new)  the main file of the PR
+├── parse-row.ts (new)        parses one row
+├── to-record.ts (new)        turns it into a record
+└── result.ts                 warnings were added here
+    └── collect-results.ts (unchanged)   carries them to the output
 
-importButton (в следующем PR) ···> import-csv.ts   пока никто не вызывает
+importButton (next PR) ···> import-csv.ts   nothing calls it yet
 ```
 
-Порядок чтения:
+Reading order:
 
-1. `result.ts` — сначала посмотреть, что такое предупреждение, дальше оно
-   встречается везде.
-2. `to-record.ts` и `parse-row.ts` — маленькие и самостоятельные, читаются
-   вместе со своими тестами.
-3. `import-csv.ts` — главный файл PR, ради него всё остальное.
-4. `collect-results.ts` — не менялся, но именно здесь видно, доходят ли
-   предупреждения до вывода.
-5. Конфиги тестов и линтера — в конце, они только подключают новое.
+1. `result.ts`, to see what a warning is. It turns up everywhere after that.
+2. `to-record.ts` and `parse-row.ts`, small and self contained, read them with
+   their tests.
+3. `import-csv.ts`, the main file of the PR, the rest exists for it.
+4. `collect-results.ts`, unchanged, but this is where you see whether the
+   warnings reach the output.
+5. The test and lint config, last, they only wire the new files in.
 ````
 
 ### Part 3: the count (report language)
@@ -308,8 +308,7 @@ severity.
 ### Part 4: the findings (report language)
 
 You MUST sort by severity and number them. Three levels: blocker, should fix,
-nit. Write the label in the report language, «блокер», «надо починить»,
-«мелочь» in the examples below.
+nit. Write the label in the report language.
 
 The size of the fix says nothing about the severity, and calling something a nit
 tells the author to ignore it. So a nit MUST mean the code behaves the
@@ -330,20 +329,20 @@ opening anything else.
 
 A finding written about the code in general reads as fog. The same finding
 written about one named thing reads as obvious. You MUST pick one case out of
-the repo and carry it from «Когда это случается» to «Как починить», the same
+the repo and carry it from "When it happens" to "How to fix it", the same
 case every time.
 
 - **Pick a case that exists.** A real component, a real file, a real input you
   found while reading. An invented `Foo` MUST NOT appear.
-- **Say what the thing is before you name it.** «Возьмём `parseRow`, разбор
-  одной строки из загруженного файла». One short explanation the first time, then
+- **Say what the thing is before you name it.** "Take `parseRow`, which reads
+  one row out of the uploaded file." One short explanation the first time, then
   the name alone.
 - **Show the value going in and the value coming out**, as two small blocks or
   one block and one sentence. The reader MUST see the difference without
   working it out.
 - **Say what the result says, and what it does not say**, in the words of the
-  person who will read that result. «Страница говорит „загружено 40 строк“.
-  Что две из них разъехались, страница не говорит нигде.»
+  person who will read that result. "The page says 40 rows imported. That two of
+  them came out shifted, the page says nowhere."
 - **Then give the number**: how many more cases look like this one. The case
   makes it real, the number makes it worth fixing.
 
@@ -353,63 +352,63 @@ finding once, on a line, with the rest of the PR in their head.
 Bad, and why:
 
 ```markdown
-**Что получается.** Поле заполняется при разборе строки, но до собранной
-записи не доходит, потому что сборка берёт только четыре поля.
+**What comes out.** The field is filled while the row is parsed, but it never
+reaches the assembled record, because assembly only takes four fields.
 ```
 
 Names no case, quotes no value, and asks the reader to picture it. Same finding
 with one real case carried through:
 
 ```markdown
-**Когда это случается.** Возьмём `parseRow`, разбор одной строки файла.
-В файле есть строка, где запятая стоит внутри кавычек: `12,"Smith, John",ok`.
+**When it happens.** Take `parseRow`, which reads one row of the file. The file
+has a row with a comma inside quotes: `12,"Smith, John",ok`.
 
-**Что получается.** Прошёл по коду с этим входом. Разбор отдаёт вот что:
+**What comes out.** Walked the code with that input. The parser returns:
 
 { id: "12", name: "\"Smith", status: " John\"" }
 
-Имя разрезано надвое, а статус съел вторую половину имени. Страница
-говорит «загружено 40 строк». Что две из них битые, она не говорит нигде.
+The name is cut in two and the status swallowed the second half of it. The page
+says 40 rows imported. That two of them are broken, it says nowhere.
 ```
 
 Each finding MUST look exactly like this:
 
 ````markdown
-### 1. Блокер: введённое имя пропадает, если сервер отвечает медленно
+### 1. Blocker: the typed name is lost when the server is slow
 
-[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [в PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42)
+[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42)
 
-**Коротко.** Поле с именем очищается до ответа сервера. Имя теряется. Очищать
-надо после ответа.
+**In short.** The name field clears before the server answers. The name is
+lost. Clear it after the answer.
 
-**Когда это случается.** Человек открывает Настройки, вводит новое имя и
-жмёт «Сохранить». Другого пути к этому коду нет.
+**When it happens.** A person opens Settings, types a new name and presses
+Save. Nothing else reaches this code.
 
-**Что делает код сейчас.** Очищает поле сразу после нажатия, не дожидаясь
-ответа сервера.
+**What the code does now.** Clears the field right after the press, without
+waiting for the server.
 
 ```tsx
-setName(""); // строка 42, вызвана до saveName
+setName(""); // line 42, called before saveName
 await saveName(name);
 ```
 
-**Что получается.** Сервер отвечает через две секунды или падает с ошибкой.
-Поле уже пустое: введённого имени нет ни на экране, ни на сервере. Сообщения
-тоже нет.
+**What comes out.** The server answers two seconds later, or fails. The field
+is already empty: the typed name is neither on screen nor on the server. No
+message either.
 
-**Чем это плохо.** Человек думает, что сохранил, уходит со страницы и теряет
-данные. На медленной сети это каждый второй раз.
+**Why it is a problem.** The person thinks it saved, leaves the page and loses
+the data. On a slow network this is every second try.
 
-**Как починить.** Очищать поле после подтверждения, при ошибке оставлять текст
-на месте.
+**How to fix it.** Clear the field after the confirmation, and leave the text
+alone on error.
 
 ```tsx
 const saved = await saveName(name);
 if (saved.ok) setName("");
 ```
 
-**Комментарий на PR** → [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [в PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42),
-строка 42, добавленная в этом PR (зелёная сторона дифа).
+**Comment goes on** → [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42),
+line 42, added in this PR, the green side of the diff.
 
 ```markdown
 this clears the input before saveName comes back - if the save fails the typed
@@ -426,8 +425,8 @@ Rules for each part:
   this shape, both halves, every time:
 
   ```markdown
-  [path/to/file.ts:42](path/to/file.ts#L42) · [в PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
-  [path/to/file.ts:42-48](path/to/file.ts#L42-L48) · [в PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
+  [path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
+  [path/to/file.ts:42-48](path/to/file.ts#L42-L48) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
   ```
 
   The second half is built the way "The link to the line in the PR" below says,
@@ -442,8 +441,8 @@ Rules for each part:
   The path is workspace relative. A file name in backticks MUST NOT appear, and
   "line 42" as plain text MUST NOT appear. Two places MUST get two links, each
   with its own number.
-- **Коротко**, the short line: two or three short sentences, the whole finding in
-  a nutshell.
+- **In short**, the opening line: two or three short sentences, the whole finding
+  in a nutshell.
   What breaks, then what to do. A person who reads only this line MUST already
   know what is wrong. Code words MUST NOT appear here.
 - **When it happens**: the steps in the product, in order, starting from
@@ -454,9 +453,9 @@ Rules for each part:
   dispatches" MUST NOT appear.
 - **What comes out**: the actual value, string, screen or error text, worked out
   by reading the code with the input in hand. Quote it. A summary of it
-  («поле теряется», «связь не сохраняется») MUST NOT stand in for the value
-  itself. You MUST say how you know: «прошёл по коду с этим входом», or
-  «запустил, вот что вернулось» when reading left doubt. A finding without a
+  ("the field is lost", "the link does not save") MUST NOT stand in for the value
+  itself. You MUST say how you know: "walked the code with that input", or
+  "ran it, this came back" when reading left doubt. A finding without a
   concrete outcome MUST NOT be sent.
 - **Why it is a problem**: what the person or the business loses, and how often.
 - **How to fix it**: the idea in words, then the code, up to roughly ten lines.
@@ -470,7 +469,7 @@ Rules for each part:
 
 Three or more shapes of code hit the same line? You MUST list them and say which
 one is the surprising one. Numbers beat adjectives in the report text: "two of
-the eleven components", "every build", "проверил все 26 вызовов". The raw
+the eleven components", "every build", "checked all 26 call sites". The raw
 counters MUST stay there; the comment on the line MUST carry at most one number,
 in a sentence.
 
@@ -482,7 +481,7 @@ carry two halves: the workspace link, which opens the file in the editor, and
 the PR link, which lands on that line in the diff.
 
 ```markdown
-[path/to/file.ts:42](path/to/file.ts#L42) · [в PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
+[path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
 ```
 
 `HASH` is the SHA-256 of the path as the repository spells it, and the letter in
@@ -644,7 +643,7 @@ in one line and approve it.
 
 "How to write every line" at the top of this skill holds here too. So does the
 `writing-style` skill, for every
-word of the review, in both languages. Its ban on "never", «никогда», the dash
+word of the review, in both languages. Its ban on "never", the dash
 between words and inflated words like "surface" or "semantics" holds in the
 findings, the per-finding comments and the summary comment alike. On top of
 that:
@@ -665,10 +664,11 @@ answer first. Then reread once and check:
   no sentence carries two commas or two ideas.
 - No dash joins two parts of a sentence anywhere, and no sentence names three
   things in a row. Hyphens appear only inside a single word.
-- Every finding opens with the short line, **Коротко** in the example, and that
+- Every finding opens with the short line, **In short** in the example, and that
   line alone says what is broken and what to do.
 - Parts 1 to 4 in the report language, part 5 in English with none of the report
-  language left in it, and the words "never" and «никогда» nowhere.
+  language left in it, and the word "never" nowhere. Writing the report in
+  another language? Its own version of "never" is gone too.
 - The summary says what was wrong before and what happens now, with no code
   words in it.
 - The map names every changed file, and the reading order says why each file
@@ -680,8 +680,8 @@ answer first. Then reread once and check:
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` in it is the mistake to fix before sending.
 - Reviewing a PR? Every link under a heading and every "comment on the PR" line
-  carries the `· [в PR](…)` half too, with the hash of that file's path and the
-  right side letter, `R` or `L`, in front of the number.
+  carries the `· [in the PR](…)` half too, with the hash of that file's path and
+  the right side letter, `R` or `L`, in front of the number.
 - Every finding names one real case and keeps it to the end, the value it
   produces is quoted, and every code name got one plain explanation the first
   time it appeared.

@@ -20,10 +20,11 @@ The short version binds on its own:
 - The simplest word that works. Be concrete: the number, the file, what
   happened.
 - No `—`, `–`, `--` or a lone hyphen between words. Use a comma or a full stop.
-- Drop "never" and «никогда». Write "don't do X", «так не делаем».
-- Say it in the positive. "It's Y", not "it's not X, it's Y" or «не X, а Y».
+- Drop "never". Write "don't do X".
+- Say it in the positive. "It's Y", not "it's not X, it's Y".
 - No AI padding: "Great question", "Let's dive in", "In conclusion", emoji.
-- Answer in the language of the question.
+- Answer in the language of the question. Writing in another language? The same
+  bans hold, applied to that language's own words.
 - Reread once and cut every word the reader can do without.
 
 The full rules, the replacement tables and the final checklist live in the
