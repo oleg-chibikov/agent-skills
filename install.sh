@@ -1,8 +1,9 @@
 #!/bin/sh
 # Installs the skills in this repo into every coding agent on this machine.
+# Works from a clone, or piped straight from curl.
 set -eu
 
-root=$(cd "$(dirname "$0")" && pwd)
+repo=https://github.com/oleg-chibikov/agent-skills.git
 lang=""
 vscode=0
 link=0
@@ -38,9 +39,27 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-if [ -z "$lang" ] && [ -t 0 ]; then
-  printf 'Language for the long review text [English]: '
-  read -r lang || lang=""
+# Piped from curl, so $0 is not a file on disk: fetch the skills first.
+if [ -f "$0" ] && [ -d "$(dirname "$0")/skills" ]; then
+  root=$(cd "$(dirname "$0")" && pwd)
+else
+  root=${AGENT_SKILLS_DIR:-$HOME/.agent-skills}
+  if [ -d "$root/.git" ]; then
+    git -C "$root" pull --ff-only --quiet
+  else
+    git clone --quiet --depth 1 "$repo" "$root"
+  fi
+  echo "Skills in $root"
+fi
+
+if [ -z "$lang" ]; then
+  if [ -t 0 ]; then
+    printf 'Language for the long review text [English]: '
+    read -r lang || lang=""
+  elif [ -e /dev/tty ]; then
+    printf 'Language for the long review text [English]: ' > /dev/tty
+    read -r lang < /dev/tty || lang=""
+  fi
 fi
 [ -n "$lang" ] || lang=English
 
@@ -72,8 +91,13 @@ if [ "$link" -eq 1 ]; then
   [ -d "$HOME/.claude" ] && link_into "$HOME/.claude/skills"
 elif command -v npx > /dev/null 2>&1; then
   # The skills CLI knows where 80+ agents keep their skills, so let it place them.
+  # Piped from curl, stdin holds the script, so hand the CLI the terminal instead.
   # shellcheck disable=SC2086
-  npx -y skills add "$root" --skill '*' --global $rest
+  if [ -t 0 ] || [ ! -e /dev/tty ]; then
+    npx -y skills add "$root" --skill '*' --global $rest
+  else
+    npx -y skills add "$root" --skill '*' --global $rest < /dev/tty
+  fi
 else
   echo "npx not found, linking by hand instead"
   link_into "$HOME/.agents/skills"
