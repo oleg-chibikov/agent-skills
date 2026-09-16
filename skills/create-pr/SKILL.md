@@ -59,8 +59,13 @@ change does, not how.
 
 ## 3. Body
 
-Exactly these three sections, in this order. Keep the whole body under about 25
-lines.
+If a Jira ticket covers this change, put its name as the first line of the
+body, on its own, before the sections: `PROJ-123`. Name only, not a link. Find
+it in the branch name, the commits, or ask if neither has one; skip the line
+if there is no ticket.
+
+Exactly these three sections after that, in this order. Keep the whole body
+under about 25 lines.
 
 ```markdown
 ## What problem this solves
@@ -170,6 +175,8 @@ One or two lines: the PR link and the title. Nothing else.
 ## Example body
 
 ```markdown
+PROJ-123
+
 ## What problem this solves
 
 Uploading a photo over 5 MB failed with a blank screen. People retried the same
