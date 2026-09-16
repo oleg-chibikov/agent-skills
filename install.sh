@@ -152,7 +152,8 @@ add_block() {
   dir=${file%/*}
   if [ ! -d "$dir" ]; then return 0; fi
   if [ -f "$file" ] && grep -qF "$stub" "$file"; then return 0; fi
-  if [ -s "$file" ]; then printf '\n' >> "$file"; fi
+  # One blank line before the block, however many install runs it has seen.
+  if [ -s "$file" ] && [ -n "$(tail -n 1 "$file")" ]; then printf '\n' >> "$file"; fi
   printf '%s\n%s\n%s\n' "$block_start" "$body" "$block_end" >> "$file"
   echo "Writing rules wired into $file"
 }
