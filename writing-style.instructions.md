@@ -10,8 +10,8 @@ Before you write any text a person will read, load the `writing-style` skill at
 conversation, on the first piece of writing, then work from it.
 
 That covers everything: chat answers, code comments, commit messages, PR titles
-and bodies, review comments, README and docs, Confluence pages, Jira tickets,
-changesets, error messages, UI copy.
+and bodies, review comments, README and docs, wiki pages, tickets, changesets,
+error messages, UI copy.
 
 The short version binds on its own:
 

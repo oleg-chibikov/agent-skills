@@ -3,7 +3,8 @@
 Three skills for coding agents: how to write, how to review code, how to open a
 pull request.
 
-They work in Claude Code, Codex, GitHub Copilot, Cursor and 80 more agents.
+They work in Claude Code, Codex, GitHub Copilot, Cursor and 80 more agents. You
+pick the language the review comes back in.
 
 ## The skills
 
@@ -21,18 +22,23 @@ so the three live in one repo and move together.
 ```sh
 git clone https://github.com/oleg-chibikov/agent-skills.git
 cd agent-skills
-./install.sh
+./install.sh --lang English
 ```
 
-The script asks one question, the language, then hands the skills to
-[`npx skills`](https://github.com/vercel-labs/skills). That CLI finds the agents
-you have installed and puts the skills where each one looks for them.
-
-Want no questions? Name the language up front:
+Put any language in `--lang`. It sets the language of the long review text, and
+nothing else:
 
 ```sh
 ./install.sh --lang Russian
+./install.sh --lang Spanish
+./install.sh --lang "Brazilian Portuguese"
 ```
+
+Leave `--lang` out and the script asks, with English on Enter.
+
+After that it hands the skills to
+[`npx skills`](https://github.com/vercel-labs/skills). That CLI finds the agents
+you have installed and puts the skills where each one looks for them.
 
 ### Options
 
