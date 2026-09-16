@@ -62,11 +62,18 @@ You MUST NOT ask when the target is obvious. Pick in this order:
 1. The user named a file, a PR number or a branch. Use that.
 2. Uncommitted changes: `git status --short`, then `git diff` and
    `git diff --staged`.
-3. Otherwise the branch: `git diff origin/HEAD...HEAD`.
+3. Otherwise the branch: `git diff "$base"...HEAD`.
 
-For a PR: `GH_PAGER=cat gh pr diff <number>`. If `origin/HEAD` is unset, get the
-base with
-`GH_PAGER=cat gh repo view --json defaultBranchRef -q .defaultBranchRef.name`.
+`$base` is the branch this one came off. The remote is called `origin` almost
+everywhere, and on a fork or a mirror it is not, so you MUST read its name:
+
+```sh
+remote=$(git remote | grep -qx origin && echo origin || git remote | head -1)
+base=$remote/$(GH_PAGER=cat gh repo view --json defaultBranchRef \
+  -q .defaultBranchRef.name)
+```
+
+For a PR: `GH_PAGER=cat gh pr diff <number>`.
 You MAY ask the user only when none of that finds anything.
 
 The target is a branch or a PR? You MUST read
@@ -193,7 +200,7 @@ comment block that closes every finding in part 4.
 
 ### Part 1: what this change is about (report language)
 
-You MUST write it for someone who has never heard of this product or this code.
+You MUST write it for someone who has not heard of this product or this code.
 Three to five sentences. Bullets, file names, type names and function names MUST
 NOT appear. Order: what was wrong or missing before as a person would notice it,
 what happens instead now, where in the product it shows up. Cannot tell what
@@ -314,8 +321,8 @@ finding once, on a line, with the rest of the PR in their head.
 Bad, and why:
 
 ```markdown
-**What comes out.** The field is filled while the row is parsed, but it never
-reaches the assembled record, because assembly only takes four fields.
+**What comes out.** The field is filled while the row is parsed, but it does not
+reach the assembled record, because assembly only takes four fields.
 ```
 
 Names no case, quotes no value, and asks the reader to picture it. Same finding

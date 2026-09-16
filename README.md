@@ -9,20 +9,23 @@ open a pull request.
 curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/install.sh | sh -s -- --lang English
 ```
 
-That is it. The script finds the agents on your machine and installs into all of
-them: Claude Code, Codex, GitHub Copilot, Cursor and 80 more. Run it again any
-time to update.
+One command, one folder on disk, a symlink from every agent that is installed on
+your machine: Claude Code, Codex, Cursor, Copilot, Crush, Goose, Roo, Windsurf
+and fifty more. Run it again after you install a new agent, or to pick another
+language.
 
-`--lang` is the language your code review comes back in. Put any language there:
+`--lang` is the language your code review comes back in. Any language works:
 
 ```sh
 ... | sh -s -- --lang Russian
-... | sh -s -- --lang Spanish
+... | sh -s -- --lang 日本語
 ```
 
 Comments meant for the PR stay English, because the whole team reads them.
 
-Rather read the script before running it? Clone and run it yourself:
+Rather read the script before running it? Clone and run it yourself. The clone
+becomes the folder every agent links to, so editing a rule there changes what
+they read straight away:
 
 ```sh
 git clone https://github.com/oleg-chibikov/agent-skills.git
@@ -46,6 +49,57 @@ packages, then opens the PR with `gh`.
 
 `review` and `create-pr` load `writing-style` first, so all three move together.
 
+## What a review looks like
+
+<details>
+<summary>One finding out of a review</summary>
+
+### 1. Blocker: the typed name is lost when the server is slow
+
+[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42)
+
+**In short.** The name field clears before the server answers. The name is
+lost. Clear it after the answer.
+
+**When it happens.** A person opens Settings, types a new name and presses
+Save. Nothing else reaches this code.
+
+**What the code does now.** Clears the field right after the press, without
+waiting for the server.
+
+```tsx
+setName(""); // line 42, called before saveName
+await saveName(name);
+```
+
+**What comes out.** The server answers two seconds later, or fails. The field
+is already empty: the typed name is neither on screen nor on the server. No
+message either.
+
+**Why it is a problem.** The person thinks it saved, leaves the page and loses
+the data. On a slow network this is every second try.
+
+**How to fix it.** Clear the field after the confirmation, and leave the text
+alone on error.
+
+```tsx
+const saved = await saveName(name);
+if (saved.ok) setName("");
+```
+
+**Comment goes on** → line 42, added in this PR, the green side of the diff.
+
+```markdown
+this clears the input before saveName comes back - if the save fails the typed
+name is gone. can we clear it after the call resolves ok?
+```
+
+</details>
+
+The full review opens with what the change solves in plain words, then a tree of
+the changed files with the order to read them in, then the findings, then one
+paste-ready comment for the PR.
+
 ## Use it
 
 Ask in plain words:
@@ -56,9 +110,9 @@ Ask in plain words:
 
 ## Change the language later
 
-Run the install again with a different `--lang`. Or open
-`~/.agents/skills/review/LANGUAGE.md` and put another language in it. That is
-the one real copy, every other agent points at it.
+Run the install again with a different `--lang`, or open
+`skills/review/LANGUAGE.md` in the folder the installer named and put another
+language in it. There is one copy, every agent points at it.
 
 ## Remove them
 
@@ -66,16 +120,8 @@ the one real copy, every other agent points at it.
 curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/install.sh | sh -s -- --uninstall
 ```
 
-It lists the folders it is about to clear and asks before deleting.
-
-## Other flags
-
-| Flag | What it does |
-| --- | --- |
-| `--link` | Points the agents at this clone, so editing a rule here changes what they read. |
-| `--vscode` | Turns the writing rules on for every Copilot answer in every workspace. |
-| `--uninstall` | Removes the three skills from every agent folder. |
-| `--yes` | Answers yes to the uninstall question. |
+It lists the folders it is about to clear and asks before deleting. Add `--yes`
+to skip the question.
 
 ## Licence
 

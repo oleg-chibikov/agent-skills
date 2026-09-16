@@ -47,14 +47,29 @@ jobs:
           done
           exit "$fail"
 
+      # A skill that breaks the rule it teaches gives the agent a counterexample.
+      # The writing-style skill is exempt: it has to name the words it bans.
+      - name: Skills follow their own writing rules
+        run: |
+          hits=$(grep -rnwiE 'never' skills --include='*.md' \
+            | grep -v '^skills/writing-style/' \
+            | grep -v '"never"' \
+            | grep -v ':[0-9]*:|' || true)
+          [ -z "$hits" ] || { echo "$hits"; echo 'use "do not" instead'; exit 1; }
+
       - name: Install and uninstall in a clean home
         run: |
           home=$(mktemp -d)
-          HOME="$home" ./install.sh --lang Spanish --link
-          for name in review create-pr writing-style; do
-            test -f "$home/.agents/skills/$name/SKILL.md"
+          mkdir -p "$home/.claude" "$home/.codex"
+          HOME="$home" ./install.sh --lang Spanish
+          for dir in "$home/.agents/skills" "$home/.claude/skills" "$home/.codex/skills"; do
+            for name in review create-pr writing-style; do
+              test -f "$dir/$name/SKILL.md"
+            done
           done
           test -f "$home/.agents/skills/review/references/pr-links.md"
           grep -qx Spanish "$home/.agents/skills/review/LANGUAGE.md"
+          # One folder holds the files, the rest are links to it.
+          test 0 -eq "$(find "$home" -name SKILL.md -type f | wc -l)"
           HOME="$home" ./install.sh --uninstall --yes
-          test ! -e "$home/.agents/skills/review"
+          test ! -e "$home/.claude/skills/review"

@@ -15,18 +15,26 @@ If the user just says "make a PR", use create mode.
 
 ## 1. Collect the facts
 
-Never guess what the change does. Read it.
+Don't guess what the change does. Read it.
 
 ```bash
 git rev-parse --abbrev-ref HEAD                  # current branch
-git log --oneline origin/HEAD..HEAD              # commits on this branch
-git diff --stat origin/HEAD...HEAD               # files touched
-git diff origin/HEAD...HEAD                      # the actual change
+git log --oneline "$base"..HEAD                  # commits on this branch
+git diff --stat "$base"...HEAD                   # files touched
+git diff "$base"...HEAD                          # the actual change
 GH_PAGER=cat gh pr view --json number,title,body # PR already open?
 ```
 
-If `origin/HEAD` is not set, find the base branch with
-`GH_PAGER=cat gh repo view --json defaultBranchRef -q .defaultBranchRef.name`.
+`$base` is the branch this one came off. Work it out once:
+
+```bash
+remote=$(git remote | grep -qx origin && echo origin || git remote | head -1)
+base=$remote/$(GH_PAGER=cat gh repo view --json defaultBranchRef \
+  -q .defaultBranchRef.name)
+```
+
+The remote is called `origin` almost everywhere, and on a fork or a mirror it is
+not. You MUST read the name instead of typing it.
 
 Also check:
 
@@ -83,7 +91,8 @@ Vitest, that Nx builds the project, or that the linter passes. Same for MCP
 servers, editors and agents: how the code got written is not part of the
 change.
 
-Check the real diff for this section: `git diff origin/HEAD...HEAD -- '**/package.json' 'package.json'`.
+Check the real diff for this section:
+`git diff "$base"...HEAD -- '**/package.json' 'package.json'`.
 Do not claim a package was added when the manifest says otherwise.
 
 For a turned-down package, give the reason in a few words: size, it is
@@ -106,7 +115,7 @@ Anyone should get it on the first read, even with zero context on this codebase.
 - Say what a thing does before naming what it is called.
 - Be concrete: the number, the file, the command, what a user sees.
 - No em dash and no double hyphen. Use a comma, a period, or two sentences.
-- Say it straight, in the positive. Never "it's not X, it's Y".
+- Say it straight, in the positive. Drop "it's not X, it's Y".
 - No AI filler: "Great question", "Let's dive in", "In conclusion", emoji,
   rule-of-three lists for their own sake.
 - Mark a guess as a guess.
@@ -123,7 +132,7 @@ Always prefix `gh` with `GH_PAGER=cat`, otherwise it opens a pager and hangs.
 Push first if the branch has no upstream:
 
 ```bash
-git push -u origin HEAD
+git push -u "$remote" HEAD
 ```
 
 New PR:

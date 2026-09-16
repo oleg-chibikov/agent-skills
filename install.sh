@@ -5,28 +5,83 @@ set -eu
 
 repo=https://github.com/oleg-chibikov/agent-skills.git
 lang=""
-vscode=0
-link=0
 uninstall=0
 yes=0
-rest=""
+
+# Where each agent keeps its global skills, relative to $HOME, minus the
+# trailing /skills. A folder gets a link only when the agent is already there.
+agents="
+.adal
+.agents
+.aider-desk
+.astrbot/data
+.augment
+.autohand
+.bob
+.claude
+.codeartsdoer
+.codebuddy
+.codeium/windsurf
+.codemaker
+.codestudio
+.codex
+.commandcode
+.config/crush
+.config/devin
+.config/goose
+.continue
+.copilot
+.cursor
+.factory
+.forge
+.hermes
+.iflow
+.inferencesh
+.jazz
+.junie
+.kilocode
+.kiro
+.kode
+.lingma
+.mcpjam
+.moxby
+.mux
+.neovate
+.ona
+.openclaw
+.openhands
+.pi/agent
+.pochi
+.qoder
+.qoder-cn
+.qwen
+.reasonix
+.roo
+.rovodev
+.snowflake/cortex
+.tabnine/agent
+.terramind
+.tinycloud
+.trae
+.trae-cn
+.vibe
+.zcode
+.zencoder
+"
 
 usage() {
   cat <<'EOF'
-Usage: ./install.sh [--lang <language>] [--link] [--vscode] [-- <skills-cli args>]
+Usage: ./install.sh [--lang <language>]
        ./install.sh --uninstall [--yes]
 
   --lang <language>  Language for the long review text. Default English.
                      Example: --lang Russian
-  --link             Symlink the agent folders straight at this clone, so an
-                     edit here is live everywhere. Skips the skills CLI.
-  --vscode           Also link the always-on writing rules into VS Code,
-                     so GitHub Copilot applies them to every answer.
   --uninstall        Remove these skills from every agent folder on this
                      machine. Lists what it found and asks first.
   --yes              Answer yes to the uninstall question.
-  --                 Everything after this goes to `npx skills add`.
-                     Example: -- --agent claude-code --yes
+
+The skills live in one folder and every agent gets a symlink to it, so there is
+only ever one copy to edit. Run it again after you install a new agent.
 EOF
 }
 
@@ -37,12 +92,9 @@ while [ $# -gt 0 ]; do
       lang=$2
       shift 2
       ;;
-    --link) link=1; shift ;;
-    --vscode) vscode=1; shift ;;
     --uninstall) uninstall=1; shift ;;
     --yes|-y) yes=1; shift ;;
     -h|--help) usage; exit 0 ;;
-    --) shift; rest=$*; break ;;
     *) echo "unknown option: $1" >&2; usage >&2; exit 1 ;;
   esac
 done
@@ -57,7 +109,6 @@ else
   else
     git clone --quiet --depth 1 "$repo" "$root"
   fi
-  echo "Skills in $root"
 fi
 
 ask() {
@@ -70,6 +121,13 @@ ask() {
   else
     answer=""
   fi
+}
+
+vscode_prompts() {
+  for dir in "$HOME/Library/Application Support/Code/User" "$HOME/.config/Code/User"; do
+    [ -d "$dir" ] && printf '%s\n' "$dir/prompts"
+  done
+  return 0
 }
 
 if [ "$uninstall" -eq 1 ]; then
@@ -90,7 +148,7 @@ if [ "$uninstall" -eq 1 ]; then
   done
   places=$(printf '%s' "$places" | sort -u)
 
-  for prompts in "$HOME/Library/Application Support/Code/User/prompts" "$HOME/.config/Code/User/prompts"; do
+  for prompts in $(vscode_prompts); do
     rules="$prompts/writing-style.instructions.md"
     if [ -e "$rules" ] || [ -L "$rules" ]; then
       found="$found$rules
@@ -123,7 +181,7 @@ $rules"
     rm -rf "${target:?}"
   done
   IFS=$old_ifs
-  echo "removed. The clone in $root is still there, delete it by hand if you want it gone."
+  echo "removed. The folder in $root is still there, delete it by hand if you want it gone."
   exit 0
 fi
 
@@ -145,45 +203,35 @@ esac
 for dir in "$root"/skills/*/; do
   printf '%s\n' "$lang" > "$dir/LANGUAGE.md"
 done
-echo "Report language: $lang"
 
-link_into() {
-  target=$1
-  mkdir -p "$target"
+linked=0
+skipped=""
+for agent in $agents; do
+  # .agents is the shared folder several agents read, so it always gets made.
+  if [ "$agent" != ".agents" ] && [ ! -d "$HOME/$agent" ]; then
+    continue
+  fi
+  mkdir -p "$HOME/$agent/skills"
   for dir in "$root"/skills/*/; do
-    name=$(basename "$dir")
-    rm -rf "$target/${name:?}"
-    ln -s "${dir%/}" "$target/$name"
+    target="$HOME/$agent/skills/$(basename "$dir")"
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      skipped="$skipped  $target
+"
+      continue
+    fi
+    ln -sfn "${dir%/}" "$target"
   done
-  echo "linked into $target"
-}
+  linked=$((linked + 1))
+done
 
-if [ "$link" -eq 1 ]; then
-  link_into "$HOME/.agents/skills"
-  [ -d "$HOME/.claude" ] && link_into "$HOME/.claude/skills"
-elif command -v npx > /dev/null 2>&1; then
-  # The skills CLI knows where 80+ agents keep their skills, so let it place them.
-  # Piped from curl, stdin holds the script, so hand the CLI the terminal instead.
-  # shellcheck disable=SC2086
-  if [ -t 0 ] || [ ! -e /dev/tty ]; then
-    npx -y skills add "$root" --skill '*' --global $rest
-  else
-    npx -y skills add "$root" --skill '*' --global $rest < /dev/tty
-  fi
-else
-  echo "npx not found, linking by hand instead"
-  link_into "$HOME/.agents/skills"
-  [ -d "$HOME/.claude" ] && link_into "$HOME/.claude/skills"
-fi
+for prompts in $(vscode_prompts); do
+  mkdir -p "$prompts"
+  ln -sfn "$root/writing-style.instructions.md" "$prompts/writing-style.instructions.md"
+  echo "VS Code reads the writing rules from $prompts"
+done
 
-if [ "$vscode" -eq 1 ]; then
-  prompts="$HOME/Library/Application Support/Code/User/prompts"
-  [ -d "$(dirname "$prompts")" ] || prompts="$HOME/.config/Code/User/prompts"
-  if [ -d "$(dirname "$prompts")" ]; then
-    mkdir -p "$prompts"
-    ln -sf "$root/writing-style.instructions.md" "$prompts/"
-    echo "linked the writing rules into $prompts"
-  else
-    echo "VS Code user folder not found, skipped --vscode" >&2
-  fi
+echo "Skills live in $root, report language $lang, linked into $linked agent folders."
+
+if [ -n "$skipped" ]; then
+  printf 'Left alone, something real is already sitting there:\n%s' "$skipped"
 fi
