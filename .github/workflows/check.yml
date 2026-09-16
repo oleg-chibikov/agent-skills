@@ -14,10 +14,31 @@ jobs:
       - name: Lint the installer
         run: shellcheck install.sh
 
-      # A description holding ": " breaks the YAML and the skill goes missing.
-      - name: Every skill is discoverable
+      # A description holding ": " breaks the YAML and the skill goes missing
+      # from every agent, with no error anywhere.
+      - name: Every skill has frontmatter an agent can read
         run: |
-          found=$(npx -y skills add . --list 2>&1 | grep -c -E '^│    [a-z-]+$')
-          expected=$(ls -d skills/*/ | wc -l | tr -d ' ')
-          echo "found $found of $expected"
-          [ "$found" -eq "$expected" ]
+          fail=0
+          for file in skills/*/SKILL.md; do
+            head -1 "$file" | grep -qx -- '---' \
+              || { echo "$file: first line is not ---"; fail=1; continue; }
+            body=$(sed -n '2,/^---$/p' "$file")
+            printf '%s\n' "$body" | grep -q '^name: ' \
+              || { echo "$file: no name"; fail=1; }
+            desc=$(printf '%s\n' "$body" | grep -m1 '^description: ' \
+              | sed 's/^description: //')
+            [ -n "$desc" ] || { echo "$file: no description"; fail=1; continue; }
+            case "$desc" in
+              "'"*|'"'*) ;;
+              *': '*) echo "$file: description has \": \", quote it"; fail=1 ;;
+            esac
+          done
+          exit "$fail"
+
+      - name: The skills CLI finds them all
+        run: |
+          out=$(npx -y skills add . --list 2>&1)
+          found=$(printf '%s' "$out" | sed -n 's/.*Found \([0-9][0-9]*\) skill.*/\1/p' | head -1)
+          expected=$(find skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
+          echo "found ${found:-0} of $expected"
+          [ "${found:-0}" -eq "$expected" ]
