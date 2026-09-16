@@ -11,7 +11,7 @@ curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/ins
 
 One command, one folder on disk, a symlink from every agent that is installed on
 your machine: Claude Code, Codex, Cursor, Copilot, Crush, Goose, Roo, Windsurf
-and fifty more. Run it again after you install a new agent, or to pick another
+and the rest. Run it again after you install a new agent, or to pick another
 language.
 
 `--lang` is the language your code review comes back in. Any language works:

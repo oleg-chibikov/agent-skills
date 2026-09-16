@@ -208,7 +208,7 @@ for dir in "$root"/skills/*/; do
   printf '%s\n' "$lang" > "$dir/LANGUAGE.md"
 done
 
-linked=0
+linked=""
 skipped=""
 for agent in $agents; do
   # .agents is the shared folder several agents read, so it always gets made.
@@ -225,12 +225,13 @@ for agent in $agents; do
     fi
     ln -sfn "${dir%/}" "$target"
   done
-  linked=$((linked + 1))
+  linked="$linked $agent"
 done
 
 link_vscode
 
-echo "Skills live in $root, report language $lang, linked into $linked agent folders."
+echo "Skills live in $root, report language $lang."
+echo "Linked into:$linked"
 
 if [ -n "$skipped" ]; then
   printf 'Left alone, something real is already sitting there:\n%s' "$skipped"

@@ -92,6 +92,18 @@ stale the moment someone adds a row.
 | `format.js` has 11 small functions calling `trim()` | The helpers in `format.js` call `trim()` |
 | Three reasons this happens | Why this happens |
 
+The same goes for any number that measures your own work rather than the
+reader's problem. How many lines a file lost, how many files you touched, how
+long the build took, how many links you made. It sounds like evidence and
+carries none: the reader cannot do anything with it.
+
+| Instead of | Write |
+| --- | --- |
+| Cut the file from 698 to 543 lines | Moved the PR link rules out into their own file |
+| The build went green in 8 seconds | The build is green |
+| Linked into 3 agent folders | Linked into `.claude`, `.codex` and `.copilot` |
+| Fixed 5 things | (name them) |
+
 A number stays when the number is the finding: "274 lines the compiler rejects",
 "the build died after 40 minutes", "2 of 11 tests fail". Drop it when the
 sentence reads the same without it.
@@ -250,6 +262,8 @@ check:
 9. Any "Here is", "Look at" or "Notice"? Start with the fact.
 10. Any "nobody", "everyone"? Name the real set.
 11. Any count in front of a list or a noun? Drop it unless it is the point.
+    Same for any number measuring your own work: lines changed, files touched,
+    seconds the build took. Name what changed instead.
 12. Any "us", "our", "them" that means a repo or a package? Write the name.
 13. Any name explained with itself? Say what it replaces instead.
 14. Any "X's own way of" or "this is how you"? Say what it does.
