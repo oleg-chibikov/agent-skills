@@ -113,7 +113,9 @@ if [ -f "$0" ] && [ -d "$(dirname "$0")/skills" ]; then
 else
   root=${AGENT_SKILLS_DIR:-$HOME/.agent-skills}
   if [ -d "$root/.git" ]; then
-    git -C "$root" pull --ff-only --quiet
+    # Offline, or sitting on a detached commit: install what is already there.
+    git -C "$root" pull --ff-only --quiet ||
+      echo "could not refresh $root, installing the copy on disk" >&2
     # A pull leaves files someone deleted by hand deleted, so put them back.
     [ -z "$(git -C "$root" ls-files -d)" ] || git -C "$root" checkout --quiet -- .
   else

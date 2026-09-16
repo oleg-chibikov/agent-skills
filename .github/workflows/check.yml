@@ -61,6 +61,7 @@ jobs:
         run: |
           home=$(mktemp -d)
           mkdir -p "$home/.claude" "$home/.codex"
+          printf '# a note of my own\n' > "$home/.claude/CLAUDE.md"
           HOME="$home" ./install.sh --lang Spanish
           for dir in "$home/.agents/skills" "$home/.claude/skills" "$home/.codex/skills"; do
             for name in review create-pr writing-style; do
@@ -71,5 +72,31 @@ jobs:
           grep -qx Spanish "$home/.agents/skills/review/LANGUAGE.md"
           # One folder holds the files, the rest are links to it.
           test 0 -eq "$(find "$home" -name SKILL.md -type f | wc -l)"
+          # The writing rules reach the files an agent reads on every turn.
+          test -L "$home/.agents/writing-style.instructions.md"
+          test -f "$home/.codex/AGENTS.md"
+          HOME="$home" ./install.sh --lang Spanish
+          test 1 -eq "$(grep -c 'agent-skills: writing rules' "$home/.claude/CLAUDE.md")"
           HOME="$home" ./install.sh --uninstall --yes
           test ! -e "$home/.claude/skills/review"
+          test ! -e "$home/.agents/writing-style.instructions.md"
+          test ! -e "$home/.codex/AGENTS.md"
+          grep -qx '# a note of my own' "$home/.claude/CLAUDE.md"
+          ! grep -q agent-skills "$home/.claude/CLAUDE.md"
+
+      # The uninstall used to empty the folder every agent links to, which left
+      # the next install with nothing to link.
+      - name: Uninstall leaves the source folder alone
+        run: |
+          home=$(mktemp -d)
+          mkdir -p "$home/.claude"
+          cp -R . "$home/.agent-skills"
+          cat install.sh | HOME="$home" AGENT_SKILLS_DIR="$home/.agent-skills" \
+            sh -s -- --lang Spanish
+          test -f "$home/.claude/skills/review/SKILL.md"
+          cat install.sh | HOME="$home" AGENT_SKILLS_DIR="$home/.agent-skills" \
+            sh -s -- --uninstall --yes
+          test -f "$home/.agent-skills/skills/review/SKILL.md"
+          cat install.sh | HOME="$home" AGENT_SKILLS_DIR="$home/.agent-skills" \
+            sh -s -- --lang Spanish
+          test -f "$home/.claude/skills/review/SKILL.md"

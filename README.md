@@ -25,6 +25,9 @@ another language.
 
 Comments meant for the PR stay English, because the whole team reads them.
 
+You need `git` and any POSIX shell. `review` and `create-pr` read pull requests
+through the GitHub CLI, so install `gh` and log in once with `gh auth login`.
+
 Rather read the script before running it? Clone and run it yourself. The clone
 becomes the folder every agent links to, so editing a rule there changes what
 they read straight away:
