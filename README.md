@@ -1,21 +1,7 @@
 # agent-skills
 
-Three skills for coding agents: how to write, how to review code, how to open a
-pull request.
-
-They work in Claude Code, Codex, GitHub Copilot, Cursor and 80 more agents. You
-pick the language the review comes back in.
-
-## The skills
-
-| Skill | What it does |
-| --- | --- |
-| [`writing-style`](skills/writing-style/SKILL.md) | Rules for every line a person reads: chat, comments, commits, PRs, docs, UI copy. Plain words, answer first, one idea per sentence, no em dash, no AI filler. Ends with a checklist to run before sending. |
-| [`review`](skills/review/SKILL.md) | Reviews a PR, a branch, a file or a pasted diff. Says what the change solves, the order to read the files in, then findings with line numbers, the input, the real output and the fix. Each finding ends with a short English comment ready to paste on the line. |
-| [`create-pr`](skills/create-pr/SKILL.md) | Writes a PR description in three parts: problem, solution, what was picked and rejected. Then opens or updates the PR with `gh`. |
-
-`review` and `create-pr` both load `writing-style` before they write anything,
-so the three live in one repo and move together.
+Three skills that teach a coding agent to write like a person, review code, and
+open a pull request.
 
 ## Install
 
@@ -25,56 +11,53 @@ cd agent-skills
 ./install.sh --lang English
 ```
 
-Put any language in `--lang`. It sets the language of the long review text, and
-nothing else:
+That is it. The script finds the agents on your machine and installs into all of
+them: Claude Code, Codex, GitHub Copilot, Cursor and 80 more.
+
+`--lang` is the language your code review comes back in. Put any language there:
 
 ```sh
 ./install.sh --lang Russian
 ./install.sh --lang Spanish
-./install.sh --lang "Brazilian Portuguese"
 ```
 
-Leave `--lang` out and the script asks, with English on Enter.
+Comments meant for the PR stay English, because the whole team reads them.
 
-After that it hands the skills to
-[`npx skills`](https://github.com/vercel-labs/skills). That CLI finds the agents
-you have installed and puts the skills where each one looks for them.
+## What you get
 
-### Options
+**`writing-style`** cleans up every line a person reads: chat, comments,
+commits, PRs, docs, UI copy. Plain words, answer first, one idea per sentence,
+no em dash, no AI filler.
 
-| Flag | What it does |
-| --- | --- |
-| `--lang <language>` | Language for the long review text. Default English. |
-| `--link` | Points the agent folders straight at this clone, so editing a file here changes what every agent reads. Use this if you plan to change the rules. |
-| `--vscode` | Also links the writing rules into VS Code, so Copilot applies them to every answer in every workspace. |
-| `-- <args>` | Everything after `--` goes to `npx skills add`, for example `-- --agent claude-code --yes`. |
+**`review`** reads a PR, a branch or a diff and tells you what the change
+solves, which order to read the files in, then each problem with the line
+number, the input that breaks it and the fix. Every problem comes with a short
+comment ready to paste on the line.
 
-### Without the script
+**`create-pr`** writes the PR description in three parts, problem, solution,
+packages, then opens the PR with `gh`.
 
-`npx skills add oleg-chibikov/agent-skills` installs the same three skills
-straight from GitHub. You get English, because the script is what writes the
-language file.
+`review` and `create-pr` load `writing-style` first, so all three move together.
 
-## Language
+## Use it
 
-The `review` skill writes two things at once:
-
-- **The report**, the long text only you read. This is the language you pick at
-  install. `install.sh` writes it into `skills/<name>/LANGUAGE.md`.
-- **The comments for the PR**, the lines you paste on GitHub. These stay
-  English, because the whole team reads them.
-
-Change your mind later? Run `./install.sh --lang <language>` again, or edit
-`skills/review/LANGUAGE.md` by hand. The file holds one word.
-
-## Use
-
-Say what you want in plain words and the agent picks the skill by its
-description:
+Ask in plain words:
 
 - "review this" and a PR link
 - "open a PR for this branch"
 - "rewrite this so it sounds human"
+
+## Change the language later
+
+Run `./install.sh --lang <language>` again. Or open
+`skills/review/LANGUAGE.md`, it holds one word.
+
+## Other flags
+
+| Flag | What it does |
+| --- | --- |
+| `--link` | Points the agents at this clone, so editing a rule here changes what they read. |
+| `--vscode` | Turns the writing rules on for every Copilot answer in every workspace. |
 
 ## Licence
 
