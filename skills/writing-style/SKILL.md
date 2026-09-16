@@ -1,6 +1,6 @@
 ---
 name: writing-style
-description: Use before writing or editing any text a human will read, in any repository. That means chat answers, code comments, commit messages, PR titles and bodies, review comments, README and docs, Confluence pages, Jira tickets and comments, changesets and release notes, error messages, UI copy, Slack messages. Also use when asked to make text sound human, cut the AI tone, tighten wording, or check something already written: "перепиши по-человечески", "убери AI-шность", "почисти текст", "сделай короче", "make this sound human". Rules: plain words, answer first, one idea per sentence, no em dash, no "never", no "not X but Y", no AI filler, then a final cut-every-spare-word pass.
+description: 'Use before writing or editing any text a human will read, in any repository. That means chat answers, code comments, commit messages, PR titles and bodies, review comments, README and docs, Confluence pages, Jira tickets and comments, changesets and release notes, error messages, UI copy, Slack messages. Also use when asked to make text sound human, cut the AI tone, tighten wording, or check something already written: "перепиши по-человечески", "убери AI-шность", "почисти текст", "сделай короче", "make this sound human". Rules: plain words, answer first, one idea per sentence, no em dash, no "never", no "not X but Y", no AI filler, then a final cut-every-spare-word pass.'
 ---
 
 # How to write
@@ -35,13 +35,15 @@ Every rule is a MUST unless it says otherwise. RFC 2119 meaning.
 - Repeat the noun. Write "the field" again instead of "it".
 - Digits for numbers: "2 of 11 components".
 - Name at most one example inside a sentence. More names go on their own lines
-  as a list, or turn into a count: "`DialogContent` and 2 more like it".
+  as a list, or turn into a count: "`OrderRow` and 2 more like it".
 - Nothing rests on something said earlier. Each block stands on its own.
 - More than two steps means a numbered list, one step per line.
 - Five lines per code block. Cut the rest.
 - Say what you know. Mark a guess as a guess.
 - After you finish a task, report the result in a line or two.
-- Answer in the language the user wrote in.
+- Answer in the language the user wrote in. Nothing to go on, as in a README or
+  a doc? Read `LANGUAGE.md` next to this file and use the language named there.
+  No such file? Write English.
 
 ## Banned, with what to write instead
 
@@ -58,11 +60,11 @@ plain verb says the same:
 | never clear it before the call returns | don't clear it before the call returns |
 | this never happens | this doesn't happen |
 | components never do this | no component does this |
-| Android never reads the JSON | Android doesn't read the JSON |
+| the worker never reads the JSON | the worker doesn't read the JSON |
 | никогда так не делай | так не делаем |
 | этого никогда не происходит | такого нет ни разу |
 
-The ban covers the plain factual sense too, not only emphasis. "Android never
+The ban covers the plain factual sense too, not only emphasis. "The worker never
 reads the JSON" is true and still goes: "doesn't read" says it in a word a
 person would use.
 
@@ -85,41 +87,41 @@ stale the moment someone adds a row.
 
 | Instead of | Write |
 | --- | --- |
-| Four PRs change our code, one changes the file | The first PRs change our code. The last one changes the file |
+| Four PRs change the app, one changes the config | The first PRs change the app. The last one changes the config |
 | Three things are lost on the way | Each step drops something |
-| `config.js` has 11 small functions reading `token.value` | The transforms in `config.js` read `token.value` |
+| `format.js` has 11 small functions calling `trim()` | The helpers in `format.js` call `trim()` |
 | Три причины, почему так | Почему так |
 
-A number stays when the number is the finding: "274 lines of broken Kotlin",
-"the build died after 24 hours", "2 of 11 tests fail". Drop it when the sentence
-reads the same without it.
+A number stays when the number is the finding: "274 lines the compiler rejects",
+"the build died after 40 minutes", "2 of 11 tests fail". Drop it when the
+sentence reads the same without it.
 
 **"us", "our", "them", "their" standing in for a repo or a package.** Write the
-name. `design-tokens`, `ui-kit`, `tokens.json`. The reader
+name. `api-client`, `web-app`, `orders.json`. The reader
 opens the page in the middle and has no idea who "us" is, and when you own both
 sides of the change, "us" and "them" point at the same team.
 
 | Instead of | Write |
 | --- | --- |
-| it reads nothing from us | it reads nothing from `design-tokens` |
-| the shape of our JSON | the shape of `tokens.json` |
-| it breaks their typecheck | it breaks the `ui-kit` typecheck |
-| our token reaches them as | the accent token reaches Android as |
+| it reads nothing from us | it reads nothing from `api-client` |
+| the shape of our JSON | the shape of `orders.json` |
+| it breaks their typecheck | it breaks the `web-app` typecheck |
+| our id reaches them as | the order id reaches the mobile app as |
 | у нас это лежит в конфиге | это лежит в `config.js` |
 
 "We" survives when a person is doing something: "we publish the major", "we
 decide before PR 4". Swap it out when it stands for code.
 
-**Explaining a name with the same name.** "`$type` is the type", "`retryCount`
+**Explaining a name with the same name.** "`role` is the role", "`retryCount`
 holds the retry count". The gloss adds nothing. Write what it replaces or what
-it lets the reader stop doing: "`$type` says it is a colour, so no one has to
-read it off the key name".
+it lets the reader stop doing: "`role` says the account is an admin, so no one
+has to read it off the id".
 
-**Describing notation instead of saying what it does.** "`{a.b.c}` is the spec's
-own way of writing 'this token is that token'", "the flag is how you tell it to
-retry". Say what happens: "a value in braces points at another token", "the flag
-makes it retry". Drop "X's own way of", "this is how you", and a quoted phrase
-standing in for the behaviour.
+**Describing notation instead of saying what it does.** "`{a.b.c}` is the config
+format's own way of writing 'this setting is that setting'", "the flag is how you
+tell it to retry". Say what happens: "a value in braces points at another
+setting", "the flag makes it retry". Drop "X's own way of", "this is how you",
+and a quoted phrase standing in for the behaviour.
 
 **Decorative qualifiers and dates.** "a small JSON standard", "a simple script",
 "a lightweight wrapper", "stable since October 2025". Size and dates belong in
@@ -140,7 +142,8 @@ the answer:", "In conclusion", "I'll now proceed to", and emoji. Cut all of it
 and start with the answer.
 
 **Filler connectors, in Russian text.** «который», «что позволяет», «при этом»,
-«используя», «являющийся». Put a full stop and start a new sentence.
+«используя», «являющийся». Put a full stop and start a new sentence. Every
+language has words like these that carry no fact. Cut yours the same way.
 
 **Inflated words.** Use words a junior would use. Out: "surface" as a verb,
 "thread through", "semantics", "contract", "non-trivial", "leverage",
@@ -169,8 +172,8 @@ what the thing says or does.
 | Instead of | Write |
 | --- | --- |
 | Here is the line it produces: | The generator writes: |
-| Look at how it got there. | It got there by searching the palette. |
-| Рассмотрим, что происходит с токеном. | Токен теряет тип на первом же шаге. |
+| Look at how it got there. | It got there by searching the index. |
+| Рассмотрим, что происходит со строкой. | Строка теряет кодировку на первом же шаге. |
 
 Same for talking about the document itself. "This page covers", "as we'll see",
 «в этом разделе мы». One scope line at the top is enough, the rest goes.
@@ -206,12 +209,11 @@ Good: «Поле чистится после ответа сервера. Пов
 A long sentence, a dash and a pile of names, all in one line. This is what a
 machine reads like:
 
-Bad: "hides the data-slot one level in - DialogContent, TabList and
-FileGroup all come back as errors with nowhere to move the slot to"
+Bad: "drops the id one level down - `OrderRow`, `InvoiceRow` and `RefundRow` all
+come back as errors with nowhere to put the id"
 
-Good: "The slot sits one level in, so the resolver reports an error. There is
-nowhere to move it to. 3 components we ship today hit this, `DialogContent`
-among them."
+Good: "The id sits one level down, so the parser reports an error. There is
+nowhere to put it. 3 rows in the export hit this, `OrderRow` among them."
 
 ## Code comments
 

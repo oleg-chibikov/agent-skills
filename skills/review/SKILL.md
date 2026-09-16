@@ -1,6 +1,6 @@
 ---
 name: review
-description: Use whenever the user asks to look at code someone wrote, in any repository. Triggers include "review", "review this", "code review", "look at my changes", "отревьюй", "сделай ревью", "посмотри код", "посмотри PR", and the word review followed by nothing but a GitHub pull request URL, a PR number, a branch name, a file path or a pasted diff. A bare link after "review" counts: load this skill before fetching the link. Writes the full review in Russian: what the change solves, a map of how the changed files hang together with the order to read them in, then findings with line numbers, the input, the real output and the fix. Closes every finding with a short English comment ready to paste on that line.
+description: 'Use whenever the user asks to look at code someone wrote, in any repository. Triggers include "review", "review this", "code review", "look at my changes", "отревьюй", "сделай ревью", "посмотри код", "посмотри PR", and the word review followed by nothing but a GitHub pull request URL, a PR number, a branch name, a file path or a pasted diff. A bare link after "review" counts: load this skill before fetching the link. Writes the full review in the report language set in LANGUAGE.md: what the change solves, a map of how the changed files hang together with the order to read them in, then findings with line numbers, the input, the real output and the fix. Closes every finding with a short English comment ready to paste on that line.'
 ---
 
 # Review code
@@ -11,6 +11,22 @@ a reason you state in the review. MAY is free choice.
 
 Every finding MUST be understandable by someone outside this repository. Jargon,
 internals and "consider refactoring" MUST NOT appear.
+
+## What language to write in
+
+Two languages are in play, and you MUST keep them apart.
+
+- **The report language**: parts 1 to 4, the long text only the user reads.
+  Read `LANGUAGE.md` next to this file and use the language named there. No such
+  file, or it names nothing? Write English.
+- **English**: part 5 and every comment block meant to be pasted on the PR. The
+  whole team reads a PR, so those stay English whatever the report language is.
+
+The user asked for a different language in this conversation? Their ask wins,
+and you MUST say nothing about it.
+
+The examples in this skill are written in Russian. Copy their shape and their
+headings, and write your own words in the report language.
 
 ## How to write every line
 
@@ -28,9 +44,10 @@ review needs.
   person still knows what is broken.
 - Nothing rests on a finding above it. Each one stands on its own, because the
   person reads it on a line in GitHub with nothing else around it.
-- The Russian drops «который», «что позволяет», «при этом», «используя»,
-  «являющийся». Put a full stop and start a new sentence.
-- A count beats a pile of names: «`DialogContent` и ещё 2 таких же».
+- Writing the report in Russian? Drop «который», «что позволяет», «при этом»,
+  «используя», «являющийся». Put a full stop and start a new sentence. Every
+  language has its own filler like that. Cut it.
+- A count beats a pile of names: «`OrderRow` и ещё 2 таких же».
 
 Before you send, read every sentence once. Had to go back to understand it?
 Split it.
@@ -205,11 +222,11 @@ The answer MUST have five parts in this order: the summary, the map, the count,
 the findings, the comment for the author. Nothing else MUST appear, no closing
 summary.
 
-Parts 1 to 4 MUST be written **in Russian**, whatever language the user or the
-code used. Part 5 MUST be written **in English**, and so MUST the comment block
-that closes every finding in part 4.
+Parts 1 to 4 MUST be written **in the report language**, whatever language the
+user or the code used. Part 5 MUST be written **in English**, and so MUST the
+comment block that closes every finding in part 4.
 
-### Part 1: what this change is about (Russian)
+### Part 1: what this change is about (report language)
 
 You MUST write it for someone who has never heard of this product or this code.
 Three to five sentences. Bullets, file names, type names and function names MUST
@@ -229,7 +246,7 @@ here poisons the rest of the review.
 Настройках, на вкладке «Профиль», на кнопке «Сохранить».
 ```
 
-### Part 2: the map and the reading order (Russian)
+### Part 2: the map and the reading order (report language)
 
 How the changed files hang together, and in which order to open them. Someone
 reading the PR in GitHub's alphabetical order understands it last; this part
@@ -282,20 +299,22 @@ importButton (в следующем PR) ···> import-csv.ts   пока ник�
 5. Конфиги тестов и линтера — в конце, они только подключают новое.
 ````
 
-### Part 3: the count (Russian)
+### Part 3: the count (report language)
 
 One line, required: how many files you read and how many findings, split by
 severity.
 
-### Part 4: the findings (Russian)
+### Part 4: the findings (report language)
 
-You MUST sort by severity: блокер, надо починить, мелочь, and number them.
+You MUST sort by severity and number them. Three levels: blocker, should fix,
+nit. Write the label in the report language, «блокер», «надо починить»,
+«мелочь» in the examples below.
 
-The size of the fix says nothing about the severity, and calling something a
-мелочь tells the author to ignore it. So мелочь MUST mean the code behaves the
+The size of the fix says nothing about the severity, and calling something a nit
+tells the author to ignore it. So a nit MUST mean the code behaves the
 same either way and nothing can rot if it stays in for a year: formatting, a
 name, a shorter way to write the same expression. Anything that can silently
-drift or mislead later is «надо починить», even when the fix is one line:
+drift or mislead later is "should fix", even when the fix is one line:
 duplication, code nothing calls, a path with no test, a comment or doc that says
 what the code does not do, a swallowed error, a value hardcoded in two places, a
 third party's token where the project has its own. Torn between two levels? Take
@@ -315,15 +334,15 @@ case every time.
 
 - **Pick a case that exists.** A real component, a real file, a real input you
   found while reading. An invented `Foo` MUST NOT appear.
-- **Say what the thing is before you name it.** «Возьмём `Combobox`, поле ввода
-  с выпадающим списком». One short explanation the first time, then the name
-  alone.
+- **Say what the thing is before you name it.** «Возьмём `parseRow`, разбор
+  одной строки из загруженного файла». One short explanation the first time, then
+  the name alone.
 - **Show the value going in and the value coming out**, as two small blocks or
   one block and one sentence. The reader MUST see the difference without
   working it out.
 - **Say what the result says, and what it does not say**, in the words of the
-  person who will read that result. «Страница говорит „часть `ComboboxInput`“.
-  Что это и есть компонент `InputGroup`, страница не говорит нигде.»
+  person who will read that result. «Страница говорит „загружено 40 строк“.
+  Что две из них разъехались, страница не говорит нигде.»
 - **Then give the number**: how many more cases look like this one. The case
   makes it real, the number makes it worth fixing.
 
@@ -333,25 +352,23 @@ finding once, on a line, with the rest of the PR in their head.
 Bad, and why:
 
 ```markdown
-**Что получается.** Поле заполняется при чтении части, но до собранной записи
-не доходит, потому что сборка берёт только четыре поля.
+**Что получается.** Поле заполняется при разборе строки, но до собранной
+записи не доходит, потому что сборка берёт только четыре поля.
 ```
 
 Names no case, quotes no value, and asks the reader to picture it. Same finding
 with one real case carried through:
 
 ```markdown
-**Когда это случается.** Возьмём `Combobox`, поле ввода с выпадающим списком.
-Внутри него есть часть `ComboboxInput`. Эта часть возвращает целиком другой
-компонент библиотеки, `InputGroup`.
+**Когда это случается.** Возьмём `parseRow`, разбор одной строки файла.
+В файле есть строка, где запятая стоит внутри кавычек: `12,"Smith, John",ok`.
 
-**Что получается.** Прошёл по коду с этим входом. Читалка отдаёт вот что:
+**Что получается.** Прошёл по коду с этим входом. Разбор отдаёт вот что:
 
-{ identifier: "input-group", name: "ComboboxInput", composes: "input-group" }
+{ id: "12", name: "\"Smith", status: " John\"" }
 
-На странице остаётся всё то же самое без `composes`. Страница говорит «часть
-`ComboboxInput`». Что это и есть компонент `InputGroup`, страница не говорит
-нигде.
+Имя разрезано надвое, а статус съел вторую половину имени. Страница
+говорит «загружено 40 строк». Что две из них битые, она не говорит нигде.
 ```
 
 Each finding MUST look exactly like this:
@@ -424,7 +441,8 @@ Rules for each part:
   The path is workspace relative. A file name in backticks MUST NOT appear, and
   "line 42" as plain text MUST NOT appear. Two places MUST get two links, each
   with its own number.
-- **Коротко**: two or three short sentences, the whole finding in a nutshell.
+- **Коротко**, the short line: two or three short sentences, the whole finding in
+  a nutshell.
   What breaks, then what to do. A person who reads only this line MUST already
   know what is wrong. Code words MUST NOT appear here.
 - **When it happens**: the steps in the product, in order, starting from
@@ -450,7 +468,7 @@ Rules for each part:
 - **Comment for the PR**: required on every finding, nits included.
 
 Three or more shapes of code hit the same line? You MUST list them and say which
-one is the surprising one. Numbers beat adjectives in the Russian text: "two of
+one is the surprising one. Numbers beat adjectives in the report text: "two of
 the eleven components", "every build", "проверил все 26 вызовов". The raw
 counters MUST stay there; the comment on the line MUST carry at most one number,
 in a sentence.
@@ -458,7 +476,7 @@ in a sentence.
 ### The link to the line in the PR
 
 The user reads the finding, then goes to GitHub to leave the comment. Make that
-one click. Every link under a heading and every «Комментарий на PR» line MUST
+one click. Every link under a heading and every "comment on the PR" line MUST
 carry two halves: the workspace link, which opens the file in the editor, and
 the PR link, which lands on that line in the diff.
 
@@ -504,8 +522,8 @@ This comment is the text a colleague actually reads, so you MUST have the
 checklist over the comment before you put it in the answer.
 
 It reads like a colleague typing in a hurry, not like a report. The long version
-is already above it in Russian; here you raise the doubt and ask. **One or two
-sentences. Three at the very most.**
+is already above it in the report language; here you raise the doubt and ask.
+**One or two sentences. Three at the very most.**
 
 These are the house style, copy their shape:
 
@@ -526,16 +544,16 @@ not sure which readme is meant here
 ```
 
 ```markdown
-as far as I understand it won't capture cva( if it exists in a nested file or
-maybe if it uses cva<Props>( - can we either add them to search or reflect in
+as far as I understand it won't capture parse( if it exists in a nested file or
+maybe if it uses parse<Row>( - can we either add them to search or reflect in
 the comment?
 ```
 
 ```markdown
-what if the code is export const classes = cva("base")(); - it's already in the
-const, but it's the result of the call there, not the cva. Can we rewrite the
-message to reflect that? eg "Every `cva()` call must be held by its own
-`const`, which is how the root component references it."
+what if the code is export const rows = parse("file.csv")(); - it's already in
+the const, but it's the result of the call there, not the parse. Can we rewrite
+the message to reflect that? eg "Every `parse()` call must be held by its own
+`const`, which is how the importer finds it."
 ```
 
 ```markdown
@@ -560,9 +578,9 @@ What that style is made of, all required:
   shorter way to write the same thing. Give the replacement bare.
 - **Skip the impact paragraph and the evidence.** "so the user loses data",
   counts, tool output, "I ran X over Y" MUST NOT appear. That stays in the
-  Russian finding.
+  finding above.
 - **Name the case, not the theory.** One input, one snippet, inline:
-  `cva<Props>(`, `cva("base")()`. Fenced code MUST NOT appear inside the
+  `parse<Row>(`, `parse("file.csv")()`. Fenced code MUST NOT appear inside the
   comment.
 - **Offer the wording** for a message or a string, after "eg", in quotes.
 - **Loose punctuation is fine**: a lowercase start, a hyphen where a comma would
@@ -590,8 +608,8 @@ name is gone. can we clear it after the call resolves ok?
 ### Part 5: the summary comment for the author (English)
 
 One fenced block the user pastes into the PR as the overall comment, with
-nothing to edit afterwards: Russian, "here is the comment", and notes to the
-user MUST NOT appear inside it.
+nothing to edit afterwards: the report language, "here is the comment", and
+notes to the user MUST NOT appear inside it.
 
 The same review, shorter, aimed at a colleague who knows the codebase. It MUST
 stay under 15 lines. It MUST carry blockers and "should fix" only; nits go in a
@@ -630,9 +648,10 @@ between words and inflated words like "surface" or "semantics" holds in the
 findings, the per-finding comments and the summary comment alike. On top of
 that:
 
-- Parts 1 to 4 MUST be Russian, part 5 and every per-finding comment inside part
-  4 MUST be English, whatever language the user wrote in. Asked for one language
-  only? You MUST obey and say nothing about it.
+- Parts 1 to 4 MUST be in the report language from `LANGUAGE.md`, part 5 and
+  every per-finding comment inside part 4 MUST be English, whatever language the
+  user wrote in. Asked for one language only? You MUST obey and say nothing
+  about it.
 - You MUST say what is broken in plain words. You MUST NOT soften a blocker into
   a suggestion, it hides the problem.
 
@@ -645,10 +664,10 @@ answer first. Then reread once and check:
   no sentence carries two commas or two ideas.
 - No dash joins two parts of a sentence anywhere, and no sentence names three
   things in a row. Hyphens appear only inside a single word.
-- Every finding opens with **Коротко**, and that line alone says what is broken
-  and what to do.
-- Parts 1 to 4 in Russian, part 5 in English with no Russian left in it, and the
-  words "never" and «никогда» nowhere.
+- Every finding opens with the short line, **Коротко** in the example, and that
+  line alone says what is broken and what to do.
+- Parts 1 to 4 in the report language, part 5 in English with none of the report
+  language left in it, and the words "never" and «никогда» nowhere.
 - The summary says what was wrong before and what happens now, with no code
   words in it.
 - The map names every changed file, and the reading order says why each file
@@ -659,7 +678,7 @@ answer first. Then reread once and check:
 - Every link in parts 1 to 4 shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` in it is the mistake to fix before sending.
-- Reviewing a PR? Every link under a heading and every «Комментарий на PR» line
+- Reviewing a PR? Every link under a heading and every "comment on the PR" line
   carries the `· [в PR](…)` half too, with the hash of that file's path and the
   right side letter, `R` or `L`, in front of the number.
 - Every finding names one real case and keeps it to the end, the value it
@@ -667,7 +686,7 @@ answer first. Then reread once and check:
   time it appeared.
 - Every per-finding comment: one or two sentences, mostly a question, no
   headings, no lists, no fenced code, no run tallies, no paragraph explaining
-  the damage. Every мелочь starts with `nit: `, and the hedge matches what you
+  the damage. Every nit starts with `nit: `, and the hedge matches what you
   actually checked.
 - You checked the shape of the solution against the task, and whether the repo
   or a dependency already does this. Found nothing? Say so in one line.

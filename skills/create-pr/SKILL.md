@@ -1,6 +1,6 @@
 ---
 name: create-pr
-description: Use when the user asks to open, create, raise or update a pull request, write a PR description, or fill in a PR body — in any repository. Produces a short PR description with three sections (problem, solution, packages picked or rejected) in plain language anyone can follow, then creates or updates the PR with gh.
+description: 'Use when the user asks to open, create, raise or update a pull request, write a PR description, or fill in a PR body, in any repository. Produces a short PR description with three sections (problem, solution, packages picked or rejected) in plain language anyone can follow, then creates or updates the PR with gh.'
 ---
 
 # Create a pull request
