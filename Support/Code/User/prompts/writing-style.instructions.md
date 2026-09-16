@@ -1,1 +1,0 @@
-/Users/oleg.chibikov/Documents/Dev/agent-skills/writing-style.instructions.md

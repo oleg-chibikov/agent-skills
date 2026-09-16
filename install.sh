@@ -123,11 +123,15 @@ ask() {
   fi
 }
 
-vscode_prompts() {
+# "Application Support" holds a space, so these paths stay quoted throughout.
+link_vscode() {
   for dir in "$HOME/Library/Application Support/Code/User" "$HOME/.config/Code/User"; do
-    [ -d "$dir" ] && printf '%s\n' "$dir/prompts"
+    [ -d "$dir" ] || continue
+    mkdir -p "$dir/prompts"
+    ln -sfn "$root/writing-style.instructions.md" \
+      "$dir/prompts/writing-style.instructions.md"
+    echo "VS Code reads the writing rules from $dir/prompts"
   done
-  return 0
 }
 
 if [ "$uninstall" -eq 1 ]; then
@@ -148,8 +152,8 @@ if [ "$uninstall" -eq 1 ]; then
   done
   places=$(printf '%s' "$places" | sort -u)
 
-  for prompts in $(vscode_prompts); do
-    rules="$prompts/writing-style.instructions.md"
+  for dir in "$HOME/Library/Application Support/Code/User" "$HOME/.config/Code/User"; do
+    rules="$dir/prompts/writing-style.instructions.md"
     if [ -e "$rules" ] || [ -L "$rules" ]; then
       found="$found$rules
 "
@@ -224,11 +228,7 @@ for agent in $agents; do
   linked=$((linked + 1))
 done
 
-for prompts in $(vscode_prompts); do
-  mkdir -p "$prompts"
-  ln -sfn "$root/writing-style.instructions.md" "$prompts/writing-style.instructions.md"
-  echo "VS Code reads the writing rules from $prompts"
-done
+link_vscode
 
 echo "Skills live in $root, report language $lang, linked into $linked agent folders."
 
