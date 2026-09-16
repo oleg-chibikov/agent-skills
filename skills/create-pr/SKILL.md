@@ -114,7 +114,7 @@ Anyone should get it on the first read, even with zero context on this codebase.
 Before you post, reread the body once and cut every word the reader can do
 without.
 
-Full rules, if the file exists: `~/.agents/writing-style.instructions.md`.
+Full rules: the `writing-style` skill, in the same skills folder as this file.
 
 ## 5. Create or update the PR
 

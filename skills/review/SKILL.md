@@ -31,7 +31,8 @@ headings, and write your own words in the report language.
 ## How to write every line
 
 Before you write the first line of the review, you MUST load the `writing-style`
-skill at `~/.agents/skills/writing-style/SKILL.md` and follow it. It holds the
+skill and follow it. It sits in the same skills folder as this file, at
+`writing-style/SKILL.md`. It holds the
 rules: one idea per sentence, plain words a 12 year old knows, no dash between
 words, one example per sentence, no "never", no padding, and the checklist to
 run before you send. They cover every word of the review, parts 1 to 5, both
@@ -517,8 +518,8 @@ that out before writing the target:
 ### Writing the per-finding comment
 
 This comment is the text a colleague actually reads, so you MUST have the
-`writing-style` skill in context before you write it. Load
-`~/.agents/skills/writing-style/SKILL.md` now if you haven't, and run its final
+`writing-style` skill in context before you write it. Load it now if you
+haven't, and run its final
 checklist over the comment before you put it in the answer.
 
 It reads like a colleague typing in a hurry, not like a report. The long version
@@ -642,7 +643,7 @@ in one line and approve it.
 ## 6. Language
 
 "How to write every line" at the top of this skill holds here too. So does the
-`writing-style` skill at `~/.agents/skills/writing-style/SKILL.md`, for every
+`writing-style` skill, for every
 word of the review, in both languages. Its ban on "never", «никогда», the dash
 between words and inflated words like "surface" or "semantics" holds in the
 findings, the per-finding comments and the summary comment alike. On top of

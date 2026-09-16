@@ -5,8 +5,8 @@ applyTo: '**'
 
 # How to write
 
-Before you write any text a person will read, load the `writing-style` skill at
-`~/.agents/skills/writing-style/SKILL.md` and follow it. Read it once per
+Before you write any text a person will read, load the `writing-style` skill and
+follow it. Read it once per
 conversation, on the first piece of writing, then work from it.
 
 That covers everything: chat answers, code comments, commit messages, PR titles

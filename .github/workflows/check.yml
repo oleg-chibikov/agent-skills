@@ -1,0 +1,23 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint the installer
+        run: shellcheck install.sh
+
+      # A description holding ": " breaks the YAML and the skill goes missing.
+      - name: Every skill is discoverable
+        run: |
+          found=$(npx -y skills add . --list 2>&1 | grep -c -E '^│    [a-z-]+$')
+          expected=$(ls -d skills/*/ | wc -l | tr -d ' ')
+          echo "found $found of $expected"
+          [ "$found" -eq "$expected" ]

@@ -256,5 +256,6 @@ check:
 14. Any "X's own way of" or "this is how you"? Say what it does.
 15. Right language for the reader?
 
-For a deep audit of a long document, `~/.agents/skills/avoid-ai-writing` has a
+For a deep audit of a long document,
+[`avoid-ai-writing`](https://github.com/conorbronsdon/avoid-ai-writing) has a
 detector that scores the text.
