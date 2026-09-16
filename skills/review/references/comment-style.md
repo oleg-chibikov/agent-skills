@@ -1,18 +1,16 @@
 # Writing the comment that goes on the line
 
-Read this before you write the first per-finding comment, and keep it in context
-until the last one is written.
+Read this before the first per-finding comment, and keep it in context until the
+last one is written.
 
-This comment is the text a colleague actually reads, so you MUST have the
-`writing-style` skill in context before you write it. Load it now if you
-haven't, and run its final checklist over the comment before you put it in the
-answer.
+A colleague reads this text, so have the `writing-style` skill in context first
+and run its final checklist over the comment before it goes in the answer.
 
 It reads like a colleague typing in a hurry, not like a report. The long version
-is already above it in the report language; here you raise the doubt and ask.
+sits above it in the report language. Here you raise the doubt and ask.
 **One or two sentences. Three at the very most.**
 
-These are the house style, copy their shape:
+The house style, copy its shape:
 
 ```markdown
 will this be reported in report() that is called from collectResults()?
@@ -47,34 +45,32 @@ the message to reflect that? eg "Every `parse()` call must be held by its own
 nit: JSdoc would be better for the property description
 ```
 
-What that style is made of, all required:
+What that style is made of, all of it required:
 
 - **Ask, don't state.** Most comments are a question: "will this ...?", "could
-  we ...?". A blocker MUST still say plainly that it breaks.
-- **Hedge what you guessed, not what you checked.** Grepped it or read it: say
-  it flat, "the shared config already sets `restoreMocks: true`". Worked it out
-  in your head: "I think", "as far as I understand", once, at the front. Didn't
-  look: ask, "not sure which readme is meant here". A hedge on a fact you
-  verified gets waved away; a flat claim you guessed at gets you corrected.
+  we ...?". A blocker still says plainly that it breaks.
+- **Hedge what you guessed, not what you checked.** Grepped or read it: say it
+  flat, "the shared config already sets `restoreMocks: true`". Worked it out in
+  your head: "I think", "as far as I understand", once, at the front. Didn't
+  look: ask, "not sure which readme is meant here". A hedge on a verified fact
+  gets waved away, and a flat claim you guessed at gets you corrected.
 - **Bound the claim instead of going vague.** "from what I see", "I only looked
-  at the resolver". You MUST NOT lecture the author on the area they work in
-  daily, and a call that is theirs to make MUST be handed back as a question.
+  at the resolver". Don't lecture the author on the area they work in daily.
+  Hand a call that is theirs back as a question.
 - **Point, don't argue.** A file and line, a link, a screenshot beats a
   paragraph of reasoning.
 - **`nit: ` on anything that only makes the code nicer**: formatting, a name, a
   shorter way to write the same thing. Give the replacement bare.
-- **Skip the impact paragraph and the evidence.** "so the user loses data",
-  counts, tool output, "I ran X over Y" MUST NOT appear. That stays in the
-  finding above.
+- **Skip the impact paragraph and the evidence.** Leave out "so the user loses
+  data", counts, tool output and "I ran X over Y". That stays in the finding.
 - **Name the case, not the theory.** One input, one snippet, inline:
-  `parse<Row>(`, `parse("file.csv")()`. Fenced code MUST NOT appear inside the
-  comment.
+  `parse<Row>(`, `parse("file.csv")()`. No fenced code inside the comment.
 - **Offer the wording** for a message or a string, after "eg", in quotes.
 - **Loose punctuation is fine**: a lowercase start, a hyphen where a comma would
   do, a missing backtick. Polishing it makes it read like a machine.
-- Headings, bold labels, bullet lists, a severity tag, a greeting, a sign off
-  and thanks for the PR MUST NOT appear. The file name and the line number MUST
-  NOT be repeated, the comment already sits there.
+- Leave out headings, bold labels, bullet lists, a severity tag, a greeting, a
+  sign off and thanks for the PR. Don't repeat the file name or the line number,
+  the comment already sits there.
 
 Bad, and why:
 
@@ -84,8 +80,8 @@ the name the person typed and shows them nothing. They think it saved. Could
 you clear it after the call comes back ok, and leave the text alone on error?
 ```
 
-Three sentences spent explaining the damage to the person who wrote the code.
-Cut to the doubt and the ask:
+Three sentences explaining the damage to the person who wrote the code. Cut to
+the doubt and the ask:
 
 ```markdown
 this clears the input before saveName comes back - if the save fails the typed

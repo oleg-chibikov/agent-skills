@@ -17,6 +17,8 @@ The short version binds on its own:
 
 - Answer first. No intro, no summary, no repeating the question.
 - One or two sentences by default. One idea per sentence.
+- Three or more facts go in bullets, each opening with its point in bold. No
+  paragraph over three lines, no list over five items.
 - The simplest word that works. Be concrete: the number, the file, what
   happened.
 - No `—`, `–`, `--` or a lone hyphen between words. Use a comma or a full stop.

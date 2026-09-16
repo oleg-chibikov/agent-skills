@@ -42,12 +42,13 @@ cd agent-skills
 
 **`writing-style`** cleans up every line a person reads: chat, comments,
 commits, PRs, docs, UI copy. Plain words, answer first, one idea per sentence,
-no em dash, no AI filler.
+no em dash, no AI filler. It also sets the shape: bullets instead of paragraphs,
+the point of each one in bold at the front, nothing over three lines.
 
 **`review`** reads a PR, a branch or a diff and tells you what the change
-solves, which order to read the files in, then each problem with the line
-number, the input that breaks it and the fix. Every problem comes with a short
-comment ready to paste on the line.
+solves, which order to read the files in, then every problem in one table, then
+each one with the line number, the input that breaks it and the fix. Every
+problem comes with a short comment ready to paste on the line.
 
 **`create-pr`** writes the PR description in three parts, problem, solution,
 packages, then opens the PR with `gh`.
@@ -56,43 +57,42 @@ packages, then opens the PR with `gh`.
 
 ## What a review looks like
 
+The review opens with a table, so the whole verdict fits on one screen:
+
+| # | Severity | Where | What |
+| --- | --- | --- | --- |
+| 1 | Blocker | `SaveName.tsx:42` | the typed name is lost when the save is slow |
+| 2 | Should fix | `profile.ts:88` | the save error is swallowed, so the page stays silent |
+| 3 | Nit | `SaveName.tsx:20` | nothing reads the `isLoading` flag |
+
 <details>
-<summary>One finding out of a review</summary>
+<summary>One finding out of that table</summary>
 
 ### 1. Blocker: the typed name is lost when the server is slow
 
 [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42)
 
-**In short.** The name field clears before the server answers. The name is
-lost. Clear it after the answer.
+**The name field clears before the server answers, so a failed save loses what
+the person typed. Clear it after the answer.**
 
-**When it happens.** A person opens Settings, types a new name and presses
-Save. Nothing else reaches this code.
+- **Who hits it** a person opens Settings, types a new name and presses Save.
+  Nothing else reaches this code.
+- **Now** line 42 empties the field, then waits for the server:
+  `setName(""); await saveName(name);`
+- **Comes out** the server answers two seconds later, or fails. The field is
+  already empty, so the typed name is neither on screen nor on the server, and
+  no message appears. Walked the code with that input.
+- **Costs** the person thinks it saved, leaves the page and loses the data. On a
+  slow network this is every second try.
 
-**What the code does now.** Clears the field right after the press, without
-waiting for the server.
-
-```tsx
-setName(""); // line 42, called before saveName
-await saveName(name);
-```
-
-**What comes out.** The server answers two seconds later, or fails. The field
-is already empty: the typed name is neither on screen nor on the server. No
-message either.
-
-**Why it is a problem.** The person thinks it saved, leaves the page and loses
-the data. On a slow network this is every second try.
-
-**How to fix it.** Clear the field after the confirmation, and leave the text
-alone on error.
+Fix, clear the field after the confirmation and leave the text alone on error:
 
 ```tsx
 const saved = await saveName(name);
 if (saved.ok) setName("");
 ```
 
-**Comment goes on** → line 42, added in this PR, the green side of the diff.
+**Comment on** line 42, added in this PR, the green side of the diff.
 
 ```markdown
 this clears the input before saveName comes back - if the save fails the typed
@@ -101,8 +101,8 @@ name is gone. can we clear it after the call resolves ok?
 
 </details>
 
-The full review opens with what the change solves in plain words, then a tree of
-the changed files with the order to read them in, then the findings, then one
+Above the table: what the change solves in three bullets, and a tree of the
+changed files with the order to read them in. Below it: the findings, then one
 paste-ready comment for the PR.
 
 ## Use it
@@ -128,6 +128,16 @@ curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/ins
 It lists the folders it is about to clear and asks before deleting. Your own
 notes in `CLAUDE.md` and `AGENTS.md` stay, only the block the installer added
 goes. Add `--yes` to skip the question.
+
+## Editing the skills
+
+[AGENTS.md](AGENTS.md) holds the rules for anything under `skills/`: the prose
+budget per file, when a line earns a `MUST`, and what stays verbatim. Check a
+file against the budget with:
+
+```sh
+python3 scripts/prose-lines.py skills/*/SKILL.md skills/*/references/*.md
+```
 
 ## Licence
 

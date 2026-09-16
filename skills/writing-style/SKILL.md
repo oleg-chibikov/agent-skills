@@ -1,19 +1,18 @@
 ---
 name: writing-style
-description: 'Use before writing or editing any text a human will read, in any repository. That means chat answers, code comments, commit messages, PR titles and bodies, review comments, README and docs, wiki pages, tickets and comments, changesets and release notes, error messages, UI copy, chat messages. Also use when asked to make text sound human, cut the AI tone, tighten wording, or check something already written, in any language: "make this sound human", "say it shorter", "clean this up". Rules: plain words, answer first, one idea per sentence, no em dash, no "never", no "not X but Y", no AI filler, then a final cut-every-spare-word pass.'
+description: 'Use before writing or editing any text a human will read, in any repository. That means chat answers, code comments, commit messages, PR titles and bodies, review comments, README and docs, wiki pages, tickets and comments, changesets and release notes, error messages, UI copy, chat messages. Also use when asked to make text sound human, cut the AI tone, tighten wording, or check something already written, in any language: "make this sound human", "say it shorter", "clean this up". Rules: plain words, answer first, one idea per sentence, bullets over paragraphs with the point in bold, no em dash, no "never", no "not X but Y", no AI filler, then a final cut-every-spare-word pass.'
 ---
 
 # How to write
 
-Read this before the first line goes out, then run the checklist at the bottom
-before you send.
+Read this before the first line goes out. Run the checklist at the bottom before
+you send.
 
-The person reading you is tired and distracted. They read each line once. They
-won't go back and they won't go looking. A line that takes two passes is a bad
-line.
+The reader is tired and distracted. They read each line once, don't go back and
+don't go looking. A line that takes two passes is a bad line.
 
-Write so anyone gets it on the first read, however little they know about the
-subject. Be as short as you can while staying clear.
+Write so anyone gets it on the first read, however little they know. Be as short
+as you can while staying clear.
 
 ## The rules
 
@@ -45,12 +44,42 @@ Every rule is a MUST unless it says otherwise. RFC 2119 meaning.
   a doc? Read `LANGUAGE.md` next to this file and use the language named there.
   No such file? Write English.
 
+## Shape on the page
+
+The reader scans first and reads second. Give them something to scan.
+
+- The first line is the answer, or the thing to do next. Background comes after,
+  if at all.
+- Three or more items go in a list, one per line. In a paragraph they hide.
+- A bullet opens with its point in bold, then the rest on the same line:
+  `- **Where it breaks** the upload stops at 5 MB.` The bold half alone tells
+  the reader whether the rest is for them.
+- A list stops at five items. Past that they group under two or three headings,
+  or the weak ones go.
+- A paragraph stops at three lines on screen. Longer than that, and it is a
+  list.
+- Items that carry the same fields go in a table, one row each.
+- Stop when the answer is done. A closing summary repeats what was just read.
+- Something still open? One line at the end, one thing to do, small enough to
+  start now.
+
+Bad, three facts buried in a paragraph:
+
+> The upload fails over 5 MB, the button stays enabled while a file is in
+> flight so people submit twice, and the error text says nothing about size.
+
+Good:
+
+> - **Cap** the upload fails over 5 MB.
+> - **Double submit** the button stays enabled while a file is in flight.
+> - **Error text** says nothing about size.
+
 ## Banned, with what to write instead
 
-**The em dash and its friends.** `—`, `–`, `--`, a spaced hyphen: none of them
-appear between words. A hyphen only glues a word together: `data-slot`,
-`parse-row.ts`. Two ideas mean a full stop and a new sentence. A comma,
-brackets or a colon also do the job.
+**The em dash and its friends.** `—`, `–`, `--`, a spaced hyphen: none of them go
+between words. A hyphen only glues a word together: `data-slot`, `parse-row.ts`.
+Two ideas mean a full stop and a new sentence. A comma, brackets or a colon also
+do the job.
 
 **"Never".** The loudest tell that a machine wrote the line. A plain verb says
 the same:
@@ -62,17 +91,16 @@ the same:
 | components never do this | no component does this |
 | the worker never reads the JSON | the worker doesn't read the JSON |
 
-The ban covers the plain factual sense too, not only emphasis. "The worker never
-reads the JSON" is true and still goes: "doesn't read" says it in a word a
-person would use.
+The ban covers the plain factual sense, not only emphasis. "The worker never
+reads the JSON" is true and still goes: "doesn't read" is what a person says.
 
-Same for "always" used as emphasis. "Always quote variables" becomes "quote
-variables". Keep "always" only when it states a real fact about frequency.
+Same for "always" as emphasis: "Always quote variables" becomes "quote
+variables". Keep it only where it states a real fact about frequency.
 
 Every language has its own word for this. Drop that one too.
 
 **"Nobody", "everyone", "everything".** The same family as "never": a big word
-with no facts behind it. Name the real set instead.
+with no facts behind it. Name the real set.
 
 | Instead of | Write |
 | --- | --- |
@@ -80,10 +108,10 @@ with no facts behind it. Name the real set instead.
 | everyone reading the JSON guesses the type | both consumers guess the type |
 | everybody knows that | it is in the README |
 
-**Counting things the reader can see.** Leave the count out of a heading, a
+**Counting things the reader can see.** Keep the count out of a heading, a
 lead-in or a noun phrase: "four PRs", "11 small functions", "three things are
-lost". The list below shows how many. The number also goes
-stale the moment someone adds a row.
+lost". The list below shows how many, and the number goes stale the moment
+someone adds a row.
 
 | Instead of | Write |
 | --- | --- |
@@ -92,10 +120,9 @@ stale the moment someone adds a row.
 | `format.js` has 11 small functions calling `trim()` | The helpers in `format.js` call `trim()` |
 | Three reasons this happens | Why this happens |
 
-The same goes for any number that measures your own work rather than the
-reader's problem. How many lines a file lost, how many files you touched, how
-long the build took, how many links you made. It sounds like evidence and
-carries none: the reader cannot do anything with it.
+Same for a number that measures your own work instead of the reader's problem:
+lines a file lost, files you touched, how long the build took. It sounds like
+evidence and carries none.
 
 | Instead of | Write |
 | --- | --- |
@@ -109,9 +136,9 @@ A number stays when the number is the finding: "274 lines the compiler rejects",
 sentence reads the same without it.
 
 **"us", "our", "them", "their" standing in for a repo or a package.** Write the
-name. `api-client`, `web-app`, `orders.json`. The reader
-opens the page in the middle and has no idea who "us" is, and when you own both
-sides of the change, "us" and "them" point at the same team.
+name: `api-client`, `web-app`, `orders.json`. The reader lands in the middle of
+the page and has no idea who "us" is. Own both sides of the change, and "us" and
+"them" point at the same team.
 
 | Instead of | Write |
 | --- | --- |
@@ -125,20 +152,17 @@ sides of the change, "us" and "them" point at the same team.
 decide before PR 4". Swap it out when it stands for code.
 
 **Explaining a name with the same name.** "`role` is the role", "`retryCount`
-holds the retry count". The gloss adds nothing. Write what it replaces or what
-it lets the reader stop doing: "`role` says the account is an admin, so no one
-has to read it off the id".
+holds the retry count". Write what it replaces or what it saves the reader:
+"`role` says the account is an admin, so no one reads it off the id".
 
 **Describing notation instead of saying what it does.** "`{a.b.c}` is the config
-format's own way of writing 'this setting is that setting'", "the flag is how you
-tell it to retry". Say what happens: "a value in braces points at another
-setting", "the flag makes it retry". Drop "X's own way of", "this is how you",
-and a quoted phrase standing in for the behaviour.
+format's own way of writing 'this setting is that setting'". Say what happens:
+"a value in braces points at another setting". Drop "X's own way of", "this is
+how you", and a quoted phrase standing in for the behaviour.
 
-**Decorative qualifiers and dates.** "a small JSON standard", "a simple script",
-"a lightweight wrapper", "stable since October 2025". Size and dates belong in
-the text when they change what someone does. Otherwise cut them: "a JSON
-standard", "stable".
+**Decorative qualifiers and dates.** "a small JSON standard", "a lightweight
+wrapper", "stable since October 2025". Size and dates stay only where they
+change what someone does. Otherwise: "a JSON standard", "stable".
 
 **"It's not X, it's Y".** Say it straight, in the positive: "it's Y". Holds when
 the two halves sit in separate sentences, and in every language.
@@ -149,14 +173,13 @@ the two halves sit in separate sentences, and in every language.
 | It's not a bug, it's a feature | It works as designed |
 
 **AI padding.** "Great question", "Absolutely", "Certainly", "I hope this
-helps", "Let's dive in", "Let me break this down", "Here's the thing", "Here's
-the answer:", "In conclusion", "I'll now proceed to", and emoji. Cut all of it
-and start with the answer.
+helps", "Let's dive in", "Let me break this down", "Here's the thing", "In
+conclusion", "I'll now proceed to", and emoji. Cut it, start with the answer.
 
 **Filler connectors.** Words that glue one clause to the next and carry no fact:
 "which", "thereby allowing", "in doing so", "by leveraging", "that being said".
 Put a full stop and start a new sentence. Every language has a set like this,
-and it is usually the set that sounds most formal. Cut yours the same way.
+usually the set that sounds most formal. Cut yours the same way.
 
 **Inflated words.** Use words a junior would use. Out: "surface" as a verb,
 "thread through", "semantics", "contract", "non-trivial", "leverage",
@@ -167,8 +190,8 @@ Verbs go the same way. "hands us", "buys us", "unlocks", "powers", "drives",
 "is in", "sits in", "goes with", "lets us".
 
 **Emphasis stuck on the end.** "byte for byte", "full stop", "period", "plain
-and simple", "no more, no less", "end of story". They add no fact and read as
-generated. Write the fact, or cut the phrase.
+and simple", "end of story". No fact, and they read as generated. Write the
+fact, or cut the phrase.
 
 | Instead of | Write |
 | --- | --- |
@@ -177,8 +200,8 @@ generated. Write the fact, or cut the phrase.
 | we rewrote the whole thing, end to end | we rewrote all 11 functions |
 
 **Pointing at your own text.** "Here is", "Look at", "Notice that", "As you can
-see", "Let's walk through", "Everything below". The reader already sees it.
-Start with what the thing says or does.
+see", "Let's walk through". The reader already sees it. Start with what the
+thing says or does.
 
 | Instead of | Write |
 | --- | --- |
@@ -186,17 +209,16 @@ Start with what the thing says or does.
 | Look at how it got there. | It got there by searching the index. |
 | Let's see what happens to the row. | The row loses its encoding on the first step. |
 
-Same for talking about the document itself. "This page covers", "as we'll see",
-"in this section we". One scope line at the top is enough, the rest goes.
+Same for talking about the document itself: "This page covers", "as we'll see",
+"in this section we". One scope line at the top, the rest goes.
 
-**Documents and tools that think.** "the ADR doesn't know about", "the spec has
-no idea", "the file believes". A file holds text. Write "the ADR predates it",
-"the spec has no rule for it".
+**Documents and tools that think.** "the ADR doesn't know about", "the file
+believes". A file holds text. Write "the ADR predates it", "the spec has no rule
+for it".
 
 **Three of a kind.** "fast, clean and reliable" reads as generated. Name the one
-thing that matters, or list the real items with real numbers. The same goes for
-three names in a row closed by "all": it is the plainest sign a machine wrote
-the line.
+thing that matters, or list the real items with real numbers. Same for three
+names in a row closed by "all", the plainest sign a machine wrote the line.
 
 ## Before and after
 
@@ -228,9 +250,8 @@ nowhere to put it. 3 rows in the export hit this, `OrderRow` among them."
 
 ## Code comments
 
-A comment says what the code cannot show on its own, in one short line. It
-doesn't restate the next line, doesn't explain your change to a reviewer, and
-doesn't grow into a paragraph where one line does the job.
+A comment says what the code cannot show, in one short line. It doesn't restate
+the next line, explain your change to a reviewer, or grow into a paragraph.
 
 Bad: `// Loop over the users and add each to the map`
 
@@ -238,17 +259,18 @@ Good: `// The API returns duplicates when a user sits in two teams.`
 
 ## Longer text: README, docs, Confluence, tickets
 
+"Shape on the page" above carries most of it. On top:
+
 - A heading says what the section gives the reader, in their words.
 - Put the thing the reader came for in the first screen.
 - The first line of a block carries the whole point. Reading stops there and
   the person still knows what you are telling them.
-- Tables and lists beat prose for anything with more than two items.
+- Nothing rests on a block above it. The reader lands in the middle.
 
 ## Final pass, before you send
 
-Read every sentence once, at the speed the reader will. Had to go back to
-understand one? Split it. Then cut every word the reader can do without, and
-check:
+Read every sentence once, at the reader's speed. Had to go back? Split it. Then
+cut every word the reader can do without, and check:
 
 1. Does the first sentence answer the question?
 2. Any `—`, `–`, `--`, or a hyphen standing alone between words? Rewrite.
@@ -267,7 +289,11 @@ check:
 12. Any "us", "our", "them" that means a repo or a package? Write the name.
 13. Any name explained with itself? Say what it replaces instead.
 14. Any "X's own way of" or "this is how you"? Say what it does.
-15. Right language for the reader? Writing something other than English? Run
+15. Any paragraph over three lines, or three items strung through prose? Turn
+    it into a list, each line opening with its point in bold.
+16. Any list over five items? Group them, or cut the weak ones.
+17. Any closing paragraph that recaps what the reader just read? Delete it.
+18. Right language for the reader? Writing something other than English? Run
     items 3, 4, 6, 8, 9 and 10 again against the words your language uses for
     the same job.
 
@@ -278,8 +304,7 @@ detector that scores the text.
 ## Writing in another language
 
 Every rule above holds word for word. The banned phrases are named in English
-because that is the language of this file, and each one has a twin wherever you
-write.
+because that is this file's language, and each has a twin wherever you write.
 
 Find your twins once, then check for them every time:
 

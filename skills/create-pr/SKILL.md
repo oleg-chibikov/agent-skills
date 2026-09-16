@@ -1,17 +1,14 @@
 ---
 name: create-pr
-description: 'Use when the user asks to open, create, raise or update a pull request, write a PR description, or fill in a PR body, in any repository. Produces a short PR description with three sections (problem, solution, packages picked or rejected) in plain language anyone can follow, then creates or updates the PR with gh.'
+description: 'Use when the user asks to open, create, raise or update a pull request, write a PR description, or fill in a PR body, in any repository. Produces a PR description under 20 lines with three sections (problem, solution, packages picked or rejected), written in bullets anyone can scan, then creates or updates the PR with gh.'
 ---
 
 # Create a pull request
 
-Two modes. Pick by what the user asked for.
+Two modes, picked by what the user asked for:
 
 - **Describe only**: write the title and body, show them, stop.
-- **Create/update**: write them, then run `gh` to open the PR or edit an
-  existing one.
-
-If the user just says "make a PR", use create mode.
+- **Create or update**: write them, then run `gh`. "Make a PR" means this one.
 
 ## 1. Collect the facts
 
@@ -33,8 +30,8 @@ base=$remote/$(GH_PAGER=cat gh repo view --json defaultBranchRef \
   -q .defaultBranchRef.name)
 ```
 
-The remote is called `origin` almost everywhere, and on a fork or a mirror it is
-not. You MUST read the name instead of typing it.
+The remote is `origin` almost everywhere, and on a fork or a mirror it is not.
+Read the name, don't type it.
 
 Also check:
 
@@ -43,9 +40,8 @@ Also check:
 - The repo's commit and PR rules: `CONTRIBUTING.md`, `AGENTS.md`, `CLAUDE.md`.
 - An issue id in the branch name or commits (`PROJ-123`, `JIRA-123`, `#42`).
 
-Repo rules win over this skill. If the repo has a template, keep its required
-parts (checkboxes, headings it demands) and put the three sections below inside
-it.
+Repo rules win over this skill. With a template, keep the parts it demands
+(checkboxes, headings) and put the three sections below inside it.
 
 ## 2. Title
 
@@ -54,29 +50,32 @@ Follow the repo's commit convention. Common ones:
 - `PROJ-123: add page pattern examples` (issue id prefix)
 - `feat(auth): add page pattern examples` (conventional commits)
 
-No convention in the repo? Use one short sentence in the imperative: what the
-change does, not how.
+No convention? One short imperative sentence: what the change does, not how.
 
 ## 3. Body
 
-If a Jira ticket covers this change, put its name as the first line of the
-body, on its own, before the sections: `PROJ-123`. Name only, not a link. Find
-it in the branch name, the commits, or ask if neither has one; skip the line
-if there is no ticket.
+Load the `writing-style` skill before the first line, the way section 4 says.
 
-Exactly these three sections after that, in this order. Keep the whole body
-under about 25 lines.
+A Jira ticket covers this change? Its name goes on the first line of the body,
+alone, before the sections: `PROJ-123`. Name only, not a link. Find it in the
+branch name or the commits, ask if neither has one, skip the line if there is no
+ticket.
+
+Then exactly these three sections, in this order. Keep the body under 20 lines.
+It is read on a phone, in a notification, by someone who has not opened the
+diff.
 
 ```markdown
 ## What problem this solves
 
-<Who was hurting and how. One to three sentences. Name the symptom a person
-could see, not the internals.>
+<Who was hurting and how. One or two sentences, the symptom a person could see,
+not the internals. Three symptoms or more go in bullets instead.>
 
 ## How it works now
 
-<What the change does, in order. Two to five bullets. Say the behaviour, then
-the file only if it helps.>
+<What the change does, in order. Two to five bullets, one line each. Each one
+opens with its point in bold, then the behaviour. The file name only if it
+helps.>
 
 ## Packages
 
@@ -86,23 +85,24 @@ the reason. Nothing added? Write "No new packages." and, if a well known
 package would have fit, say why you wrote it by hand instead.>
 ```
 
+No paragraph over three lines, no bullet wrapping past two. Over the cap? Cut a
+bullet, don't shrink the wording.
+
 ### What belongs in Packages
 
-Only third party code the change now depends on, or would have: npm packages,
-and a new peer or dev dependency counts too.
+Third party code the change now depends on, or would have. A new peer or dev
+dependency counts.
 
-Leave out the repo's own tooling. Nobody needs to read that the tests run on
-Vitest, that Nx builds the project, or that the linter passes. Same for MCP
-servers, editors and agents: how the code got written is not part of the
-change.
+Leave out the repo's own tooling: Vitest, Nx, the linter. Same for MCP servers,
+editors and agents. How the code got written is not part of the change.
 
-Check the real diff for this section:
+Check the diff before writing this section, and don't claim a package the
+manifest doesn't show:
 `git diff "$base"...HEAD -- '**/package.json' 'package.json'`.
-Do not claim a package was added when the manifest says otherwise.
 
-For a turned-down package, give the reason in a few words: size, it is
-unmaintained, its licence, it drags in a lot, the repo already has something
-that does the job, or the hand-written version is ten lines.
+A turned-down package gets its reason in a few words: size, unmaintained, its
+licence, it drags in a lot, the repo already does the job, or the hand-written
+version is ten lines.
 
 Examples:
 
@@ -113,28 +113,28 @@ Examples:
 
 ## 4. How to write it
 
-Anyone should get it on the first read, even with zero context on this codebase.
+Load the `writing-style` skill first, from `writing-style/SKILL.md` in this
+skills folder. It holds every rule about the words and the checklist to run
+before posting, and its "Shape on the page" section sets the layout. Load it
+once, unless it is in context.
 
-- Shortest wording that stays clear. One idea per sentence.
-- Plain everyday words. Explain a term the first time it shows up.
-- Say what a thing does before naming what it is called.
-- Be concrete: the number, the file, the command, what a user sees.
-- No em dash and no double hyphen. Use a comma, a period, or two sentences.
-- Say it straight, in the positive. Drop "it's not X, it's Y".
-- No AI filler: "Great question", "Let's dive in", "In conclusion", emoji,
-  rule-of-three lists for their own sake.
-- Mark a guess as a guess.
+Only these are the PR body's own:
 
-Before you post, reread the body once and cut every word the reader can do
+- Anyone gets it on the first read, with zero context on this codebase.
+- A section heading already says what the section is. The line under it starts
+  with the fact.
+- The change, not the work: what the code does now, not what you did to it. No
+  line counts, no file counts, no "refactored".
+- A guess is marked as a guess.
+
+Reread the body once before posting and cut every word the reader can do
 without.
-
-Full rules: the `writing-style` skill, in the same skills folder as this file.
 
 ## 5. Create or update the PR
 
-Always prefix `gh` with `GH_PAGER=cat`, otherwise it opens a pager and hangs.
+Prefix every `gh` with `GH_PAGER=cat`, or it opens a pager and hangs.
 
-Push first if the branch has no upstream:
+Push first when the branch has no upstream:
 
 ```bash
 git push -u "$remote" HEAD
@@ -146,7 +146,7 @@ New PR:
 GH_PAGER=cat gh pr create --base <base> --title "<title>" --body-file <file>
 ```
 
-Write the body to a temp file rather than passing it inline, so newlines and
+Write the body to a temp file instead of passing it inline, so newlines and
 backticks survive.
 
 Existing PR:
@@ -155,10 +155,10 @@ Existing PR:
 GH_PAGER=cat gh pr edit --title "<title>" --body-file <file>
 ```
 
-Add `--draft` only if the user asked for a draft.
+Add `--draft` only when the user asked for one.
 
 After a rebase or force push, `gh pr view --json mergeable` can report a stale
-conflict. Any edit resets it, so re-query once if the answer looks wrong.
+conflict. Any edit resets it, so re-query once when the answer looks wrong.
 
 ## 6. Report back
 
@@ -166,10 +166,10 @@ One or two lines: the PR link and the title. Nothing else.
 
 ## Guardrails
 
-- Do not push or open a PR on a protected or default branch. Stop and say so.
-- Do not invent a problem statement. If the diff does not tell you why the
-  change exists, ask the user one question.
-- Do not force push, amend published commits, or use `--no-verify`.
+- Don't push or open a PR on a protected or default branch. Stop and say so.
+- Don't invent a problem statement. The diff doesn't say why the change exists?
+  Ask the user one question.
+- Don't force push, amend published commits, or use `--no-verify`.
 - Leave unrelated staged or untracked files alone.
 
 ## Example body
@@ -184,11 +184,10 @@ file several times and then gave up, so support got about 30 tickets a week.
 
 ## How it works now
 
-- Files up to 25 MB upload. The old cap was 5 MB.
-- Anything larger shows the size limit and the file's own size, so the person
+- **Cap** files up to 25 MB upload. The old cap was 5 MB.
+- **Too big** the error names the limit and the file's own size, so the person
   knows what to do next.
-- The upload button stays disabled while a file is in flight, which stops the
-  double submits behind half the tickets.
+- **Double submit** the upload button stays disabled while a file is in flight.
 
 ## Packages
 
