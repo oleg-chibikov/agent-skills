@@ -69,49 +69,10 @@ base with
 `GH_PAGER=cat gh repo view --json defaultBranchRef -q .defaultBranchRef.name`.
 You MAY ask the user only when none of that finds anything.
 
-### Checking out the branch
-
-The open workspace is the same repository as the code under review? Then you
-MUST get that branch onto disk before you write the review, run or no run.
-Files on disk beat a diff: you can open the callers, grep the repo and jump to
-definitions.
-
-You MUST put it in a separate worktree, so the user's checkout keeps whatever is
-in it:
-
-1. Use the repo's own worktree skill when it has one. It carries the setup the
-   fresh checkout needs, and its steps win over the ones below.
-2. Otherwise: `git fetch origin <branch>` for a branch, or
-   `git fetch origin pull/<number>/head:<branch>` for a PR, then
-   `git worktree add ../<repo>-<branch> <branch>`.
-3. Install if the branch needs it, the way the repo's README says.
-4. You MUST read and run inside that worktree, and you MUST leave the user's
-   original checkout on the branch it was on, untouched.
-
-A worktree is impossible? Then, and only then, you MAY switch in place:
-`git status --short` MUST come back empty, any output at all means you stop and
-ask the user what to do with it, and you MUST NOT stash, reset, or check out
-over someone's unsaved work. Then
-`GH_PAGER=cat gh pr checkout <number>` or `git switch <branch>`.
-
-The branch MUST still be checked out when the review ends. You MUST NOT switch
-back. The answer MUST say where the code sits: the worktree path, or the branch
-name when you switched in place.
-
-The code under review lives in a repository that is not open here? You MUST
-review from `GH_PAGER=cat gh pr diff <number>`, say once that you are reading
-the diff alone, and mark every finding you could not prove.
-
-### Running code
-
-Most reviews need no run. Reading settles the question, and an answer you got by
-reading is faster and easier to check. You MUST run the code only when reading
-leaves you unsure and the finding depends on the answer. You MUST run the
-smallest piece that answers the question: one function on one input, one test
-file. You SHOULD NOT run a full build or the whole suite.
-
-You MUST stay read only: no commit, no push, no `git add`, no edits to the
-reviewed code unless the user asked for them.
+The target is a branch or a PR? You MUST read
+[references/getting-the-code.md](references/getting-the-code.md) now. It holds
+the worktree steps, the rule about the user's own checkout, and when running the
+code is allowed. Uncommitted changes in the open repo need none of that.
 
 ## 2. Read the repo rules first
 
@@ -206,9 +167,10 @@ one and get to the point where you can show the problem happening:
 - You MUST work out what comes out, by reading the code with that input in hand,
   line by line. Most findings end here, and that is the cheapest place to end.
 - Still unsure after reading, and the finding depends on the answer? You MUST
-  run the smallest piece the way step 1 says, paste what came back and say you
-  ran it. Doubt about what a library or a compiler does with an odd input is the
-  usual reason.
+  run the smallest piece, the way
+  [references/getting-the-code.md](references/getting-the-code.md) says, paste
+  what came back and say you ran it. Doubt about what a library or a compiler
+  does with an odd input is the usual reason.
 - You MUST count how often it can happen in this repo today: grep, call sites, a
   number. This is reading too, no run needed.
 - You MUST write the fix out. A message or a string means the replacement text
@@ -429,8 +391,9 @@ Rules for each part:
   [path/to/file.ts:42-48](path/to/file.ts#L42-L48) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
   ```
 
-  The second half is built the way "The link to the line in the PR" below says,
-  and it MUST be there on every finding when the target is a PR.
+  The second half is built the way
+  [references/pr-links.md](references/pr-links.md) says, and it MUST be there on
+  every finding when the target is a PR.
 
   Bad, and the one mistake that keeps happening: `[path/to/file.ts](path/to/file.ts#L42)`.
   The number is in the target and the reader sees none of it. An editor rule
@@ -473,137 +436,19 @@ the eleven components", "every build", "checked all 26 call sites". The raw
 counters MUST stay there; the comment on the line MUST carry at most one number,
 in a sentence.
 
-### The link to the line in the PR
+### The two halves of a line link
 
-The user reads the finding, then goes to GitHub to leave the comment. Make that
-one click. Every link under a heading and every "comment on the PR" line MUST
-carry two halves: the workspace link, which opens the file in the editor, and
-the PR link, which lands on that line in the diff.
-
-```markdown
-[path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
-```
-
-`HASH` is the SHA-256 of the path as the repository spells it, and the letter in
-front of the number is the side of the diff: `R` for an added line, `L` for a
-removed one. Work the hash out once per file, and reuse it for every finding in
-that file:
-
-```sh
-printf '%s' 'path/to/file.ts' | shasum -a 256 | cut -d' ' -f1
-```
-
-`OWNER/REPO` and the number come from the PR itself:
-`GH_PAGER=cat gh pr view <number> --json url -q .url`.
-
-Reviewing a branch, a pasted diff or uncommitted work, with no PR to point at?
-Then the second half MUST be left out and the workspace link stands alone.
-
-### Where the comment goes
-
-GitHub takes an inline comment only on a line the diff touches. You MUST work
-that out before writing the target:
-
-- Line is in the diff: you MUST name it, and say added (green) or removed (red).
-  Every line of a new file is added.
-- Line is untouched: you MUST say so, name the nearest changed line to hang it
-  on, and open the comment with the real location, "a line up, at
-  `report.ts:55`, ...".
-- Two files: the comment MUST go on the one the author has to edit, and the text
-  MUST name the other.
-- Nothing fits: the comment MUST go in part 5 instead, and you MUST put it
-  there.
+Reviewing a GitHub PR, or landing a comment on a line the diff does not touch?
+You MUST read [references/pr-links.md](references/pr-links.md) before you write
+the first link. It holds how the `· [in the PR](…)` half is built, and the rules
+for a line GitHub will refuse a comment on.
 
 ### Writing the per-finding comment
 
-This comment is the text a colleague actually reads, so you MUST have the
-`writing-style` skill in context before you write it. Load it now if you
-haven't, and run its final
-checklist over the comment before you put it in the answer.
-
-It reads like a colleague typing in a hurry, not like a report. The long version
-is already above it in the report language; here you raise the doubt and ask.
-**One or two sentences. Three at the very most.**
-
-These are the house style, copy their shape:
-
-```markdown
-will this be reported in report() that is called from collectResults()?
-```
-
-```markdown
-I think there are no tests for this function. could we cover it?
-```
-
-```markdown
-this seems to be unused. Can we add tests that would leverage it?
-```
-
-```markdown
-not sure which readme is meant here
-```
-
-```markdown
-as far as I understand it won't capture parse( if it exists in a nested file or
-maybe if it uses parse<Row>( - can we either add them to search or reflect in
-the comment?
-```
-
-```markdown
-what if the code is export const rows = parse("file.csv")(); - it's already in
-the const, but it's the result of the call there, not the parse. Can we rewrite
-the message to reflect that? eg "Every `parse()` call must be held by its own
-`const`, which is how the importer finds it."
-```
-
-```markdown
-nit: JSdoc would be better for the property description
-```
-
-What that style is made of, all required:
-
-- **Ask, don't state.** Most comments are a question: "will this ...?", "could
-  we ...?". A blocker MUST still say plainly that it breaks.
-- **Hedge what you guessed, not what you checked.** Grepped it or read it: say
-  it flat, "the shared config already sets `restoreMocks: true`". Worked it out
-  in your head: "I think", "as far as I understand", once, at the front. Didn't
-  look: ask, "not sure which readme is meant here". A hedge on a fact you
-  verified gets waved away; a flat claim you guessed at gets you corrected.
-- **Bound the claim instead of going vague.** "from what I see", "I only looked
-  at the resolver". You MUST NOT lecture the author on the area they work in
-  daily, and a call that is theirs to make MUST be handed back as a question.
-- **Point, don't argue.** A file and line, a link, a screenshot beats a
-  paragraph of reasoning.
-- **`nit: ` on anything that only makes the code nicer**: formatting, a name, a
-  shorter way to write the same thing. Give the replacement bare.
-- **Skip the impact paragraph and the evidence.** "so the user loses data",
-  counts, tool output, "I ran X over Y" MUST NOT appear. That stays in the
-  finding above.
-- **Name the case, not the theory.** One input, one snippet, inline:
-  `parse<Row>(`, `parse("file.csv")()`. Fenced code MUST NOT appear inside the
-  comment.
-- **Offer the wording** for a message or a string, after "eg", in quotes.
-- **Loose punctuation is fine**: a lowercase start, a hyphen where a comma would
-  do, a missing backtick. Polishing it makes it read like a machine.
-- Headings, bold labels, bullet lists, a severity tag, a greeting, a sign off
-  and thanks for the PR MUST NOT appear. The file name and the line number MUST
-  NOT be repeated, the comment already sits there.
-
-Bad, and why:
-
-```markdown
-This clears the input before `saveName` answers, so a slow or failed save wipes
-the name the person typed and shows them nothing. They think it saved. Could
-you clear it after the call comes back ok, and leave the text alone on error?
-```
-
-Three sentences spent explaining the damage to the person who wrote the code.
-Cut to the doubt and the ask:
-
-```markdown
-this clears the input before saveName comes back - if the save fails the typed
-name is gone. can we clear it after the call resolves ok?
-```
+You MUST read [references/comment-style.md](references/comment-style.md) before
+you write the first comment block, and keep it in context until the last one is
+done. One or two sentences, mostly a question, no headings and no fenced code.
+The file holds the house style and the examples to copy.
 
 ### Part 5: the summary comment for the author (English)
 

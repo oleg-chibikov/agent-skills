@@ -34,3 +34,27 @@ jobs:
             esac
           done
           exit "$fail"
+
+      # Every link a skill points at has to exist, or the agent reads nothing.
+      - name: Reference files a skill points at exist
+        run: |
+          fail=0
+          for file in skills/*/SKILL.md; do
+            for ref in $(grep -o '(references/[^)]*)' "$file" | tr -d '()'); do
+              [ -f "$(dirname "$file")/$ref" ] \
+                || { echo "$file: missing $ref"; fail=1; }
+            done
+          done
+          exit "$fail"
+
+      - name: Install and uninstall in a clean home
+        run: |
+          home=$(mktemp -d)
+          HOME="$home" ./install.sh --lang Spanish --link
+          for name in review create-pr writing-style; do
+            test -f "$home/.agents/skills/$name/SKILL.md"
+          done
+          test -f "$home/.agents/skills/review/references/pr-links.md"
+          grep -qx Spanish "$home/.agents/skills/review/LANGUAGE.md"
+          HOME="$home" ./install.sh --uninstall --yes
+          test ! -e "$home/.agents/skills/review"

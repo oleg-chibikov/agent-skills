@@ -57,7 +57,16 @@ Ask in plain words:
 ## Change the language later
 
 Run the install again with a different `--lang`. Or open
-`~/.agent-skills/skills/review/LANGUAGE.md`, it holds one word.
+`~/.agents/skills/review/LANGUAGE.md` and put another language in it. That is
+the one real copy, every other agent points at it.
+
+## Remove them
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/install.sh | sh -s -- --uninstall
+```
+
+It lists the folders it is about to clear and asks before deleting.
 
 ## Other flags
 
@@ -65,6 +74,8 @@ Run the install again with a different `--lang`. Or open
 | --- | --- |
 | `--link` | Points the agents at this clone, so editing a rule here changes what they read. |
 | `--vscode` | Turns the writing rules on for every Copilot answer in every workspace. |
+| `--uninstall` | Removes the three skills from every agent folder. |
+| `--yes` | Answers yes to the uninstall question. |
 
 ## Licence
 
