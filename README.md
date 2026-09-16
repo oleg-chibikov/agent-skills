@@ -11,8 +11,10 @@ curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/ins
 
 One command, one folder on disk, a symlink from every agent that is installed on
 your machine: Claude Code, Codex, Cursor, Copilot, Crush, Goose, Roo, Windsurf
-and the rest. Run it again after you install a new agent, or to pick another
-language.
+and the rest. The writing rules also go where an agent reads them on every turn,
+without being asked: the VS Code prompts folder, `~/.claude/CLAUDE.md`,
+`~/.codex/AGENTS.md`. Run it again after you install a new agent, or to pick
+another language.
 
 `--lang` is the language your code review comes back in. Any language works:
 
@@ -120,8 +122,9 @@ language in it. There is one copy, every agent points at it.
 curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/install.sh | sh -s -- --uninstall
 ```
 
-It lists the folders it is about to clear and asks before deleting. Add `--yes`
-to skip the question.
+It lists the folders it is about to clear and asks before deleting. Your own
+notes in `CLAUDE.md` and `AGENTS.md` stay, only the block the installer added
+goes. Add `--yes` to skip the question.
 
 ## Licence
 
