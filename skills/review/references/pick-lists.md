@@ -33,4 +33,6 @@ the code on a real input and count how often it happens.
 2. Should fix: the save error is swallowed
 3. Nit: nothing reads the `isLoading` flag
 4. All of them
+5. Post the comments to the PR now
+6. Nothing more, the review is done
 ```

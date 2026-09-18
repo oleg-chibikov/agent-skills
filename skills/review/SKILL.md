@@ -411,9 +411,13 @@ second block. No headings, no fenced code.
 Parts 1 to 4 are the first pass, read off the diff. Digging into all of it costs
 more than most of it is worth, so let the user spend that time where they want
 it. The answer MUST close with the offer, in the report language, one choice per
-finding plus an "all of them" choice. Each choice MUST carry the same number and
-the same short text as the findings table, so the user picks without scrolling
-back.
+finding plus three standing ones. Each finding choice MUST carry the same number
+and the same short text as the findings table, so the user picks without
+scrolling back.
+
+The three standing choices MUST come last, in this order: all of them, post the
+comments with no digging, and nothing more. The posting one jumps straight to
+step 6.
 
 You MUST read [references/pick-lists.md](references/pick-lists.md) before
 writing the offer: how to put the choices on screen, and why a markdown checkbox
@@ -440,7 +444,19 @@ they say: the evidence marker, the real value, the count, and the severity when
 the answer moved it. A deep dived finding and a first pass one MUST look the
 same on the page.
 
-## 6. Before you send
+## 6. Offer to post the comments
+
+The deep dive is done, or the user skipped past it? The answer MUST close with
+the offer to put the comments on the PR, next to a choice that ends the review,
+in the report language and through the same picker as step 5. Nothing goes on
+the PR until the user asks for it.
+
+The user says post? You MUST read
+[references/posting-comments.md](references/posting-comments.md) before the
+first call. It holds the question that comes first, long version or the one
+under `Shorter:`, the `gh` call per comment and the checklist over every body.
+
+## 7. Before you send
 
 You MUST read
 [references/final-checklist.md](references/final-checklist.md) and run it over

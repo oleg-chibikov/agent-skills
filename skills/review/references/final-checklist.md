@@ -32,9 +32,12 @@ once and check. Every line below MUST be true before the answer goes out:
   target line above it. Nothing rests on "could" alone.
 - A finding that got the deep dive looks like every other one: same four
   headings, same order, only the marker, the value and the count differ.
-- The answer ends with the deep dive offer, one choice per finding with its
-  number and its table text, plus the "all of them" choice. Search the answer
-  for `- [` : a markdown checkbox means the picker tool was skipped.
+- The answer ends with an offer: the deep dive, one choice per finding with its
+  number and its table text, then all of them, posting the comments and ending
+  the review. Past the deep dive, the offer is posting or ending it. Search the
+  answer for `- [` : a markdown checkbox means the picker tool was skipped.
+- Nothing went on the PR before the user asked for it and named the version,
+  long or short.
 - Every link in the report shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.
