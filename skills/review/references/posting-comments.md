@@ -1,10 +1,18 @@
 # Posting the comments to the PR
 
-You MUST read this when the user asks for the comments to go on the PR, and keep
-it in context until the last call returns.
+You MUST read this at the step that offers to post, and keep it in context until
+the last call returns.
 
 Reviewing a branch, a pasted diff or uncommitted work, with no PR behind it? Say
 so in one line and stop.
+
+## Offer it first
+
+The deep dive is done, or the user skipped past it? The answer MUST close with
+the offer to put the comments on the PR, next to a choice that ends the review,
+in the report language and through the same picker as the deep dive, the one
+[pick-lists.md](pick-lists.md) describes. Nothing goes on the PR until the user
+asks for it.
 
 ## Ask which version first
 

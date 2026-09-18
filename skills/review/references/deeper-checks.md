@@ -1,7 +1,7 @@
 # The two checks past the bug hunt
 
-You MUST read this at step 4, on every review. Both run even when every line is
-correct.
+You MUST read this at the "look for what matters" step, on every review. Both
+run even when every line is correct.
 
 ## Wrong shape for the job
 
