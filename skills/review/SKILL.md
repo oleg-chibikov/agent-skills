@@ -28,7 +28,7 @@ such as "write it in English" or "in Russian please", changes it, and it wins
 silently, no comment about it.
 
 The examples here are English. Copy their shape, write your own words in the
-report language. Translate the bold labels too: **Who hits it**, **Now**,
+report language. Translate the headings too: **Who hits it**, **Now**,
 **Comes out**, **Costs**, and the findings table headings.
 
 ## How to write every line
@@ -130,10 +130,15 @@ governs every part: the point in bold at the front of a bullet, a list wherever
 three things line up, no paragraph over three lines, no recap. A reader who sees
 only the bold text MUST come away knowing what is broken.
 
+The fixed labels are the review's own exception. **Before**, **Now**, **Where**
+in part 1 and the four labels of a finding are headings, one level under the
+heading they sit in, with their text on the lines below. A label glued to the
+front of a sentence reads as part of it.
+
 ### Part 1: what this change is about (report language)
 
-Write it for someone who has not heard of this product or this code. Three
-bullets, each one or two sentences:
+Write it for someone who has not heard of this product or this code. Three `###`
+headings, one or two sentences under each:
 
 - **Before**, what was wrong or missing, as a person would notice it.
 - **Now**, what happens instead.
@@ -145,12 +150,19 @@ the change solves? Say that first and ask. Guessing here poisons the rest.
 ```markdown
 ## What this change is about
 
-- **Before** the Save button on the profile page wiped the name field before the
-  server had agreed to store the new name. A failed save lost the typed name,
-  with nothing on screen explaining why.
-- **Now** the text stays until the server confirms, and comes back if the save
-  failed.
-- **Where** Settings, the Profile tab, the Save button.
+### Before
+
+The Save button on the profile page wiped the name field before the server had
+agreed to store the new name. A failed save lost the typed name, with nothing on
+screen explaining why.
+
+### Now
+
+The text stays until the server confirms, and comes back if the save failed.
+
+### Where
+
+Settings, the Profile tab, the Save button.
 ```
 
 ### Part 2: the map and the reading order (report language)
@@ -224,11 +236,11 @@ change does well, and that it is good to go.
 ```markdown
 ## Findings
 
-| # | Severity | Where | What |
-| --- | --- | --- | --- |
-| 1 | Blocker | `SaveName.tsx:42` | the typed name is lost when the save is slow |
-| 2 | Should fix | `profile.ts:88` | the save error is swallowed, so the page stays silent |
-| 3 | Nit | `SaveName.tsx:20` | nothing reads the `isLoading` flag |
+| #   | Severity   | Where             | What                                                  |
+| --- | ---------- | ----------------- | ----------------------------------------------------- |
+| 1   | Blocker    | `SaveName.tsx:42` | the typed name is lost when the save is slow          |
+| 2   | Should fix | `profile.ts:88`   | the save error is swallowed, so the page stays silent |
+| 3   | Nit        | `SaveName.tsx:20` | nothing reads the `isLoading` flag                    |
 
 Clean: `result.ts`, `collect-results.ts`, the test config.
 ```
@@ -270,21 +282,26 @@ repo, not an invented `Foo`, and carry it from "Who hits it" to the fix:
 - Then how often it happens, once step 6 has counted it.
 
 ```markdown
-- **Who hits it** `parseRow` reads one row of the uploaded file. This file has a
-  row with a comma inside quotes: `12,"Smith, John",ok`.
-- **Comes out** `{ id: "12", name: "\"Smith", status: " John\"" }`. The name is
-  cut in two and the status swallowed the second half. The page says 40 rows
-  imported, and says nowhere that two of them are broken. (read the diff)
+#### Who hits it
+
+`parseRow` reads one row of the uploaded file. This file has a row with a comma
+inside quotes: `12,"Smith, John",ok`.
+
+#### Comes out
+
+`{ id: "12", name: "\"Smith", status: " John\"" }`. The name is cut in two and
+the status swallowed the second half. The page says 40 rows imported, and says
+nowhere that two of them are broken. (read the diff)
 ```
 
 #### The shape of a finding
 
-Someone in a hurry reads it on a line in GitHub. Four bullets between the
+Someone in a hurry reads it on a line in GitHub. Four `####` blocks between the
 opening line and the fix, and about 25 lines in total including the code.
 Anything that does not fit gets cut.
 
 A nit skips this shape: the heading, the link, and one line saying what and
-where, fix inline if it's short. No four bullets, no separate fix block.
+where, fix inline if it's short. No four blocks, no separate fix block.
 
 ````markdown
 ### 1. Blocker: the typed name is lost when the server is slow
@@ -294,15 +311,26 @@ where, fix inline if it's short. No four bullets, no separate fix block.
 **The name field clears before the server answers, so a failed save loses what
 the person typed. Clear it after the answer.**
 
-- **Who hits it** a person opens Settings, types a new name and presses Save.
-  Nothing else reaches this code.
-- **Now** line 42 empties the field, then waits for the server:
-  `setName(""); await saveName(name);`
-- **Comes out** the server answers two seconds later, or fails. The field is
-  already empty, so the typed name is neither on screen nor on the server, and
-  no message appears. (read the diff)
-- **Costs** the person thinks it saved, leaves the page and loses the data. On a
-  slow network this is every second try.
+#### Who hits it
+
+A person opens Settings, types a new name and presses Save. Nothing else reaches
+this code.
+
+#### Now
+
+Line 42 empties the field, then waits for the server:
+`setName(""); await saveName(name);`
+
+#### Comes out
+
+The server answers two seconds later, or fails. The field is already empty, so
+the typed name is neither on screen nor on the server, and no message appears.
+(read the diff)
+
+#### Costs
+
+The person thinks it saved, leaves the page and loses the data. On a slow
+network this is every second try.
 
 Fix, clear the field after the confirmation and leave the text alone on error:
 
@@ -336,6 +364,7 @@ Part by part:
   workspace relative, no backticks. Build the second half the way
   [references/pr-links.md](references/pr-links.md) says, required on every
   finding when the target is a PR.
+
 - **The opening line**, bold, under the link: what breaks, then what to do.
   Someone who reads only this line MUST know what is wrong.
 - **Who hits it**: the steps in the product, in order, from something a person
@@ -353,7 +382,7 @@ Part by part:
   whether the line is in the diff.
 - **Comment for the PR**: required on every finding, nits included.
 
-Those labels, in that order, nothing added. A fifth bullet means two findings.
+Those headings, in that order, nothing added. A fifth one means two findings.
 
 ### The two halves of a line link
 
@@ -437,7 +466,7 @@ The user ticks? Then, for each finding named:
 - It turns out it can't happen? Say the finding is dropped, and why.
 
 Then reissue that finding whole, in the shape part 4 gives it, with its table
-row and its comment block. Same four bullets, same order. What changes is what
+row and its comment block. Same four headings, same order. What changes is what
 they say: the evidence marker, the real value, the count, and the severity when
 the answer moved it. A deep dived finding and a first pass one MUST look the
 same on the page.

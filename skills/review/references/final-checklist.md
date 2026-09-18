@@ -10,8 +10,10 @@ once and check:
 - No dash joins two parts of a sentence, and no sentence names three things in a
   row. Hyphens only inside a word.
 - Every finding opens with the bold line under the link, and that line alone
-  says what is broken and what to do. Then the four bullets, in order, unless
-  it's a nit: one line, no bullets.
+  says what is broken and what to do. Then the four `####` headings, in order,
+  unless it's a nit: one line, no headings.
+- Part 1 and every finding carry their labels as headings with the text below,
+  no label glued to the front of a sentence.
 - The findings table sits above the findings, and every row matches one below.
 - No paragraph over three lines, no list over five items. Three facts in a row
   are a list, each point in bold at the front.
@@ -28,7 +30,7 @@ once and check:
   evidence marker in brackets, the fix, and an English comment block with its
   target line above it. Nothing rests on "could" alone.
 - A finding that got the deep dive looks like every other one: same four
-  bullets, same order, only the marker, the value and the count differ.
+  headings, same order, only the marker, the value and the count differ.
 - The answer ends with the deep dive checkbox list, every box unticked, one per
   finding with its number and its table text, plus the "all of them" box.
 - Every link in parts 1 to 4 shows its line number in the visible text, as
