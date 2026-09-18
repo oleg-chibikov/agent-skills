@@ -1,19 +1,20 @@
-# Writing the skills in this repo
+# Writing the Markdown in this repo
 
 Rules for anything under `skills/`. An agent reads these files on every run, so
-every line costs tokens on every run. `README.md` and `install.sh` are outside
+every line costs tokens on every run. The size caps are theirs alone, the rest
+holds for `README.md` and the instructions file too. `install.sh` is outside
 this.
 
 ## Structure
 
-- `skills/<name>/SKILL.md` holds the skill: frontmatter, then the steps in the
-  order the agent does them.
-- Detail needed in one branch of the work only goes in
-  `skills/<name>/references/<topic>.md`, with a line in SKILL.md saying when to
-  read it.
+- `skills/<name>/SKILL.md` MUST hold the skill itself: frontmatter, then the
+  steps in the order the agent does them.
+- Detail needed in one branch of the work only SHOULD move to
+  `skills/<name>/references/<topic>.md`, and SKILL.md MUST carry a line saying
+  when to read it.
 - `writing-style` owns every rule about words and layout. `review` and
-  `create-pr` load it and add only what is theirs. A rule copied out of it is a
-  bug.
+  `create-pr` MUST load it and add only what is theirs. Other files MUST NOT
+  copy a rule out of it.
 
 ## Size
 
@@ -29,57 +30,58 @@ examples are the templates the agent copies.
 python3 scripts/prose-lines.py skills/*/SKILL.md skills/*/references/*.md
 ```
 
-Over the cap: move a section to a reference file, or cut it. Shrinking the
+Over the cap, a section SHOULD move to a reference file or go. Shrinking the
 wording comes second.
 
 ## RFC 2119 words
 
-Declare them once at the top of the file, then:
+Every rule MUST carry its own modal. No file MAY spend a line saying the words
+keep their RFC 2119 meaning, the reader knows them.
 
-- Plain imperative is the default: "Write three bullets", "Sort by severity".
-  Most lines need no modal.
-- `MUST`, `MUST NOT`: breaking it ruins the output or the repo. About one per 20
-  lines. Past that none of them read as loud.
-- `SHOULD`, `SHOULD NOT`: the default, breakable with a reason stated in the
-  answer.
+- `MUST`, `MUST NOT`: breaking it ruins the output or the repo.
+- `SHOULD`, `SHOULD NOT`: the default, and it breaks only with a reason stated
+  in the answer.
 - `MAY`: a real choice, both branches fine.
+- A step, a description or an example takes no modal: "Write three bullets",
+  "Sort by severity".
 - One modal per sentence, and none inside an example block. Examples show, they
   don't legislate.
 
 ## Prose
 
-- A rule is one line. Give the reason only where the agent gets it wrong
-  without it.
-- Three or more rules go in a list.
-- Five bullets to a section. Past that, split under a heading.
-- One example per rule, and a Bad and Good pair instead of an explanation.
-- Drop articles and filler wherever the line still reads: "Read the repo rules
-  first", not "You should make sure to read the repo rules first".
+- A rule SHOULD fit one line. Give the reason only where the agent gets it
+  wrong without it.
+- Three or more rules MUST go in a list.
+- A section SHOULD stop at five bullets. Past that, split it under a heading.
+- A rule MAY carry one example, and a Bad and Good pair beats an explanation.
+- Articles and filler SHOULD go wherever the line still reads: "Read the repo
+  rules first" beats "You should make sure to read the repo rules first".
 
 ## Verbatim regions
 
 Fenced blocks, inline backticks and links are templates the agent copies.
-Compressing or reformatting them changes the output. Leave them as they are
+Compressing or reformatting them changes the output. They MUST stay as they are
 unless the edit is about them.
 
 ## Frontmatter
 
-- `name` matches the folder.
-- `description` is one paragraph: when to use the skill, the words that trigger
-  it, what comes out. It is all an agent sees before loading the file, so the
-  trigger words matter more than the prose.
+- `name` MUST match the folder.
+- `description` MUST be one paragraph: when to use the skill, the words that
+  trigger it, what comes out. It is all an agent sees before loading the file,
+  so the trigger words matter more than the prose.
 
 ## Language
 
-- The skills are written in English.
+- The skills MUST be written in English.
 - `LANGUAGE.md` next to a SKILL.md names the language its output comes back in.
-  The installer writes that file. Don't put a language in SKILL.md.
+  The installer writes that file. A SKILL.md MUST NOT name a language itself.
 
 ## Before you commit
 
 1. `scripts/prose-lines.py` exits 0.
-2. Every `MUST` reads true as "breaking this ruins the output". The rest become
-   imperatives.
-3. No rule copied out of `writing-style`.
-4. Fenced blocks untouched unless the edit is about them.
-5. The `writing-style` final checklist run over the prose.
+2. Every rule carries a modal, and no line explains what the modals mean.
+3. Every `MUST` reads true as "breaking this ruins the output". The rest drop
+   to `SHOULD` or lose the modal.
+4. No rule copied out of `writing-style`.
+5. Fenced blocks untouched unless the edit is about them.
+6. The `writing-style` final checklist run over the prose.

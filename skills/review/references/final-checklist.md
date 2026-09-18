@@ -1,9 +1,9 @@
 # Before you send
 
-Read this when the review is written and before it goes out.
+You MUST read this when the review is written and before it goes out.
 
 Run the `writing-style` final checklist over the whole answer first. Then reread
-once and check:
+once and check. Every line below MUST be true before the answer goes out:
 
 - Every sentence went down in one pass. Anything you reread is split, and no
   sentence carries two commas or two ideas.

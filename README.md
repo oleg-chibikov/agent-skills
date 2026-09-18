@@ -23,14 +23,15 @@ another language.
 ... | sh -s -- --lang 日本語
 ```
 
-Comments meant for the PR stay English, because the whole team reads them.
+Comments meant for the PR MUST stay English, because the whole team reads them.
 
-You need `git` and any POSIX shell. `review` and `create-pr` read pull requests
-through the GitHub CLI, so install `gh` and log in once with `gh auth login`.
+You MUST have `git` and any POSIX shell. `review` and `create-pr` read pull
+requests through the GitHub CLI, so `gh` MUST be installed and logged in once
+with `gh auth login`.
 
-Rather read the script before running it? Clone and run it yourself. The clone
-becomes the folder every agent links to, so editing a rule there changes what
-they read straight away:
+Rather read the script before running it? You MAY clone and run it yourself. The
+clone becomes the folder every agent links to, so editing a rule there changes
+what they read straight away:
 
 ```sh
 git clone https://github.com/oleg-chibikov/agent-skills.git
@@ -127,13 +128,13 @@ curl -fsSL https://raw.githubusercontent.com/oleg-chibikov/agent-skills/main/ins
 
 It lists the folders it is about to clear and asks before deleting. Your own
 notes in `CLAUDE.md` and `AGENTS.md` stay, only the block the installer added
-goes. Add `--yes` to skip the question.
+goes. `--yes` MAY be added to skip the question.
 
 ## Editing the skills
 
-[AGENTS.md](AGENTS.md) holds the rules for anything under `skills/`: the prose
-budget per file, when a line earns a `MUST`, and what stays verbatim. Check a
-file against the budget with:
+[AGENTS.md](AGENTS.md) holds the rules for every `.md` file here: the prose
+budget under `skills/`, when a line earns a `MUST`, and what stays verbatim.
+Check a file against the budget with:
 
 ```sh
 python3 scripts/prose-lines.py skills/*/SKILL.md skills/*/references/*.md

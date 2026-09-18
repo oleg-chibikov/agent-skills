@@ -1,6 +1,7 @@
 # The two checks past the bug hunt
 
-Read this at step 4, on every review. Both run even when every line is correct.
+You MUST read this at step 4, on every review. Both run even when every line is
+correct.
 
 ## Wrong shape for the job
 
@@ -40,6 +41,6 @@ the package and function. "Probably something in lodash" is not a finding. Say
 how many lines go away, how many copies the repo stops carrying, and why a copy
 is a risk: the two versions drift, and a bug fixed in one stays in the other.
 
-A dependency the repo lacks stays a question: say what it weighs, let the author
-decide. The duplicate is simpler than the shared one, or the shared one drags in
-something heavy? Say that and leave the code alone.
+A dependency the repo lacks MUST stay a question: say what it weighs, let the
+author decide. The duplicate is simpler than the shared one, or the shared one
+drags in something heavy? Say that and leave the code alone.

@@ -1,14 +1,14 @@
 # Pointing at the right line
 
-Read this when the review target is a GitHub PR, or when a finding lands on a
-line the diff does not touch.
+You MUST read this when the review target is a GitHub PR, or when a finding
+lands on a line the diff does not touch.
 
 ## The link to the line in the PR
 
 The user reads the finding, then goes to GitHub to leave the comment. Make that
-one click. Every link under a heading and every "comment on the PR" line carries
-two halves: the workspace link, which opens the file in the editor, and the PR
-link, which lands on that line in the diff.
+one click. Every link under a heading and every "comment on the PR" line MUST
+carry two halves: the workspace link, which opens the file in the editor, and
+the PR link, which lands on that line in the diff.
 
 ```markdown
 [path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
@@ -31,8 +31,8 @@ Drop the second half. The workspace link stands alone.
 
 ## Where the comment goes
 
-GitHub takes an inline comment only on a line the diff touches. Work that out
-before writing the target:
+GitHub takes an inline comment only on a line the diff touches. That MUST be
+worked out before writing the target:
 
 - **In the diff**: name the line, and say added (green) or removed (red). Every
   line of a new file is added.

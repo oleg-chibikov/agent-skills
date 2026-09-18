@@ -5,21 +5,17 @@ description: 'Use only when the user explicitly asks to review a pull request: "
 
 # Review code
 
-MUST, MUST NOT, SHOULD, SHOULD NOT and MAY carry their RFC 2119 meaning. SHOULD
-breaks only with a reason stated in the review.
-
-Every finding MUST be usable by someone outside this repository. Leave out
-jargon, internals and "consider refactoring".
+Every finding MUST be usable by someone outside this repository. Jargon,
+internals and "consider refactoring" MUST NOT appear.
 
 ## What language to write in
 
 Two languages, kept apart:
 
-- **Report language**: parts 1 to 4, the text only the user reads. Read
-  `LANGUAGE.md` next to this file and use the language named there. No file, or
-  it names nothing? English.
-- **English**: part 5 and every comment meant for the PR. The whole team reads a
-  PR.
+- **Report language**: parts 1 to 4, the text only the user reads. It MUST come
+  from `LANGUAGE.md` next to this file. No file, or it names nothing? English.
+- **English**: part 5 and every comment meant for the PR MUST be in English. The
+  whole team reads a PR.
 
 This overrides `writing-style`'s "answer in the language the user wrote in" for
 parts 1 to 4. A one-line ask like "review PR 42" carries no language choice of
@@ -27,25 +23,26 @@ its own, so `LANGUAGE.md` still wins. Only an explicit ask in this conversation,
 such as "write it in English" or "in Russian please", changes it, and it wins
 silently, no comment about it.
 
-The examples here are English. Copy their shape, write your own words in the
-report language. Translate the headings too: **Who hits it**, **Now**,
+The examples here are English. Their shape MUST be copied, with your own words
+in the report language. The headings go over too: **Who hits it**, **Now**,
 **Comes out**, **Costs**, and the findings table headings.
 
 ## How to write every line
 
-Load the `writing-style` skill before the first line, from
+You MUST load the `writing-style` skill before the first line, from
 `writing-style/SKILL.md` in this skills folder, once per review. It carries
 every rule about words and layout, and the checklist to run before sending.
 
 Two rules are the review's own, on top of it:
 
-- The first line of a finding gives the whole point, so reading can stop there.
-- Each finding is read alone, on its own line in GitHub. Nothing in it rests on
+- The first line of a finding MUST give the whole point, so reading can stop
+  there.
+- Each finding is read alone, on its own line in GitHub, so it MUST NOT rest on
   a finding above it.
 
 ## 1. Find what to review
 
-Don't ask when the target is obvious. Pick in this order:
+You MUST NOT ask when the target is obvious. Pick in this order:
 
 1. The user named a file, a PR number or a branch. Use that.
 2. Uncommitted changes: `git status --short`, then `git diff` and
@@ -64,17 +61,17 @@ base=$remote/$(GH_PAGER=cat gh repo view --json defaultBranchRef \
 For a PR: `GH_PAGER=cat gh pr diff <number>`. You MAY ask the user only when
 none of that finds anything.
 
-Target is a branch or a PR? Read
+Target is a branch or a PR? You MUST read
 [references/getting-the-code.md](references/getting-the-code.md) now, for the
 worktree steps, the user's own checkout and when running the code is allowed.
 Uncommitted changes in the open repo need none of it.
 
 ## 2. Read the repo rules first
 
-Read `CONTRIBUTING.md`, `REVIEW.md`, `AGENTS.md`, `CLAUDE.md`,
+You MUST read `CONTRIBUTING.md`, `REVIEW.md`, `AGENTS.md`, `CLAUDE.md`,
 `.github/copilot-instructions.md`, and any skill or doc they point to. Repo
-rules beat your habits: don't flag what the repo requires, and where a common
-convention clashes with a repo rule, follow the rule and say in one line that
+rules beat your habits. What the repo requires MUST NOT be flagged. Where a
+common convention clashes with a repo rule, the rule wins, and one line says
 they clash.
 
 ## 3. Trace the flow, map it as you go
@@ -82,8 +79,8 @@ they clash.
 For each suspicious line, answer: what does a person do in the product to make
 this line run? The diff and the files already open answer it most of the time,
 and one step up to the caller answers the rest. Still unclear after that step?
-Say so in the finding and move on. Don't invent a path, and don't chase callers
-across the repo yet, that is what step 6 is for.
+Say so in the finding and move on. A path MUST NOT be invented, and chasing
+callers across the repo waits for step 6.
 
 Build the map while you read: which changed file calls which, what each is for,
 which one carries the idea. That is part 2 of the answer.
@@ -104,26 +101,27 @@ In this order of importance:
    sources of truth for the same value, a test that cannot fail.
 5. **Wrong shape for the job**, does the design fit the task at all.
 6. **Already written somewhere**, does the repo or a dependency do this today.
-7. **Style**. Don't flag it unless the repo asks for it in writing.
+7. **Style**. It MUST NOT be flagged unless the repo asks for it in writing.
 
-Read [references/deeper-checks.md](references/deeper-checks.md) at this step for
-5 and 6. They run on every review.
+You MUST read [references/deeper-checks.md](references/deeper-checks.md) at this
+step for 5 and 6. They run on every review.
 
-Say when a file is fine. Silence reads as "not reviewed". It goes in the one
-"Clean:" line under the findings table.
+A file that is fine MUST be named as fine. Silence reads as "not reviewed". It
+goes in the one "Clean:" line under the findings table.
 
-Work out each finding from the diff and the files around it, no further. A
-finding you can't pin down stays in, marked for what it is. Step 6 is where the
-digging happens, on the ones the user picks.
+Each finding SHOULD be worked out from the diff and the files around it, no
+further. A finding you can't pin down stays in, marked for what it is. Step 6 is
+where the digging happens, on the ones the user picks.
 
 ## 5. Output format
 
-Five parts in this order: the summary, the map, the findings table, the
-findings, the comment for the author. Then the one offer from step 6. Nothing
-else, no closing summary.
+Five parts MUST come in this order: the summary, the map, the findings table,
+the findings, the comment for the author. Then the one offer from step 6.
+Nothing else, no closing summary.
 
-Parts 1 to 4 go in the report language, whatever language the user or the code
-used. Part 5 goes in English, and so does every comment block inside part 4.
+Parts 1 to 4 MUST go in the report language, whatever language the user or the
+code used. Part 5 goes in English, and so does every comment block inside part
+4.
 
 The review is built to be scanned. "Shape on the page" in `writing-style`
 governs every part: the point in bold at the front of a bullet, a list wherever
@@ -131,21 +129,22 @@ three things line up, no paragraph over three lines, no recap. A reader who sees
 only the bold text MUST come away knowing what is broken.
 
 The fixed labels are the review's own exception. **Before**, **Now**, **Where**
-in part 1 and the four labels of a finding are headings, one level under the
+in part 1 and the four labels of a finding MUST be headings, one level under the
 heading they sit in, with their text on the lines below. A label glued to the
 front of a sentence reads as part of it.
 
 ### Part 1: what this change is about (report language)
 
-Write it for someone who has not heard of this product or this code. Three `###`
-headings, one or two sentences under each:
+It MUST read for someone who has not heard of this product or this code. Three
+`###` headings, one or two sentences under each:
 
 - **Before**, what was wrong or missing, as a person would notice it.
 - **Now**, what happens instead.
 - **Where**, the place in the product it shows up.
 
-Leave out file names, type names and function names. Cannot tell what problem
-the change solves? Say that first and ask. Guessing here poisons the rest.
+File names, type names and function names MUST stay out. Cannot tell what
+problem the change solves? Say that first and ask. Guessing here poisons the
+rest.
 
 ```markdown
 ## What this change is about
@@ -168,19 +167,19 @@ Settings, the Profile tab, the Save button.
 ### Part 2: the map and the reading order (report language)
 
 How the changed files hang together, and in which order to open them. GitHub
-shows them alphabetically, so this part saves the reader that. Three pieces, all
-required:
+shows them alphabetically, so this part saves the reader that. Three pieces MUST
+be there:
 
 1. **One bullet per file**, the name in bold, then one plain sentence on what it
    is for. Files that belong together share one bullet and are named as a group.
    No prose here.
-2. **A plain text tree** in a fenced block marked `text`. No Mermaid: chat
-   windows render it as an empty box. Start from the file that pulls the others
-   in, branch with `├──` and `└──`, and add a short note after a file name when
-   what travels along that edge is the point. Mark the files the PR adds and the
-   ones nothing calls yet. Hold the changed files plus the existing ones they
-   touch, nothing more, under about twelve lines. Below three files, skip the
-   tree.
+2. **A plain text tree** in a fenced block marked `text`. Mermaid MUST NOT be
+   used: chat windows render it as an empty box. Start from the file that pulls
+   the others in, branch with `├──` and `└──`, and add a short note after a file
+   name when what travels along that edge is the point. Mark the files the PR
+   adds and the ones nothing calls yet. Hold the changed files plus the existing
+   ones they touch, nothing more, under about twelve lines. Below three files,
+   skip the tree.
 3. **The reading order**, numbered, one line each, saying why the file comes at
    that point. Start where the data starts or where the simplest piece is, end
    where it ties together. Tests and config last.
@@ -219,16 +218,16 @@ Reading order:
 
 ### Part 3: the findings table (report language)
 
-One row per finding, above the findings, so the verdict fits on one screen.
-Required, even for a single finding.
+One row per finding. The table MUST sit above the findings, so the verdict fits
+on one screen, even when there is a single finding.
 
 - **#** matches the finding below.
 - **Severity** is the word used in the heading.
 - **Where** is the file and line in backticks, file name only, no path.
 - **What** is the symptom in under about 10 words, lowercase, no full stop.
 
-Under the table, one line naming the changed files with nothing to flag. Leave
-out how many rows there are or how many files you read: the table shows it.
+Under the table, one line names the changed files with nothing to flag. Row
+counts and file counts MUST stay out: the table shows them.
 
 Nothing to flag anywhere? The table goes, and one line replaces it: what the
 change does well, and that it is good to go.
@@ -248,7 +247,7 @@ Clean: `result.ts`, `collect-results.ts`, the test config.
 ### Part 4: the findings (report language)
 
 They follow under that table, in the same `## Findings` section, one `###`
-heading each. Sort by severity, number them, and keep the numbers matching the
+heading each. Sort by severity and number them, and the numbers MUST match the
 table. Three levels: blocker, should fix, nit, written in the report language.
 
 The size of the fix says nothing about the severity, and a nit tells the author
@@ -260,16 +259,16 @@ to ignore it. So:
   the fix is one line. Duplication, code nothing calls, a path with no test, a
   comment that says what the code does not do, a swallowed error, a value
   hardcoded twice, a third party's token where the project has its own.
-- Torn between two levels? Take the higher one. The repo's own scale wins when
-  it has one.
+- Torn between two levels? The higher one MUST win, and the repo's own scale
+  beats both when it has one.
 
 The reader knows nothing about this code and will not go looking. The example,
-the numbers and the fix all sit in the finding.
+the numbers and the fix all MUST sit in the finding.
 
 #### Carry one real case through the whole finding
 
-A finding about the code in general reads as fog. Pick one real case out of the
-repo, not an invented `Foo`, and carry it from "Who hits it" to the fix:
+A finding about the code in general reads as fog. One real case out of the repo,
+rather than an invented `Foo`, MUST run from "Who hits it" to the fix:
 
 - Say what the thing is before naming it: "`parseRow` reads one row of the
   uploaded file." One explanation, then the name alone.
@@ -296,11 +295,11 @@ nowhere that two of them are broken. (read the diff)
 
 #### The shape of a finding
 
-Someone in a hurry reads it on a line in GitHub. Four `####` blocks between the
-opening line and the fix, and about 25 lines in total including the code.
-Anything that does not fit gets cut.
+Someone in a hurry reads it on a line in GitHub. Four `####` blocks MUST sit
+between the opening line and the fix, about 25 lines in total including the
+code. Anything that does not fit gets cut.
 
-A nit skips this shape: the heading, the link, and one line saying what and
+A nit MUST skip this shape: the heading, the link, and one line saying what and
 where, fix inline if it's short. No four blocks, no separate fix block.
 
 ````markdown
@@ -359,7 +358,7 @@ Part by part:
 
 - **Heading**: severity, then the symptom a person could see, not the cause or
   the file name.
-- **Link**: right under the heading, both halves, every time:
+- **Link**: it MUST sit right under the heading, both halves, every time:
 
   ```markdown
   [path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
@@ -367,10 +366,10 @@ Part by part:
 
   The visible text MUST end in `:42`, so the line shows without hovering.
   Writing `[path/to/file.ts](path/to/file.ts#L42)` puts the number in the
-  target, where the reader never sees it, that's the mistake to avoid. Path is
-  workspace relative, no backticks. Build the second half the way
-  [references/pr-links.md](references/pr-links.md) says, required on every
-  finding when the target is a PR.
+  target, where the reader doesn't see it, that's the mistake to avoid. Path is
+  workspace relative, no backticks. The second half MUST be built the way
+  [references/pr-links.md](references/pr-links.md) says, on every finding when
+  the target is a PR.
 
 - **The opening line**, bold, under the link: what breaks, then what to do.
   Someone who reads only this line MUST know what is wrong.
@@ -387,37 +386,39 @@ Part by part:
   Give the idea and name what needs checking.
 - **Comment on**: the line above the comment block, same two-link shape, and
   whether the line is in the diff.
-- **Comment for the PR**: required on every finding, nits included. Two blocks,
-  the second under a bare `Shorter:` line, saying the same thing with the
-  explaining cut out. The user picks one.
+- **Comment for the PR**: it MUST be there on every finding, nits included. Two
+  blocks, the second under a bare `Shorter:` line, saying the same thing with
+  the explaining cut out. The user picks one.
 
-Those headings, in that order, nothing added. A fifth one means two findings.
+Those headings MUST come in that order with nothing added. A fifth one means two
+findings.
 
 ### The two halves of a line link
 
 Reviewing a GitHub PR, or landing a comment on a line the diff does not touch?
-Read [references/pr-links.md](references/pr-links.md) before the first link: how
-the `· [in the PR](…)` half is built, and the rules for a line GitHub refuses a
-comment on.
+You MUST read [references/pr-links.md](references/pr-links.md) before the first
+link: how the `· [in the PR](…)` half is built, and the rules for a line GitHub
+refuses a comment on.
 
 ### Writing the per-finding comment
 
-Read [references/comment-style.md](references/comment-style.md) before the first
-comment block, and keep it in context until the last one is done. One sentence
-of doubt and one ask, under 40 words, then the same thing halved as a second
-block. No headings, no fenced code.
+You MUST read [references/comment-style.md](references/comment-style.md) before
+the first comment block, and keep it in context until the last one is done. One
+sentence of doubt and one ask, under 40 words, then the same thing halved as a
+second block. No headings, no fenced code.
 
 ### Part 5: the summary comment for the author (English)
 
 One fenced block the user pastes into the PR as the overall comment, with
-nothing to edit afterwards. Keep the report language, "here is the comment" and
-notes to the user out of it.
+nothing to edit afterwards. The report language, "here is the comment" and notes
+to the user MUST stay out of it.
 
 The same review, shorter, for a colleague who knows the codebase:
 
-- Under 15 lines.
-- Blockers and "should fix" only. Nits go in one trailing line, or get dropped.
-- The file and line on every point, and the fix.
+- It MUST stay under 15 lines.
+- Blockers and "should fix" only. Nits MAY go in one trailing line, or get
+  dropped.
+- The file and line MUST be on every point, with the fix.
 - No walkthrough, unless the path is the surprise.
 - This block MAY use bold severity labels. The per-finding comments MUST NOT.
 
@@ -439,16 +440,16 @@ Nit: nothing reads the `isLoading` flag in `SaveName.tsx:20`.
 ```
 ````
 
-The change is good? Write the comment anyway: one line on what it does well,
-and approve it.
+The change is good? The comment MUST be written anyway: one line on what it does
+well, and approve it.
 
 ## 6. Offer the deep dive
 
 Parts 1 to 5 are the first pass, read off the diff. Digging into all of it costs
 more than most of it is worth, so let the user spend that time where they want
-it. Close the answer with a checkbox list, in the report language, one unticked
-box per finding plus an "all of them" box. Same number and same short text as
-the findings table, so the user picks without scrolling back:
+it. The answer MUST close with a checkbox list, in the report language, one
+unticked box per finding plus an "all of them" box. Same number and same short
+text as the findings table, so the user picks without scrolling back:
 
 ```markdown
 Dig deeper? Tick what to chew through and I'll trace the callers, walk the code
@@ -483,5 +484,6 @@ same on the page.
 
 ## 7. Before you send
 
-Read [references/final-checklist.md](references/final-checklist.md) and run it
-over the whole answer. Nothing goes out before that.
+You MUST read
+[references/final-checklist.md](references/final-checklist.md) and run it over
+the whole answer. Nothing goes out before that.
