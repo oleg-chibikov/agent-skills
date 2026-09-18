@@ -346,6 +346,13 @@ line 42, added in this PR, the green side of the diff.
 this clears the input before saveName comes back - if the save fails the typed
 name is gone. can we clear it after the call resolves ok?
 ```
+
+Shorter:
+
+```markdown
+clears the input before saveName comes back, so a failed save loses the name.
+clear it after it resolves ok?
+```
 ````
 
 Part by part:
@@ -380,7 +387,9 @@ Part by part:
   Give the idea and name what needs checking.
 - **Comment on**: the line above the comment block, same two-link shape, and
   whether the line is in the diff.
-- **Comment for the PR**: required on every finding, nits included.
+- **Comment for the PR**: required on every finding, nits included. Two blocks,
+  the second under a bare `Shorter:` line, saying the same thing with the
+  explaining cut out. The user picks one.
 
 Those headings, in that order, nothing added. A fifth one means two findings.
 
@@ -394,8 +403,9 @@ comment on.
 ### Writing the per-finding comment
 
 Read [references/comment-style.md](references/comment-style.md) before the first
-comment block, and keep it in context until the last one is done. One or two
-sentences, mostly a question, no headings and no fenced code.
+comment block, and keep it in context until the last one is done. One sentence
+of doubt and one ask, under 40 words, then the same thing halved as a second
+block. No headings, no fenced code.
 
 ### Part 5: the summary comment for the author (English)
 

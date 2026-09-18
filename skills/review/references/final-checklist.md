@@ -42,9 +42,11 @@ once and check:
 - Every finding names one real case and keeps it to the end, the value it
   produces is quoted, and every code name got one plain explanation the first
   time it appeared.
-- Every per-finding comment: one or two sentences, mostly a question, no
+- Every per-finding comment: one doubt and one ask, under 40 words, no
   headings, no lists, no fenced code, no run tallies, no paragraph on the
   damage. Every nit starts with `nit: `, and the hedge matches what you checked.
+- Every finding carries a second, shorter comment under `Shorter:`, the same
+  ask with the mechanism and the aside cut out.
 - Every per-finding comment leads with the problem in plain words, not a chain
   of function or call names. A name or snippet shows up only where the plain
   sentence alone couldn't point at the spot.

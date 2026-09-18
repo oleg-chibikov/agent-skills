@@ -8,7 +8,13 @@ and run its final checklist over the comment before it goes in the answer.
 
 It reads like a colleague typing in a hurry, not like a report. The long version
 sits above it in the report language. Here you raise the doubt and ask.
-**One or two sentences. Three at the very most.**
+
+**One sentence for the doubt, one for the ask, under 40 words.** Draft it, then
+halve it. The first draft always explains twice as much as the author needs.
+
+Write two blocks per finding, the drafted one and the halved one, so the user
+picks. Both say the same thing, so the second reads as the first with the
+explaining taken out.
 
 The house style, copy its shape:
 
@@ -77,6 +83,33 @@ What that style is made of, all of it required:
 - Leave out headings, bold labels, bullet lists, a severity tag, a greeting, a
   sign off and thanks for the PR. Don't repeat the file name or the line number,
   the comment already sits there.
+
+What the halving cuts, in this order:
+
+- **The mechanism.** How the library or the language ends up doing this. Point
+  at the spot and the author reads it themselves.
+- **Why it looks fine today.** "it only works because the parent has a height"
+  is your working out, not the ask.
+- **The second option.** Offer one fix. Two read as thinking out loud.
+- **Anything already in the finding above.** The user has it, the author doesn't
+  need it to answer.
+
+Too wordy, and the same comment halved:
+
+```markdown
+as far as I understand aspect-auto here doesn't cancel the variant's
+group-data-[orientation=vertical]:aspect-square - tailwind-merge only dedupes
+classes with the same modifier, and the variant selector wins on specificity.
+it looks right only because flex-1 gives the tile a definite height. can we
+write group-data-[orientation=vertical]/attachment:aspect-auto, or expose it as
+a variant?
+```
+
+```markdown
+I think aspect-auto doesn't cancel the variant's
+group-data-[orientation=vertical]:aspect-square - different modifier, so both
+survive. can we match the modifier here?
+```
 
 Bad, and why:
 
