@@ -39,6 +39,9 @@ once and check:
 - Every per-finding comment: one or two sentences, mostly a question, no
   headings, no lists, no fenced code, no run tallies, no paragraph on the
   damage. Every nit starts with `nit: `, and the hedge matches what you checked.
+- Every per-finding comment leads with the problem in plain words, not a chain
+  of function or call names. A name or snippet shows up only where the plain
+  sentence alone couldn't point at the spot.
 - You checked the shape against the task, and whether the repo or a dependency
   already does this. Found nothing? Say so in one line.
 - The summary comment is paste ready and carries every blocker.

@@ -13,7 +13,7 @@ sits above it in the report language. Here you raise the doubt and ask.
 The house style, copy its shape:
 
 ```markdown
-will this be reported in report() that is called from collectResults()?
+will this actually get reported to the caller, or does it stay silent here?
 ```
 
 ```markdown
@@ -47,6 +47,10 @@ nit: JSdoc would be better for the property description
 
 What that style is made of, all of it required:
 
+- **Plain problem first, code second.** Say what goes wrong in words anyone on
+  the team would follow, no matter the language. Bring in a name, a call or a
+  snippet only when the plain sentence alone can't point at the spot, and never
+  chain two of them to explain how one calls the other.
 - **Ask, don't state.** Most comments are a question: "will this ...?", "could
   we ...?". A blocker still says plainly that it breaks.
 - **Hedge what you guessed, not what you checked.** Grepped or read it: say it
@@ -63,8 +67,10 @@ What that style is made of, all of it required:
   shorter way to write the same thing. Give the replacement bare.
 - **Skip the impact paragraph and the evidence.** Leave out "so the user loses
   data", counts, tool output and "I ran X over Y". That stays in the finding.
-- **Name the case, not the theory.** One input, one snippet, inline:
-  `parse<Row>(`, `parse("file.csv")()`. No fenced code inside the comment.
+- **Name the case, not the theory.** Reach for a real input or snippet only once
+  a plain sentence stops being enough to pin down the spot: one input, one
+  snippet, inline, `parse<Row>(`, `parse("file.csv")()`. No fenced code inside
+  the comment.
 - **Offer the wording** for a message or a string, after "eg", in quotes.
 - **Loose punctuation is fine**: a lowercase start, a hyphen where a comma would
   do, a missing backtick. Polishing it makes it read like a machine.
