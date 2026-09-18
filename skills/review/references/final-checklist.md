@@ -24,9 +24,12 @@ once and check:
 - The summary says what was wrong and what happens now, with no code words.
 - The map names every changed file, and the reading order says why each comes
   where it does.
-- Every finding: a line link, the flow, the real thing that comes out, the fix,
-  and an English comment block with its target line above it. Nothing rests on
-  "could" alone.
+- Every finding: a line link, the flow, the real thing that comes out with its
+  evidence marker in brackets, the fix, and an English comment block with its
+  target line above it. Nothing rests on "could" alone.
+- A finding that got the deep dive looks like every other one: same four
+  bullets, same order, only the marker, the value and the count differ.
+- The answer ends with the deep dive offer, naming the findings by number.
 - Every link in parts 1 to 4 shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.

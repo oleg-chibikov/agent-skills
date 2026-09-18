@@ -80,9 +80,10 @@ they clash.
 ## 3. Trace the flow, map it as you go
 
 For each suspicious line, answer: what does a person do in the product to make
-this line run? Follow the callers up to a button, a page load, a scheduled job,
-an API request, a CLI command or a test. Cannot trace it? Say so in the finding.
-Don't invent a path.
+this line run? The diff and the files already open answer it most of the time,
+and one step up to the caller answers the rest. Still unclear after that step?
+Say so in the finding and move on. Don't invent a path, and don't chase callers
+across the repo yet, that is what step 6 is for.
 
 Build the map while you read: which changed file calls which, what each is for,
 which one carries the idea. That is part 2 of the answer.
@@ -111,26 +112,15 @@ Read [references/deeper-checks.md](references/deeper-checks.md) at this step for
 Say when a file is fine. Silence reads as "not reviewed". It goes in the one
 "Clean:" line under the findings table.
 
-### Second pass: chew each finding through
-
-The first pass finds suspects, not findings. For each one, before it goes in
-the review:
-
-- Pick the exact input that triggers it, then read the code with that input in
-  hand to work out what comes out. This settles most of them.
-- Still unsure, and the answer depends on it? Run the smallest piece that
-  settles it, the way
-  [references/getting-the-code.md](references/getting-the-code.md) says, and
-  say you ran it.
-- Grep how often it happens in this repo today: a number, not a guess.
-- Write the fix out, and drop the finding if it turns out it can't happen.
-
-Skip this and a finding reads as a guess, and the author treats it as one.
+Work out each finding from the diff and the files around it, no further. A
+finding you can't pin down stays in, marked for what it is. Step 6 is where the
+digging happens, on the ones the user picks.
 
 ## 5. Output format
 
 Five parts in this order: the summary, the map, the findings table, the
-findings, the comment for the author. Nothing else, no closing summary.
+findings, the comment for the author. Then the one offer from step 6. Nothing
+else, no closing summary.
 
 Parts 1 to 4 go in the report language, whatever language the user or the code
 used. Part 5 goes in English, and so does every comment block inside part 4.
@@ -275,15 +265,16 @@ repo, not an invented `Foo`, and carry it from "Who hits it" to the fix:
 - Say what the result tells the reader, and what it leaves out, in the reader's
   own words: "the page says 40 rows imported, and says nowhere that two came
   out shifted."
-- Then the number: how many more cases look like this one.
+- Close it with how you know, in brackets: `(read the diff)` on the first pass,
+  `(walked the code with that input)` or `(ran it)` after step 6.
+- Then how often it happens, once step 6 has counted it.
 
 ```markdown
 - **Who hits it** `parseRow` reads one row of the uploaded file. This file has a
   row with a comma inside quotes: `12,"Smith, John",ok`.
 - **Comes out** `{ id: "12", name: "\"Smith", status: " John\"" }`. The name is
   cut in two and the status swallowed the second half. The page says 40 rows
-  imported, and says nowhere that two of them are broken. Walked the code with
-  that input.
+  imported, and says nowhere that two of them are broken. (read the diff)
 ```
 
 #### The shape of a finding
@@ -309,7 +300,7 @@ the person typed. Clear it after the answer.**
   `setName(""); await saveName(name);`
 - **Comes out** the server answers two seconds later, or fails. The field is
   already empty, so the typed name is neither on screen nor on the server, and
-  no message appears. Walked the code with that input.
+  no message appears. (read the diff)
 - **Costs** the person thinks it saved, leaves the page and loses the data. On a
   slow network this is every second try.
 
@@ -351,11 +342,11 @@ Part by part:
   sees. Reachable only from a test? Say so.
 - **Now**: what the code does, one sentence, with the line in backticks. Over
   three lines of code, it moves to its own fenced block.
-- **Comes out**: the actual value, quoted, worked out by reading the code with
-  the input in hand, not a summary. Say how you know: "walked the code with
-  that input", or "ran it" when reading left doubt. A finding without a
-  concrete outcome MUST NOT be sent.
-- **Costs**: what the person or the business loses, and how often.
+- **Comes out**: the actual value, quoted, not a summary, then the evidence
+  marker in brackets. A finding without a concrete outcome and a marker MUST
+  NOT be sent.
+- **Costs**: what the person or the business loses, and how often. No count
+  until step 6 has grepped one? Say what it turns on instead.
 - **Fix**: one line of words, then the code, up to roughly ten lines. Unsure?
   Give the idea and name what needs checking.
 - **Comment on**: the line above the comment block, same two-link shape, and
@@ -412,7 +403,37 @@ Nit: nothing reads the `isLoading` flag in `SaveName.tsx:20`.
 The change is good? Write the comment anyway: one line on what it does well,
 and approve it.
 
-## 6. Before you send
+## 6. Offer the deep dive
+
+Parts 1 to 5 are the first pass, read off the diff. Digging into all of it costs
+more than most of it is worth, so let the user spend that time where they want
+it. Close the answer with the offer, in the report language, findings by number:
+
+```markdown
+First pass, read off the diff. Say which one to dig into and I'll trace the
+callers, walk the code with a real input and count how often it happens: 1, 2,
+3, or all.
+```
+
+The user picks? Then, for each finding named:
+
+- Trace the callers up to a button, a page load, a job, an API request or a CLI
+  command, and name the entry point.
+- Pick the exact input that triggers it, read the code with that input in hand,
+  and quote what comes out.
+- The verdict still hangs on an answer reading can't give? Run the smallest
+  piece that settles it, the way
+  [references/getting-the-code.md](references/getting-the-code.md) says.
+- Grep how often it happens in this repo today: a number, not a guess.
+- It turns out it can't happen? Say the finding is dropped, and why.
+
+Then reissue that finding whole, in the shape part 4 gives it, with its table
+row and its comment block. Same four bullets, same order. What changes is what
+they say: the evidence marker, the real value, the count, and the severity when
+the answer moved it. A deep dived finding and a first pass one MUST look the
+same on the page.
+
+## 7. Before you send
 
 Read [references/final-checklist.md](references/final-checklist.md) and run it
 over the whole answer. Nothing goes out before that.
