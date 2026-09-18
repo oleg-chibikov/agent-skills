@@ -41,13 +41,14 @@ alone, and mark every finding you could not prove.
 ## Running code
 
 Default to reading: it is faster, cheaper, and the reader can check it without
-running anything themselves. Run code only when one finding's whole verdict
-hangs on a runtime answer reading can't give, a compiler's exact error text or
-a library's behaviour on an odd input are the usual reasons. At most a couple
-of runs in the whole review, never one per finding. Run the smallest piece that
-answers it: one function on one input, one test file, one file through the
-type checker. A full build, a full install or the whole test suite SHOULD NOT
-be run.
+running anything themselves. Don't run the test suite or a typechecker to
+double check a finding you already settled by reading. Run code only when one
+finding's whole verdict hangs on a runtime answer reading can't give, a
+compiler's exact error text or a library's behaviour on an odd input are the
+usual reasons. At most a couple of runs in the whole review, never one per
+finding. Run the smallest piece that answers it: one function on one input,
+one test file, one file through the type checker. A full build, a full
+install, a full typecheck or the whole test suite MUST NOT be run.
 
 Stay read only: no commit, no push, no `git add`, no edits to the reviewed code
 unless the user asked for them.
