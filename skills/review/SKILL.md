@@ -16,12 +16,16 @@ jargon, internals and "consider refactoring".
 Two languages, kept apart:
 
 - **Report language**: parts 1 to 4, the text only the user reads. Read
-  `LANGUAGE.md` next to this file. No file, or it names nothing? English.
+  `LANGUAGE.md` next to this file and use the language named there. No file, or
+  it names nothing? English.
 - **English**: part 5 and every comment meant for the PR. The whole team reads a
   PR.
 
-The user asked for another language in this conversation? Their ask wins. Say
-nothing about it.
+This overrides `writing-style`'s "answer in the language the user wrote in" for
+parts 1 to 4. A one-line ask like "review PR 42" carries no language choice of
+its own, so `LANGUAGE.md` still wins. Only an explicit ask in this conversation,
+such as "write it in English" or "in Russian please", changes it, and it wins
+silently, no comment about it.
 
 The examples here are English. Copy their shape, write your own words in the
 report language. Translate the bold labels too: **Who hits it**, **Now**,
@@ -314,6 +318,9 @@ real case carried through:
 Someone in a hurry reads it on a line in GitHub. Four bullets between the
 opening line and the fix, and about 25 lines in total including the code.
 Anything that does not fit gets cut.
+
+A nit skips this shape: the heading, the link, and one line saying what and
+where, fix inline if it's short. No four bullets, no separate fix block.
 
 ````markdown
 ### 1. Blocker: the typed name is lost when the server is slow

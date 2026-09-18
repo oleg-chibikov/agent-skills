@@ -10,13 +10,17 @@ once and check:
 - No dash joins two parts of a sentence, and no sentence names three things in a
   row. Hyphens only inside a word.
 - Every finding opens with the bold line under the link, and that line alone
-  says what is broken and what to do. Then the four bullets, in order.
+  says what is broken and what to do. Then the four bullets, in order, unless
+  it's a nit: one line, no bullets.
 - The findings table sits above the findings, and every row matches one below.
 - No paragraph over three lines, no list over five items. Three facts in a row
   are a list, each point in bold at the front.
-- Parts 1 to 4 in the report language, part 5 in English with none of the report
-  language left in it, and "never" nowhere. In another language, its own version
-  of "never" is gone too.
+- Parts 1 to 4 in the report language from `LANGUAGE.md`, not the language of the
+  user's one-line ask, unless they named a language in this conversation. Part 5
+  in English with none of the report language left in it, and "never" nowhere.
+  In another language, its own version of "never" is gone too.
+- Reading settled it, or the run count stayed at a couple at most, no full
+  build, install or suite.
 - The summary says what was wrong and what happens now, with no code words.
 - The map names every changed file, and the reading order says why each comes
   where it does.

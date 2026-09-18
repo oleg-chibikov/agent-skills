@@ -4,9 +4,13 @@ Read this when the review target is a branch or a PR, before you write anything.
 
 ## Checking out the branch
 
-The open workspace is the same repository as the code under review? Get that
-branch onto disk first, run or no run. Files on disk beat a diff: you can open
-the callers, grep the repo and jump to definitions.
+Start from the diff: `GH_PAGER=cat gh pr diff <number>` or `git diff`. It
+settles most findings on its own and costs nothing to fetch.
+
+Check out the branch only when the diff leaves a real gap it can't close: a
+caller, a type or a config file the diff doesn't show, or a finding whose
+answer needs a run. The open workspace is the same repository as the code under
+review, and files on disk beat grepping a diff for that.
 
 It goes in a separate worktree, so the user's checkout keeps whatever is in it:
 
@@ -15,9 +19,10 @@ It goes in a separate worktree, so the user's checkout keeps whatever is in it:
 2. Otherwise: `git fetch origin <branch>` for a branch, or
    `git fetch origin pull/<number>/head:<branch>` for a PR, then
    `git worktree add ../<repo>-<branch> <branch>`.
-3. Install if the branch needs it, the way the repo's README says.
-4. Read and run inside that worktree. Leave the user's original checkout on the
-   branch it was on, untouched.
+3. Install only when you are about to run something in it, the way the repo's
+   README says.
+4. Read, and run if you must, inside that worktree. Leave the user's original
+   checkout on the branch it was on, untouched.
 
 A worktree is impossible? Then, and only then, you MAY switch in place.
 `git status --short` MUST come back empty. Any output at all, and you stop and
@@ -35,11 +40,14 @@ alone, and mark every finding you could not prove.
 
 ## Running code
 
-Most reviews need no run. Reading settles the question, and an answer you got by
-reading is faster and easier to check. Run the code only where reading leaves
-you unsure and the finding depends on the answer. Run the smallest piece that
-answers it: one function on one input, one test file. A full build or the whole
-suite SHOULD NOT be run.
+Default to reading: it is faster, cheaper, and the reader can check it without
+running anything themselves. Run code only when one finding's whole verdict
+hangs on a runtime answer reading can't give, a compiler's exact error text or
+a library's behaviour on an odd input are the usual reasons. At most a couple
+of runs in the whole review, never one per finding. Run the smallest piece that
+answers it: one function on one input, one test file, one file through the
+type checker. A full build, a full install or the whole test suite SHOULD NOT
+be run.
 
 Stay read only: no commit, no push, no `git add`, no edits to the reviewed code
 unless the user asked for them.
