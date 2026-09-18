@@ -70,8 +70,9 @@ what digging into one means and how the finding comes back are in
 
 ## 8. Offer to post the comments
 
-Nothing goes on the PR until the user asks for it. The offer, the question that
-comes before the first call and the `gh` call per comment are in
+This is the last question of the review, and nothing goes on the PR until the
+user asks for it. The offer, the question that comes before the first call and
+the `gh` call per comment are in
 [references/posting-comments.md](references/posting-comments.md).
 
 ## 9. Before you send
