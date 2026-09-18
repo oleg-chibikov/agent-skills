@@ -12,13 +12,14 @@ internals and "consider refactoring" MUST NOT appear.
 
 Two languages, kept apart:
 
-- **Report language**: parts 1 to 4, the text only the user reads. It MUST come
-  from `LANGUAGE.md` next to this file. No file, or it names nothing? English.
-- **English**: part 5 and every comment meant for the PR MUST be in English. The
-  whole team reads a PR.
+- **Report language**: the four parts of the report, the text only the user
+  reads. It MUST come from `LANGUAGE.md` next to this file. No file, or it names
+  nothing? English.
+- **English**: every comment meant for the PR MUST be in English. The whole team
+  reads a PR.
 
 This overrides `writing-style`'s "answer in the language the user wrote in" for
-parts 1 to 4. A one-line ask like "review PR 42" carries no language choice of
+the report. A one-line ask like "review PR 42" carries no language choice of
 its own, so `LANGUAGE.md` still wins. Only an explicit ask in this conversation,
 such as "write it in English" or "in Russian please", changes it, and it wins
 silently, no comment about it.
@@ -80,7 +81,7 @@ For each suspicious line, answer: what does a person do in the product to make
 this line run? The diff and the files already open answer it most of the time,
 and one step up to the caller answers the rest. Still unclear after that step?
 Say so in the finding and move on. A path MUST NOT be invented, and chasing
-callers across the repo waits for step 6.
+callers across the repo waits for step 5.
 
 Build the map while you read: which changed file calls which, what each is for,
 which one carries the idea. That is part 2 of the answer.
@@ -110,18 +111,16 @@ A file that is fine MUST be named as fine. Silence reads as "not reviewed". It
 goes in the one "Clean:" line under the findings table.
 
 Each finding SHOULD be worked out from the diff and the files around it, no
-further. A finding you can't pin down stays in, marked for what it is. Step 6 is
+further. A finding you can't pin down stays in, marked for what it is. Step 5 is
 where the digging happens, on the ones the user picks.
 
-## 5. Output format
+## Output format
 
-Five parts MUST come in this order: the summary, the map, the findings table,
-the findings, the comment for the author. Then the one offer from step 6.
-Nothing else, no closing summary.
+Four parts MUST come in this order: the summary, the map, the findings table,
+the findings. Then the one offer from step 5. Nothing else, no closing summary.
 
-Parts 1 to 4 MUST go in the report language, whatever language the user or the
-code used. Part 5 goes in English, and so does every comment block inside part
-4.
+All four MUST go in the report language, whatever language the user or the code
+used. Every comment block inside part 4 goes in English.
 
 The review is built to be scanned. "Shape on the page" in `writing-style`
 governs every part: the point in bold at the front of a bullet, a list wherever
@@ -277,8 +276,8 @@ rather than an invented `Foo`, MUST run from "Who hits it" to the fix:
   own words: "the page says 40 rows imported, and says nowhere that two came
   out shifted."
 - Close it with how you know, in brackets: `(read the diff)` on the first pass,
-  `(walked the code with that input)` or `(ran it)` after step 6.
-- Then how often it happens, once step 6 has counted it.
+  `(walked the code with that input)` or `(ran it)` after step 5.
+- Then how often it happens, once step 5 has counted it.
 
 ```markdown
 #### Who hits it
@@ -381,7 +380,7 @@ Part by part:
   marker in brackets. A finding without a concrete outcome and a marker MUST
   NOT be sent.
 - **Costs**: what the person or the business loses, and how often. No count
-  until step 6 has grepped one? Say what it turns on instead.
+  until step 5 has grepped one? Say what it turns on instead.
 - **Fix**: one line of words, then the code, up to roughly ten lines. Unsure?
   Give the idea and name what needs checking.
 - **Comment on**: the line above the comment block, same two-link shape, and
@@ -407,64 +406,23 @@ the first comment block, and keep it in context until the last one is done. One
 sentence of doubt and one ask, under 40 words, then the same thing halved as a
 second block. No headings, no fenced code.
 
-### Part 5: the summary comment for the author (English)
+## 5. Offer the deep dive
 
-One fenced block the user pastes into the PR as the overall comment, with
-nothing to edit afterwards. The report language, "here is the comment" and notes
-to the user MUST stay out of it.
-
-The same review, shorter, for a colleague who knows the codebase:
-
-- It MUST stay under 15 lines.
-- Blockers and "should fix" only. Nits MAY go in one trailing line, or get
-  dropped.
-- The file and line MUST be on every point, with the fix.
-- No walkthrough, unless the path is the surprise.
-- This block MAY use bold severity labels. The per-finding comments MUST NOT.
-
-````markdown
-## Comment to leave on the PR
-
-```markdown
-Thanks, the retry path is much clearer now. Two things before this goes in.
-
-**Blocker** `src/features/profile/SaveName.tsx:42` clears the input before the
-server confirms, so a slow or failing save wipes what the user typed with no
-message. Clear it after `saveName` resolves ok, and restore the text on error.
-
-**Should fix** `src/api/profile.ts:88` swallows the error and returns
-`undefined`, which is why the failure above is silent. Let it throw, or return
-a result the caller can branch on.
-
-Nit: nothing reads the `isLoading` flag in `SaveName.tsx:20`.
-```
-````
-
-The change is good? The comment MUST be written anyway: one line on what it does
-well, and approve it.
-
-## 6. Offer the deep dive
-
-Parts 1 to 5 are the first pass, read off the diff. Digging into all of it costs
+Parts 1 to 4 are the first pass, read off the diff. Digging into all of it costs
 more than most of it is worth, so let the user spend that time where they want
-it. The answer MUST close with a checkbox list, in the report language, one
-unticked box per finding plus an "all of them" box. Same number and same short
-text as the findings table, so the user picks without scrolling back:
+it. The answer MUST close with the offer, in the report language, one choice per
+finding plus an "all of them" choice. Each choice MUST carry the same number and
+the same short text as the findings table, so the user picks without scrolling
+back.
 
-```markdown
-Dig deeper? Tick what to chew through and I'll trace the callers, walk the code
-on a real input and count how often it happens.
+You MUST read [references/pick-lists.md](references/pick-lists.md) before
+writing the offer: how to put the choices on screen, and why a markdown checkbox
+MUST NOT be used.
 
-- [ ] 1. Blocker: the typed name is lost when the save is slow
-- [ ] 2. Should fix: the save error is swallowed
-- [ ] 3. Nit: nothing reads the `isLoading` flag
-- [ ] All of them
-```
+Over five findings? Give a choice to the blockers and the "should fix" ones, and
+one choice for all the nits together.
 
-Over five findings? Give a box to the blockers and the "should fix" ones, and
-one box for all the nits together.
-
-The user ticks? Then, for each finding named:
+The user picks? Then, for each finding named:
 
 - Trace the callers up to a button, a page load, a job, an API request or a CLI
   command, and name the entry point.
@@ -482,7 +440,7 @@ they say: the evidence marker, the real value, the count, and the severity when
 the answer moved it. A deep dived finding and a first pass one MUST look the
 same on the page.
 
-## 7. Before you send
+## 6. Before you send
 
 You MUST read
 [references/final-checklist.md](references/final-checklist.md) and run it over

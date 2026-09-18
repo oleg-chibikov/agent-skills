@@ -17,10 +17,11 @@ once and check. Every line below MUST be true before the answer goes out:
 - The findings table sits above the findings, and every row matches one below.
 - No paragraph over three lines, no list over five items. Three facts in a row
   are a list, each point in bold at the front.
-- Parts 1 to 4 in the report language from `LANGUAGE.md`, not the language of the
-  user's one-line ask, unless they named a language in this conversation. Part 5
-  in English with none of the report language left in it, and "never" nowhere.
-  In another language, its own version of "never" is gone too.
+- The whole report is in the report language from `LANGUAGE.md`, not the
+  language of the user's one-line ask, unless they named a language in this
+  conversation. Every comment block is English, with none of the report language
+  left in it, and "never" nowhere. In another language, its own version of
+  "never" is gone too.
 - Reading settled it, or the run count stayed at a couple at most, no full
   build, install or suite.
 - The summary says what was wrong and what happens now, with no code words.
@@ -31,9 +32,10 @@ once and check. Every line below MUST be true before the answer goes out:
   target line above it. Nothing rests on "could" alone.
 - A finding that got the deep dive looks like every other one: same four
   headings, same order, only the marker, the value and the count differ.
-- The answer ends with the deep dive checkbox list, every box unticked, one per
-  finding with its number and its table text, plus the "all of them" box.
-- Every link in parts 1 to 4 shows its line number in the visible text, as
+- The answer ends with the deep dive offer, one choice per finding with its
+  number and its table text, plus the "all of them" choice. Search the answer
+  for `- [` : a markdown checkbox means the picker tool was skipped.
+- Every link in the report shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.
 - Reviewing a PR? Every link under a heading and every "comment on the PR" line
@@ -52,7 +54,6 @@ once and check. Every line below MUST be true before the answer goes out:
   sentence alone couldn't point at the spot.
 - You checked the shape against the task, and whether the repo or a dependency
   already does this. Found nothing? Say so in one line.
-- The summary comment is paste ready and carries every blocker.
 - The reviewed branch is still checked out, the user's own checkout is as you
   found it, and the answer says where the code sits.
 - Nothing on the list is something the repo rules told you to do, and a person
