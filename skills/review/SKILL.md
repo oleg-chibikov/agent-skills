@@ -34,19 +34,14 @@ report language. Translate the bold labels too: **Who hits it**, **Now**,
 ## How to write every line
 
 Load the `writing-style` skill before the first line, from
-`writing-style/SKILL.md` in this skills folder. It holds every rule about words
-and layout and the checklist to run before sending. Load it once, unless it is
-in context.
+`writing-style/SKILL.md` in this skills folder, once per review. It carries
+every rule about words and layout, and the checklist to run before sending.
 
-Only these are the review's own:
+Two rules are the review's own, on top of it:
 
-- Its "Shape on the page" section decides how the review looks. Bullets carry
-  the facts, each opening with its point in bold. A paragraph over three lines
-  is a bug.
-- The first line of a finding gives the whole point. Reading stops there and the
-  person still knows what is broken.
-- Nothing rests on a finding above it. Each is read alone, on a line in GitHub.
-- A count beats a pile of names: "`OrderRow` and 2 more like it".
+- The first line of a finding gives the whole point, so reading can stop there.
+- Each finding is read alone, on its own line in GitHub. Nothing in it rests on
+  a finding above it.
 
 ## 1. Find what to review
 
@@ -118,23 +113,19 @@ Say when a file is fine. Silence reads as "not reviewed". It goes in the one
 
 ### Second pass: chew each finding through
 
-The first pass finds suspects. Don't write the review off it. Take each one to
-the point where you can show the problem happening:
+The first pass finds suspects, not findings. For each one, before it goes in
+the review:
 
-- Write down the exact input that triggers it.
-- Work out what comes out, by reading the code with that input in hand, line by
-  line. Most findings end here, the cheapest place to end.
-- Still unsure, and the finding depends on the answer? Run the smallest piece,
-  the way [references/getting-the-code.md](references/getting-the-code.md) says,
-  paste what came back and say you ran it. Doubt about a library or a compiler
-  on an odd input is the usual reason.
-- Count how often it can happen in this repo today: grep, call sites, a number.
-  Reading, no run needed.
-- Write the fix out. A message or a string means the replacement text itself.
-- Drop the finding if it cannot happen, and say in one line that you looked.
+- Pick the exact input that triggers it, then read the code with that input in
+  hand to work out what comes out. This settles most of them.
+- Still unsure, and the answer depends on it? Run the smallest piece that
+  settles it, the way
+  [references/getting-the-code.md](references/getting-the-code.md) says, and
+  say you ran it.
+- Grep how often it happens in this repo today: a number, not a guess.
+- Write the fix out, and drop the finding if it turns out it can't happen.
 
-A finding that survives reads as obvious. One that skips this reads as a guess,
-and the author treats it as one.
+Skip this and a finding reads as a guess, and the author treats it as one.
 
 ## 5. Output format
 
@@ -275,34 +266,16 @@ the numbers and the fix all sit in the finding.
 
 #### Carry one real case through the whole finding
 
-A finding about the code in general reads as fog. The same finding about one
-named thing reads as obvious. Pick one case out of the repo and carry it from
-"Who hits it" to the fix.
+A finding about the code in general reads as fog. Pick one real case out of the
+repo, not an invented `Foo`, and carry it from "Who hits it" to the fix:
 
-- **Pick a case that exists.** A real component, a real file, a real input you
-  found while reading. No invented `Foo`.
-- **Say what the thing is before you name it.** "`parseRow` reads one row out of
-  the uploaded file." One explanation the first time, then the name alone.
-- **Show the value going in and the value coming out.** Inline in backticks, or
-  one small fenced block when they are long. The reader sees the difference
-  without working it out.
-- **Say what the result says, and what it does not say**, in the words of the
-  person who reads that result. "The page says 40 rows imported, and says
-  nowhere that two came out shifted."
-- **Then give the number**: how many more cases look like this one. The case
-  makes it real, the number makes it worth fixing.
-
-Feels too obvious while you write it? That is the target.
-
-Bad, and why:
-
-```markdown
-- **Comes out** the field is filled while the row is parsed, but it does not
-  reach the assembled record, because assembly only takes four fields.
-```
-
-No case, no value, and the reader has to picture it. The same finding with one
-real case carried through:
+- Say what the thing is before naming it: "`parseRow` reads one row of the
+  uploaded file." One explanation, then the name alone.
+- Show the value going in and the value coming out, quoted.
+- Say what the result tells the reader, and what it leaves out, in the reader's
+  own words: "the page says 40 rows imported, and says nowhere that two came
+  out shifted."
+- Then the number: how many more cases look like this one.
 
 ```markdown
 - **Who hits it** `parseRow` reads one row of the uploaded file. This file has a
@@ -358,58 +331,38 @@ name is gone. can we clear it after the call resolves ok?
 
 Part by part:
 
-- **Heading**: severity, then the symptom a person could see. Not the cause, not
+- **Heading**: severity, then the symptom a person could see, not the cause or
   the file name.
-- **Link**: right under the heading, before any prose. Copy this shape, both
-  halves, every time:
+- **Link**: right under the heading, both halves, every time:
 
   ```markdown
   [path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
-  [path/to/file.ts:42-48](path/to/file.ts#L42-L48) · [in the PR](https://github.com/OWNER/REPO/pull/7/files#diff-HASHR42)
   ```
 
-  The visible text MUST end in `:42`, so the line shows without hovering. The
-  mistake that keeps happening is `[path/to/file.ts](path/to/file.ts#L42)`: the
-  number sits in the target and the reader sees none of it. An editor rule
-  saying the visible text equals the path covers a link with no line number.
-  This one has a number, so it stays in the text, in every link inside a
-  finding: `[README.md:139](path/to/README.md#L139)`.
-
-  The path is workspace relative. No file name in backticks, no "line 42" as
-  plain text. Two places get two links, each with its own number. Build the
-  second half the way [references/pr-links.md](references/pr-links.md) says. It
-  is required on every finding when the target is a PR.
-- **The opening line**, bold, under the link: two short sentences, what breaks
-  then what to do. Someone who reads only this line MUST know what is wrong. No
-  code words in it.
-- **Who hits it**: the steps in the product, in order, starting from something a
-  person sees. For a job or a CLI, what starts it and when. Reachable only from
-  a test? Say so.
-- **Now**: what the code does, in one sentence, with the line that does it in
-  backticks. Over about three lines of code, it moves to its own fenced block
-  under the bullets. Leave out type names, framework words and "the reducer
-  dispatches".
-- **Comes out**: the actual value, string, screen or error text, worked out by
-  reading the code with the input in hand. Quote it. A summary ("the field is
-  lost") does not stand in for the value. Close the bullet with how you know:
-  "walked the code with that input", or "ran it, this came back" when reading
-  left doubt. A finding without a concrete outcome MUST NOT be sent.
+  The visible text MUST end in `:42`, so the line shows without hovering.
+  Writing `[path/to/file.ts](path/to/file.ts#L42)` puts the number in the
+  target, where the reader never sees it, that's the mistake to avoid. Path is
+  workspace relative, no backticks. Build the second half the way
+  [references/pr-links.md](references/pr-links.md) says, required on every
+  finding when the target is a PR.
+- **The opening line**, bold, under the link: what breaks, then what to do.
+  Someone who reads only this line MUST know what is wrong.
+- **Who hits it**: the steps in the product, in order, from something a person
+  sees. Reachable only from a test? Say so.
+- **Now**: what the code does, one sentence, with the line in backticks. Over
+  three lines of code, it moves to its own fenced block.
+- **Comes out**: the actual value, quoted, worked out by reading the code with
+  the input in hand, not a summary. Say how you know: "walked the code with
+  that input", or "ran it" when reading left doubt. A finding without a
+  concrete outcome MUST NOT be sent.
 - **Costs**: what the person or the business loses, and how often.
-- **Fix**: one line of words, then the code, up to roughly ten lines. For a
-  message or a string, the exact replacement text. Unsure? Give the idea and
-  name what needs checking.
-- **Comment on**: the line right above the comment block. File and line in the
-  same two-link shape, the number again in words, and whether the line is in the
-  diff. The user clicks, sees the line and types.
+- **Fix**: one line of words, then the code, up to roughly ten lines. Unsure?
+  Give the idea and name what needs checking.
+- **Comment on**: the line above the comment block, same two-link shape, and
+  whether the line is in the diff.
 - **Comment for the PR**: required on every finding, nits included.
 
-Those four labels, in that order, nothing added or dropped. A finding that needs
-a fifth bullet is two findings.
-
-Three or more shapes of code hit the same line? List them and say which one is
-the surprise. Numbers beat adjectives in the report: "two of the eleven
-components", "every build", "checked all 26 call sites". The comment on the line
-carries at most one number, in a sentence.
+Those labels, in that order, nothing added. A fifth bullet means two findings.
 
 ### The two halves of a line link
 
@@ -459,20 +412,7 @@ Nit: nothing reads the `isLoading` flag in `SaveName.tsx:20`.
 The change is good? Write the comment anyway: one line on what it does well,
 and approve it.
 
-## 6. Language
-
-"How to write every line" holds here, and so does `writing-style`, for every
-word in both languages. Its bans on "never", the dash between words and inflated
-words like "surface" cover the findings, the per-finding comments and the
-summary comment alike. On top:
-
-- Parts 1 to 4 in the report language from `LANGUAGE.md`. Part 5 and every
-  per-finding comment in English, whatever language the user wrote in. Asked for
-  one language only? Obey, and say nothing about it.
-- Say what is broken in plain words. Softening a blocker into a suggestion hides
-  the problem.
-
-## 7. Before you send
+## 6. Before you send
 
 Read [references/final-checklist.md](references/final-checklist.md) and run it
 over the whole answer. Nothing goes out before that.
