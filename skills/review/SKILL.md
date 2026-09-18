@@ -1,6 +1,6 @@
 ---
 name: review
-description: 'Use whenever the user asks to look at code someone wrote, in any repository. Triggers include "review", "review this", "code review", "look at my changes", the same ask in any other language, and the word review followed by nothing but a GitHub pull request URL, a PR number, a branch name, a file path or a pasted diff. A bare link after "review" counts: load this skill before fetching the link. Writes the review in the report language set in LANGUAGE.md, short and built to be scanned: what the change solves in three bullets, a map of how the changed files hang together with the order to read them in, a table of every finding, then each finding with the line number, the input, the real output and the fix. Closes every finding with a short English comment ready to paste on that line.'
+description: 'Use only when the user explicitly asks to review a pull request: "review this PR", "code review", "review" plus a PR link or PR number, or the same in another language.'
 ---
 
 # Review code
