@@ -407,15 +407,24 @@ and approve it.
 
 Parts 1 to 5 are the first pass, read off the diff. Digging into all of it costs
 more than most of it is worth, so let the user spend that time where they want
-it. Close the answer with the offer, in the report language, findings by number:
+it. Close the answer with a checkbox list, in the report language, one unticked
+box per finding plus an "all of them" box. Same number and same short text as
+the findings table, so the user picks without scrolling back:
 
 ```markdown
-First pass, read off the diff. Say which one to dig into and I'll trace the
-callers, walk the code with a real input and count how often it happens: 1, 2,
-3, or all.
+Dig deeper? Tick what to chew through and I'll trace the callers, walk the code
+on a real input and count how often it happens.
+
+- [ ] 1. Blocker: the typed name is lost when the save is slow
+- [ ] 2. Should fix: the save error is swallowed
+- [ ] 3. Nit: nothing reads the `isLoading` flag
+- [ ] All of them
 ```
 
-The user picks? Then, for each finding named:
+Over five findings? Give a box to the blockers and the "should fix" ones, and
+one box for all the nits together.
+
+The user ticks? Then, for each finding named:
 
 - Trace the callers up to a button, a page load, a job, an API request or a CLI
   command, and name the entry point.

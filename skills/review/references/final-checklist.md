@@ -29,7 +29,8 @@ once and check:
   target line above it. Nothing rests on "could" alone.
 - A finding that got the deep dive looks like every other one: same four
   bullets, same order, only the marker, the value and the count differ.
-- The answer ends with the deep dive offer, naming the findings by number.
+- The answer ends with the deep dive checkbox list, every box unticked, one per
+  finding with its number and its table text, plus the "all of them" box.
 - Every link in parts 1 to 4 shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.
