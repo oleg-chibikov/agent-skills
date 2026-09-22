@@ -6,14 +6,13 @@ want it.
 
 ## The offer
 
-The answer MUST close with the offer, in the report language, one choice per
-finding plus two standing ones. Each finding choice MUST carry the same number
-and the same short text as the findings table, so the user picks without
-scrolling back.
+The posting is done, or the user closed it? Only then MUST the offer come, in
+the report language, one choice per finding plus two standing ones. Each finding
+choice MUST carry the same number and the same short text as the findings table,
+so the user picks without scrolling back.
 
 The two standing choices MUST come last, in this order: all of them, and nothing
-more. Posting MUST NOT be offered here. It is the last question of the review,
-asked once the digging is over.
+more. It is the last question of the review.
 
 You MUST read [pick-lists.md](pick-lists.md) before writing the offer: how to
 put the choices on screen, and why a markdown checkbox MUST NOT be used.

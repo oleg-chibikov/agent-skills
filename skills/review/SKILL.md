@@ -62,18 +62,19 @@ Four parts in this order, each with its own file:
 The rules holding over all four, and what MUST NOT be added to them, are in
 [references/report-shape.md](references/report-shape.md). Read it before part 1.
 
-## 7. Offer the deep dive
+## 7. Offer to post the comments
 
-The report MUST close with one offer: which findings to dig into. The choices,
-what digging into one means and how the finding comes back are in
-[references/deep-dive.md](references/deep-dive.md).
-
-## 8. Offer to post the comments
-
-This is the last question of the review, and nothing goes on the PR until the
-user asks for it. The offer, the question that comes before the first call and
-the `gh` call per comment are in
+The report MUST close with one offer: put the comments on the PR. Nothing goes
+on the PR until the user asks for it. The offer, the question that comes before
+the first call and the `gh` call per comment are in
 [references/posting-comments.md](references/posting-comments.md).
+
+## 8. Offer the deep dive
+
+Once the posting is done or the user closed it, offer which findings to dig
+into. This is the last question of the review. The choices, what digging into
+one means and how the finding comes back are in
+[references/deep-dive.md](references/deep-dive.md).
 
 ## 9. Before you send
 

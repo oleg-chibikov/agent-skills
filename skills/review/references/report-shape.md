@@ -1,8 +1,8 @@
 # The shape of the whole report
 
 Four parts MUST come in this order: the summary, the map, the findings table,
-the findings. Then the one offer from the deep dive step. Nothing else, no
-closing summary.
+the findings. Then the one offer to post the comments. Nothing else, no closing
+summary.
 
 All four MUST go in the report language, whatever language the user or the code
 used. Every comment block inside part 4 goes in English.

@@ -6,13 +6,12 @@ the last call returns.
 Reviewing a branch, a pasted diff or uncommitted work, with no PR behind it? Say
 so in one line and stop.
 
-## Offer it last
+## Offer it right after the report
 
-The deep dive is done, or the user closed it? Only then MUST the answer offer to
-put the comments on the PR, next to a choice that ends the review, in the report
-language and through the same picker as the deep dive, the one
-[pick-lists.md](pick-lists.md) describes. It is the last question of the review,
-and nothing goes on the PR until the user asks for it.
+The report MUST close with the offer to put the comments on the PR, next to a
+choice that skips it, in the report language and through the picker
+[pick-lists.md](pick-lists.md) describes. Nothing goes on the PR until the user
+asks for it. The deep dive comes after, as the last question.
 
 ## Ask which version first
 

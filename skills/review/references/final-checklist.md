@@ -32,10 +32,10 @@ once and check. Every line below MUST be true before the answer goes out:
   target line above it. Nothing rests on "could" alone.
 - A finding that got the deep dive looks like every other one: same four
   headings, same order, only the marker, the value and the count differ.
-- The answer ends with an offer: the deep dive, one choice per finding with its
-  number and its table text, then all of them and nothing more. Posting comes
-  after the digging, as the last question. Search the answer for `- [` : a
-  markdown checkbox means the picker tool was skipped.
+- The answer ends with an offer to post the comments, next to a choice that
+  skips it. The deep dive comes last: one choice per finding with its number and
+  its table text, then all of them and nothing more. Search the answer for
+  `- [` : a markdown checkbox means the picker tool was skipped.
 - Nothing went on the PR before the user asked for it and named the version,
   long or short.
 - Every link in the report shows its line number in the visible text, as
