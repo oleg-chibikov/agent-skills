@@ -12,12 +12,15 @@ In this order of importance:
    on every render, an unbounded list held in memory.
 4. **Will bite later**: a silent `catch`, a `TODO` that hides a known bug, two
    sources of truth for the same value, a test that cannot fail.
-5. **Wrong shape for the job**, does the design fit the task at all.
-6. **Already written somewhere**, does the repo or a dependency do this today.
-7. **Style**. It MUST NOT be flagged unless the repo asks for it in writing.
+5. **Already written somewhere**, does the repo or a dependency do this today.
+6. **Style**. It MUST NOT be flagged unless the repo asks for it in writing.
 
-You MUST read [deeper-checks.md](deeper-checks.md) at this step for 5 and 6.
-They run on every review.
+You MUST read [already-written.md](already-written.md) at this step for 5. It
+runs on every review.
+
+Whether the design fits the task MUST NOT be judged here. That is the second
+round, [architecture-pass.md](architecture-pass.md), and it runs once this
+report is on screen.
 
 A file that is fine MUST be named as fine. Silence reads as "not reviewed". It
 goes in the one "Clean:" line under the findings table.

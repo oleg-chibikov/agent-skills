@@ -40,8 +40,8 @@ together. How far to chase it is in
 
 ## 5. Look for what matters
 
-Seven things in order, breakage first and style last, plus the two checks that
-run on every review:
+Six things in order, breakage first and style last, plus the duplicate check
+that runs on every review:
 [references/what-to-look-for.md](references/what-to-look-for.md).
 
 ## 6. Write the report
@@ -62,21 +62,29 @@ Four parts in this order, each with its own file:
 The rules holding over all four, and what MUST NOT be added to them, are in
 [references/report-shape.md](references/report-shape.md). Read it before part 1.
 
-## 7. Offer to post the comments
+## 7. Run the second round: architectural gaps
 
-The report MUST close with one offer: put the comments on the PR. Nothing goes
-on the PR until the user asks for it. The offer, the question that comes before
-the first call and the `gh` call per comment are in
+The four parts go on screen first. Then one more pass over the same change,
+asking whether the design fits the task at all and what it leaves out, before
+anything is posted:
+[references/architecture-pass.md](references/architecture-pass.md).
+
+## 8. Offer to post the comments
+
+The second round MUST close with one offer: put the comments on the PR, the
+findings of both rounds together. Nothing goes on the PR until the user asks for
+it. The offer, the question that comes before the first call and the `gh` call
+per comment are in
 [references/posting-comments.md](references/posting-comments.md).
 
-## 8. Offer the deep dive
+## 9. Offer the deep dive
 
 Once the posting is done or the user closed it, offer which findings to dig
 into. This is the last question of the review. The choices, what digging into
 one means and how the finding comes back are in
 [references/deep-dive.md](references/deep-dive.md).
 
-## 9. Before you send
+## 10. Before you send
 
 You MUST read
 [references/final-checklist.md](references/final-checklist.md) and run it over

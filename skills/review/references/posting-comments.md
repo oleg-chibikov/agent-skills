@@ -6,12 +6,14 @@ the last call returns.
 Reviewing a branch, a pasted diff or uncommitted work, with no PR behind it? Say
 so in one line and stop.
 
-## Offer it right after the report
+## Offer it after the second round
 
-The report MUST close with the offer to put the comments on the PR, next to a
-choice that skips it, in the report language and through the picker
+The second round [architecture-pass.md](architecture-pass.md) MUST be done
+first, and the offer to put the comments on the PR closes it, next to a choice
+that skips it, in the report language and through the picker
 [pick-lists.md](pick-lists.md) describes. Nothing goes on the PR until the user
-asks for it. The deep dive comes after, as the last question.
+asks for it. The findings of both rounds go up together. The deep dive comes
+after, as the last question.
 
 ## Ask which version first
 
