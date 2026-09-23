@@ -71,7 +71,7 @@ The review opens with a table, so the whole verdict fits on one screen:
 
 ### 1. Blocker: the typed name is lost when the server is slow
 
-[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/7/files#diff-2f0b8aR42)
+[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [on GitHub](https://github.com/acme/shop/blob/9f2c1ab/src/features/profile/SaveName.tsx#L42)
 
 **The name field clears before the server answers, so a failed save loses what
 the person typed. Clear it after the answer.**

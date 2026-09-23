@@ -13,12 +13,15 @@ reach the step, before writing a line of what the step produces.
 
 ## 1. Set the language and the writing rules
 
-- Which language each part comes back in:
+- Read `LANGUAGE.md` next to this file. The language it names is the report
+  language, and it MUST beat the language of the user's ask. No such file? Write
+  English.
+- Which part comes back in which language:
   [references/report-language.md](references/report-language.md).
 - How every line is written:
   [references/writing-rules.md](references/writing-rules.md).
 
-Both MUST be read before the first line of the review.
+All three MUST be read before the first line of the review.
 
 ## 2. Find what to review
 

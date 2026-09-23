@@ -43,8 +43,7 @@ once and check. Every line below MUST be true before the answer goes out:
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.
 - Reviewing a PR? Every link under a heading and every "comment on the PR" line
-  carries the `· [in the PR](…)` half, with that file's path hash and the side
-  letter, `R` or `L`, in front of the number.
+  carries the `· [on GitHub](…)` half, a `blob/HEAD_SHA/path#L42` permalink.
 - Every finding names one real case and keeps it to the end, quotes the value it
   produces, and explains each code name in plain words the first time.
 - Every per-finding comment: one doubt and one ask, under 40 words, no
