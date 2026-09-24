@@ -10,7 +10,7 @@ where, fix inline if it's short. No four blocks, no separate fix block.
 ````markdown
 ### 1. Blocker: the typed name is lost when the server is slow
 
-[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [on GitHub](https://github.com/acme/shop/blob/9f2c1ab/src/features/profile/SaveName.tsx#L42)
+[src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/123/files#diff-a9fc2b21a420affdc9db7ebf60a145e029fe45e9a5c0a35d794fd2bccfdc2c12R42)
 
 **The name field clears before the server answers, so a failed save loses what
 the person typed. Clear it after the answer.**
@@ -43,7 +43,7 @@ const saved = await saveName(name);
 if (saved.ok) setName("");
 ```
 
-**Comment on** [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [on GitHub](https://github.com/acme/shop/blob/9f2c1ab/src/features/profile/SaveName.tsx#L42),
+**Comment on** [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/123/files#diff-a9fc2b21a420affdc9db7ebf60a145e029fe45e9a5c0a35d794fd2bccfdc2c12R42),
 line 42, added in this PR, the green side of the diff.
 
 ```markdown
@@ -66,7 +66,7 @@ clear it after it resolves ok?
 - **Link**: it MUST sit right under the heading, both halves, every time:
 
   ```markdown
-  [path/to/file.ts:42](path/to/file.ts#L42) · [on GitHub](https://github.com/OWNER/REPO/blob/HEAD_SHA/path/to/file.ts#L42)
+  [path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/123/files#diff-<anchor>R42)
   ```
 
   The visible text MUST end in `:42`, so the line shows without hovering.
