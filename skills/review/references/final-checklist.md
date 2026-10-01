@@ -9,8 +9,8 @@ once and check. Every line below MUST be true before the answer goes out:
   sentence carries two commas or two ideas.
 - No dash joins two parts of a sentence, and no sentence names three things in a
   row. Hyphens only inside a word.
-- Every comment, with its target line, sits in `## Comments` above
-  `## Explanations`. Both lists follow the table's numbers and order.
+- Every comment, tagged `C1` and ending in `Explanation: E1`, sits in
+  `## Comments` above `## Explanations`. Both follow the table's order.
 - Every explanation opens with a bold line saying what breaks and what to do.
   Then the four `####` headings in order. A nit gets one line, no headings.
 - Part 1 and every finding carry their labels as headings with the text below,

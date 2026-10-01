@@ -1,16 +1,17 @@
 # The shape of a finding
 
-A finding comes as two entries under the same `###` heading: the comment in
-`## Comments`, the explanation in `## Explanations`. The user copies the
-comment, and reads the explanation only when the comment puzzles them.
+A finding comes as two entries under one heading: tagged `C1` in `## Comments`,
+`E1` in `## Explanations`. The user copies the comment, and reads the
+explanation only when the comment puzzles them. Cmd+F on the tag jumps between
+the two, in Copilot Chat and in Claude Code alike.
 
 ## The comment entry
 
-The heading, where the comment goes, then the comment long and short. Nothing
-else, nits included.
+The heading, where the comment goes, the comment long and short, then the tag
+of its explanation. Nothing else, nits included.
 
 ````markdown
-### 1. Blocker: the typed name is lost when the server is slow
+### C1. Blocker: the typed name is lost when the server is slow
 
 **Comment on** [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/123/files#diff-a9fc2b21a420affdc9db7ebf60a145e029fe45e9a5c0a35d794fd2bccfdc2c12R42),
 line 42, added in this PR, the green side of the diff.
@@ -26,6 +27,8 @@ Shorter:
 clears the input before saveName comes back, so a failed save loses the name.
 clear it after it resolves ok?
 ```
+
+Explanation: E1
 ````
 
 ## The explanation entry
@@ -38,7 +41,7 @@ A nit MUST skip this shape: the heading, the link, and one line saying what and
 where, fix inline if it's short. No four blocks, no separate fix block.
 
 ````markdown
-### 1. Blocker: the typed name is lost when the server is slow
+### E1. Blocker: the typed name is lost when the server is slow
 
 [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/123/files#diff-a9fc2b21a420affdc9db7ebf60a145e029fe45e9a5c0a35d794fd2bccfdc2c12R42)
 
@@ -76,8 +79,11 @@ if (saved.ok) setName("");
 
 ## Part by part
 
-- **Heading**: severity, then the symptom a person could see, not the cause or
-  the file name. Both entries MUST carry it word for word.
+- **Heading**: the tag, severity, then the symptom a person could see, not the
+  cause or the file name. Both entries MUST carry the same words after the tag.
+- **Tag**: `C` or `E` plus the table number. The letters MUST stay Latin in
+  every report language, so one search finds them. The `Explanation:` label
+  goes in the report language.
 - **Link**: it MUST sit right under the explanation heading, both halves:
 
   ```markdown

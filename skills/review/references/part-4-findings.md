@@ -2,10 +2,11 @@
 
 They follow the table as two lists, in this order:
 
-1. `## Comments`: per finding, its heading, where the comment goes, and the
-   comment, long and short. The user copies from here.
-2. `## Explanations`: per finding, the same heading, the link, the bold line,
-   the four blocks and the fix. The user reads it when a comment puzzles them.
+1. `## Comments`: per finding, its heading tagged `C1`, where the comment goes,
+   the comment long and short, and `Explanation: E1`. The user copies from here.
+2. `## Explanations`: per finding, the same heading tagged `E1`, the link, the
+   bold line, the four blocks and the fix. The user reads it when a comment
+   puzzles them.
 
 Every comment MUST sit in the first list, before any explanation starts. Both
 lists MUST hold the same findings, with the numbers and the order of the table.
