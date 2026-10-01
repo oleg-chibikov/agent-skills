@@ -9,9 +9,10 @@ once and check. Every line below MUST be true before the answer goes out:
   sentence carries two commas or two ideas.
 - No dash joins two parts of a sentence, and no sentence names three things in a
   row. Hyphens only inside a word.
-- Every finding opens with the bold line under the link, and that line alone
-  says what is broken and what to do. Then the four `####` headings, in order,
-  unless it's a nit: one line, no headings.
+- Every comment, with its target line, sits in `## Comments` above
+  `## Explanations`. Both lists follow the table's numbers and order.
+- Every explanation opens with a bold line saying what breaks and what to do.
+  Then the four `####` headings in order. A nit gets one line, no headings.
 - Part 1 and every finding carry their labels as headings with the text below,
   no label glued to the front of a sentence.
 - No paragraph over three lines, no list over five items. Three facts in a row
@@ -22,15 +23,14 @@ once and check. Every line below MUST be true before the answer goes out:
   left in it. "Never", and its version in any other language, is gone.
 - Reading settled it, or the run count stayed at a couple at most, no full
   build, install or suite.
-- The summary says what was wrong and what happens now, with no code words, and
-  the findings table sits above the findings with every row matching one below.
+- The summary says what was wrong and what happens now, with no code words.
+  The table sits above the findings, every row matching one below.
 - The map names every changed file, and the reading order says why each comes
   where it does.
 - Every finding: a line link, the flow, the real thing that comes out with its
-  evidence marker in brackets, the fix, and an English comment block with its
-  target line above it. Nothing rests on "could" alone.
-- A finding that got the deep dive looks like the rest: same four headings, same
-  order, only the marker, the value and the count differ.
+  evidence marker in brackets, the fix. Nothing rests on "could" alone.
+- A deep dived finding looks like the rest: same four headings, same order.
+  Only the marker, the value and the count differ.
 - The four parts went on screen before the second round, and the second round
   came before the posting offer. Its findings carry on the numbering.
 - The answer ends with an offer to post the comments, next to a choice that

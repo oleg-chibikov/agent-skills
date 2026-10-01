@@ -1,6 +1,36 @@
 # The shape of a finding
 
-Someone in a hurry reads it on a line in GitHub. Four `####` blocks MUST sit
+A finding comes as two entries under the same `###` heading: the comment in
+`## Comments`, the explanation in `## Explanations`. The user copies the
+comment, and reads the explanation only when the comment puzzles them.
+
+## The comment entry
+
+The heading, where the comment goes, then the comment long and short. Nothing
+else, nits included.
+
+````markdown
+### 1. Blocker: the typed name is lost when the server is slow
+
+**Comment on** [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/123/files#diff-a9fc2b21a420affdc9db7ebf60a145e029fe45e9a5c0a35d794fd2bccfdc2c12R42),
+line 42, added in this PR, the green side of the diff.
+
+```markdown
+this clears the input before saveName comes back - if the save fails the typed
+name is gone. can we clear it after the call resolves ok?
+```
+
+Shorter:
+
+```markdown
+clears the input before saveName comes back, so a failed save loses the name.
+clear it after it resolves ok?
+```
+````
+
+## The explanation entry
+
+Someone in a hurry reads it after the comment. Four `####` blocks MUST sit
 between the opening line and the fix, about 25 lines in total including the
 code. Anything that does not fit gets cut.
 
@@ -42,28 +72,13 @@ Fix, clear the field after the confirmation and leave the text alone on error:
 const saved = await saveName(name);
 if (saved.ok) setName("");
 ```
-
-**Comment on** [src/features/profile/SaveName.tsx:42](src/features/profile/SaveName.tsx#L42) · [in the PR](https://github.com/acme/shop/pull/123/files#diff-a9fc2b21a420affdc9db7ebf60a145e029fe45e9a5c0a35d794fd2bccfdc2c12R42),
-line 42, added in this PR, the green side of the diff.
-
-```markdown
-this clears the input before saveName comes back - if the save fails the typed
-name is gone. can we clear it after the call resolves ok?
-```
-
-Shorter:
-
-```markdown
-clears the input before saveName comes back, so a failed save loses the name.
-clear it after it resolves ok?
-```
 ````
 
 ## Part by part
 
 - **Heading**: severity, then the symptom a person could see, not the cause or
-  the file name.
-- **Link**: it MUST sit right under the heading, both halves, every time:
+  the file name. Both entries MUST carry it word for word.
+- **Link**: it MUST sit right under the explanation heading, both halves:
 
   ```markdown
   [path/to/file.ts:42](path/to/file.ts#L42) · [in the PR](https://github.com/OWNER/REPO/pull/123/files#diff-<anchor>R42)
@@ -88,11 +103,11 @@ clear it after it resolves ok?
   until the deep dive has grepped one? Say what it turns on instead.
 - **Fix**: one line of words, then the code, up to roughly ten lines. Unsure?
   Give the idea and name what needs checking.
-- **Comment on**: the line above the comment block, same two-link shape, and
+- **Comment on**: opens the comment entry, same two-link shape, and says
   whether the line is in the diff.
-- **Comment for the PR**: it MUST be there on every finding, nits included. Two
-  blocks, the second under a bare `Shorter:` line, saying the same thing with
-  the explaining cut out. The user picks one.
+- **Comment for the PR**: it MUST be in the comment entry of every finding,
+  nits included. Two blocks, the second under a bare `Shorter:` line, saying
+  the same thing with the explaining cut out. The user picks one.
 
 Those headings MUST come in that order with nothing added. A fifth one means two
 findings.

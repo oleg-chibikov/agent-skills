@@ -34,8 +34,9 @@ The user picks? Then, for each finding named:
 - Grep how often it happens in this repo today: a number, not a guess.
 - It turns out it can't happen? Say the finding is dropped, and why.
 
-Then reissue that finding whole, in the shape [finding-shape.md](finding-shape.md)
-gives it, with its table row and its comment block. Same four headings, same
+Then reissue that finding whole, in the shape
+[finding-shape.md](finding-shape.md) gives it: its table row, its comment
+entry, then its explanation. Same four headings, same
 order. What changes is what they say: the evidence marker, the real value, the
 count, and the severity when the answer moved it. A deep dived finding and a
 first pass one MUST look the same on the page.

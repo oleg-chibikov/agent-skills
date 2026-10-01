@@ -1,11 +1,19 @@
 # Part 4: the findings
 
-They follow under the table, in the same `## Findings` section, one `###`
-heading each. Sort by severity and number them, and the numbers MUST match the
-table. Three levels: blocker, should fix, nit, written in the report language.
+They follow the table as two lists, in this order:
 
-[finding-shape.md](finding-shape.md) holds the blocks a finding is built from
-and the full example. You MUST read it before writing the first finding.
+1. `## Comments`: per finding, its heading, where the comment goes, and the
+   comment, long and short. The user copies from here.
+2. `## Explanations`: per finding, the same heading, the link, the bold line,
+   the four blocks and the fix. The user reads it when a comment puzzles them.
+
+Every comment MUST sit in the first list, before any explanation starts. Both
+lists MUST hold the same findings, with the numbers and the order of the table.
+Sort by severity. Three levels: blocker, should fix, nit, written in the report
+language.
+
+[finding-shape.md](finding-shape.md) holds both entries of a finding and the
+full example. You MUST read it before writing the first finding.
 
 ## Picking the severity
 

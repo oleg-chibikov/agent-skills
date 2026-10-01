@@ -38,7 +38,8 @@ person has to read. "This could be cleaner" is not a finding.
 Each one MUST take the shape [finding-shape.md](finding-shape.md) gives it, and
 the numbers MUST carry on from the first pass. The round opens with its own
 table, built the way [part-3-table.md](part-3-table.md) says, or with one line
-saying the shape holds up and what carries it.
+saying the shape holds up and what carries it. Then its comments, then its
+explanations, as [part-4-findings.md](part-4-findings.md) orders them.
 
-A finding with no file and line to hang on stays in the report and out of the
-posting.
+A finding with no file and line to hang on goes in the explanations only, and
+stays out of the posting.

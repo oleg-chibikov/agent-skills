@@ -57,7 +57,8 @@ Four parts in this order, each with its own file:
    [references/part-2-map.md](references/part-2-map.md).
 3. The findings table:
    [references/part-3-table.md](references/part-3-table.md).
-4. The findings:
+4. The findings, first every comment with where it goes, then the explanation
+   of each:
    [references/part-4-findings.md](references/part-4-findings.md), plus
    [references/finding-shape.md](references/finding-shape.md) for the blocks
    each one is built from.

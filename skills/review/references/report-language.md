@@ -15,5 +15,6 @@ such as "write it in English" or "in Russian please", changes it, and it wins
 silently, no comment about it.
 
 The examples in these files are English. Their shape MUST be copied, with your
-own words in the report language. The headings go over too: **Who hits it**,
-**Now**, **Comes out**, **Costs**, and the findings table headings.
+own words in the report language. The headings go over too: **Comments**,
+**Explanations**, **Who hits it**, **Now**, **Comes out**, **Costs**, and the
+findings table headings.
