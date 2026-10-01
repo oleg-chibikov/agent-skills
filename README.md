@@ -1,7 +1,7 @@
 # agent-skills
 
-Three skills that teach a coding agent to write like a person, review code, and
-open a pull request.
+Skills that teach a coding agent to write like a person, review code, open a
+pull request and answer review comments.
 
 ## Install
 
@@ -25,8 +25,8 @@ another language.
 
 Comments meant for the PR MUST stay English, because the whole team reads them.
 
-You MUST have `git` and any POSIX shell. `review` and `create-pr` read pull
-requests through the GitHub CLI, so `gh` MUST be installed and logged in once
+You MUST have `git` and any POSIX shell. `review`, `create-pr` and
+`address-comments` read pull requests through the GitHub CLI, so `gh` MUST be installed and logged in once
 with `gh auth login`.
 
 Rather read the script before running it? You MAY clone and run it yourself. The
@@ -54,7 +54,12 @@ problem comes with a short comment ready to paste on the line.
 **`create-pr`** writes the PR description in three parts, problem, solution,
 packages, then opens the PR with `gh`.
 
-`review` and `create-pr` load `writing-style` first, so all three move together.
+**`address-comments`** goes through the open review threads on a PR. Each one
+gets the smallest commit that does what the thread settled on, then a reply with
+the SHA and one sentence on the fix. It pushes and replies without asking.
+
+`review`, `create-pr` and `address-comments` load `writing-style` first, so
+they all write the same way.
 
 ## What a review looks like
 
@@ -112,6 +117,7 @@ Ask in plain words:
 
 - "review this" and a PR link
 - "open a PR for this branch"
+- "address the comments on this PR"
 - "rewrite this so it sounds human"
 
 ## Change the language later
