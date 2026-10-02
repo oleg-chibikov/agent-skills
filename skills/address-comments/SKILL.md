@@ -76,18 +76,21 @@ ask in a few words, the bucket. Then start, without asking.
 
 ## 4. The smallest change that answers the thread
 
-Work through the Fix threads in file order.
+Work through the Fix threads in file order. The smallest diff that does what
+the thread settled on MUST win, even when a bigger rewrite reads nicer.
 
 - The change MUST do what the thread asks and nothing else. No renames, no
-  reformatting, no fixes to nearby code.
+  reformatting, no fixes to nearby code. A problem spotted nearby goes in the
+  report, untouched.
 - Deleting SHOULD beat adding. Before writing a line, look for code the fix lets
   you remove, a helper the repo already has, or a language feature that does
   the job.
-- A new function, file, type or abstraction MUST NOT appear unless the thread
-  asks for one.
+- A new function, file, type, package or abstraction MUST NOT appear unless the
+  thread asks for one.
 - A code comment explaining the fix MUST NOT go in. The reply carries the why.
-- The fix spreads past the lines the thread points at, or into another module?
-  Revert it, move the thread to Open and say why.
+- The fix spreads past the lines the thread points at, into another module, a
+  public API, a shared config or a schema? Revert it, move the thread to Open
+  and say why.
 
 Read `git diff` before the commit. More lines added than removed? Look once
 more for a shorter way, and keep the change if there is none.
@@ -166,7 +169,8 @@ URL.
 
 One line per thread with the SHA and the reply URL. Then the Answer drafts,
 unposted, for the user to send. Then the Open and Done threads, one line each
-with the reason or the decision the user needs to make.
+with the reason or the decision the user needs to make. Then the problems
+spotted nearby and left alone, one line each.
 
 ## Guardrails
 
