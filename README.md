@@ -1,7 +1,7 @@
 # agent-skills
 
-Skills that teach a coding agent to write like a person, review code, open a
-pull request and answer review comments.
+Skills that teach a coding agent to write like a person, review code, do a
+ticket, open a pull request and answer review comments.
 
 ## Install
 
@@ -25,9 +25,10 @@ another language.
 
 Comments meant for the PR MUST stay English, because the whole team reads them.
 
-You MUST have `git` and any POSIX shell. `review`, `create-pr` and
-`address-comments` read pull requests through the GitHub CLI, so `gh` MUST be installed and logged in once
-with `gh auth login`.
+You MUST have `git` and any POSIX shell. `review`, `create-pr`,
+`address-comments` and `implement-ticket` read pull requests through the GitHub
+CLI, so `gh` MUST be installed and logged in once with `gh auth login`.
+`implement-ticket` also reads Jira, through the Atlassian MCP server or `acli`.
 
 Rather read the script before running it? You MAY clone and run it yourself. The
 clone becomes the folder every agent links to, so editing a rule there changes
@@ -58,8 +59,13 @@ packages, then opens the PR with `gh`.
 gets the smallest commit that does what the thread settled on, then a reply with
 the SHA and one sentence on the fix. It pushes and replies without asking.
 
-`review`, `create-pr` and `address-comments` load `writing-style` first, so
-they all write the same way.
+**`implement-ticket`** takes a Jira ticket to review. It works in a new
+worktree off the latest `main` or `master`. The smallest change that does the
+job, split into modules, one commit per step with the ticket key. Then
+it opens the PR through `create-pr` and moves the ticket to In Review.
+
+`review`, `create-pr`, `address-comments` and `implement-ticket` load
+`writing-style` first, so they all write the same way.
 
 ## What a review looks like
 
@@ -117,6 +123,7 @@ Ask in plain words:
 
 - "review this" and a PR link
 - "open a PR for this branch"
+- "do PROJ-123"
 - "address the comments on this PR"
 - "rewrite this so it sounds human"
 
