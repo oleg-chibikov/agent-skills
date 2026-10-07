@@ -1,6 +1,6 @@
 ---
 name: address-comments
-description: 'Use when the user asks to address, fix, resolve, handle or go through review comments on a pull request, in any repository and in any language: "address the comments", "fix the PR feedback", "handle the review", "go through the threads", a PR link plus "comments". Makes one small commit per review thread with as little new code as it takes, then replies in each thread with the commit SHA and one sentence on how it was fixed.'
+description: 'Use when the user asks to address, fix, resolve, handle or go through review comments on a pull request, in any repository and in any language: "address the comments", "fix the PR feedback", "handle the review", "go through the threads", a PR link plus "comments". Makes one small commit per review thread with as little new code as it takes, then replies in each thread with the commit SHA and one sentence on how it was fixed, and updates the PR description when a fix changes what the PR does.'
 ---
 
 # Address review comments on a pull request
@@ -165,9 +165,27 @@ Fixed in 9d04e7c: dropped the wrapper, the callers use formatDate directly.
 GitHub turns the short SHA into a link to the commit, so the reply carries no
 URL.
 
-## 8. Report back
+## 8. Update the PR description
 
-One line per thread with the SHA and the reply URL. Then the Answer drafts,
+A fix that changes what the PR does MUST land in the PR body, or reviewers read
+about code that is gone. That covers what a person sees, an API, a config
+default, a package added or dropped. A rename, a cleanup or a test change
+leaves the body alone.
+
+```bash
+GH_PAGER=cat gh pr view N --json body -q .body > body.md
+GH_PAGER=cat gh pr edit N --body-file body.md
+```
+
+- Fix only the lines the change made wrong, or add one bullet where it fits.
+  The rest of the body MUST stay as it is.
+- New lines SHOULD follow the body rules of the `create-pr` skill.
+- The PR belongs to someone else? Put the edit in the report, unposted.
+
+## 9. Report back
+
+One line per thread with the SHA and the reply URL. Then the lines changed in
+the PR body, if any. Then the Answer drafts,
 unposted, for the user to send. Then the Open and Done threads, one line each
 with the reason or the decision the user needs to make. Then the problems
 spotted nearby and left alone, one line each.
