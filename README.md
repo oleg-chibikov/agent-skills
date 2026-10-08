@@ -53,8 +53,9 @@ each one with the line number, the input that breaks it and the fix. Every
 problem comes with a short comment ready to paste on the line.
 
 **`create-pr`** writes the PR description: the problem, the solution, a
-diagram of the user flows, what to type and expect from any new command, and
-the code it reuses or the packages it adds. Then it opens the PR with `gh`.
+diagram of the user flows, what to type and expect from any new command, the
+code it reuses or the packages it adds, and the commands that generated code.
+Then it opens the PR with `gh`.
 
 **`address-comments`** goes through the open review threads on a PR. Each one
 gets the smallest commit that does what the thread settled on, then a reply with
