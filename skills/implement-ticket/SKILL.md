@@ -22,6 +22,9 @@ acli jira workitem view PROJ-123 --fields summary,description,status,comment
 Read the summary, the description, the acceptance criteria and every comment.
 A comment often changes the ask.
 
+Open every link the ticket carries: a Figma frame, a doc, a thread. Keep the
+URLs, the PR MUST link them.
+
 - The ask MUST be clear before the first edit. Unclear? Ask the user one
   question and wait.
 - A ticket that needs a redesign or spans several features SHOULD stop here.
