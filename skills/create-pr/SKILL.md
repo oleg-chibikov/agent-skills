@@ -1,6 +1,6 @@
 ---
 name: create-pr
-description: 'Use when the user asks to open, create, raise or update a pull request, write a PR description, or fill in a PR body, in any repository. Produces a PR description under 20 lines with three sections (problem, solution, packages picked or rejected), written in bullets anyone can scan, then creates or updates the PR with gh.'
+description: 'Use when the user asks to open, create, raise or update a pull request, write a PR description, or fill in a PR body, in any repository. Produces a PR description with under 20 lines of prose: the problem, the solution, a mermaid diagram of the user flows, the input and output to expect from any new command, then the repo code it reuses and the packages picked or rejected, written in bullets anyone can scan. Then creates or updates the PR with gh.'
 ---
 
 # Create a pull request
@@ -41,7 +41,7 @@ Also check:
 - An issue id in the branch name or commits (`PROJ-123`, `JIRA-123`, `#42`).
 
 Repo rules MUST win over this skill. With a template, keep the parts it demands
-(checkboxes, headings) and put the three sections below inside it.
+(checkboxes, headings) and put the sections below inside it.
 
 ## 2. Title
 
@@ -62,11 +62,12 @@ body, alone, before the sections: `PROJ-123`. Name only, no link. Find it in the
 branch name or the commits, ask if neither has one, skip the line if there is no
 ticket.
 
-Then exactly these three sections, in this order. The body MUST stay under 20
-lines. It is read on a phone, in a notification, by someone who has not opened
-the diff.
+Then these sections, in this order. `Try it` goes in only when the change adds
+or changes a command. The prose MUST stay under 20 lines, and the diagram and
+command blocks don't count. It is read on a phone, in a notification, by
+someone who has not opened the diff.
 
-```markdown
+````markdown
 ## What problem this solves
 
 <Who was hurting and how. One or two sentences, the symptom a person could see,
@@ -78,26 +79,91 @@ not the internals. Three symptoms or more go in bullets instead.>
 opens with its point in bold, then the behaviour. The file name only if it
 helps.>
 
-## Packages
+## User flow
 
-<Every dependency this change adds, one line each: the name, what it does for
-us, its size. Then the ones you looked at and turned down, one line each, with
-the reason. Nothing added? Write "No new packages." and, if a well known
-package would have fit, say why you wrote it by hand instead.>
+```mermaid
+flowchart LR
+  <what the person does and sees, step by step>
 ```
+
+## Try it
+
+```console
+$ <the exact command, with real arguments>
+<the output to expect>
+```
+
+## Reused code and packages
+
+<What the change reuses from this repo, one line each: the name, where it sits,
+what it does here. Then every dependency it adds: the name, what it does, its
+size. Then the packages you looked at and turned down, with the reason. Nothing
+added? Write "No new packages." and, if a well known package would have fit,
+say why you wrote it by hand instead.>
+````
 
 A paragraph MUST stop at three lines, and a bullet at two. Over the cap? Cut a
 bullet, the wording stays as it is.
 
-### What belongs in Packages
+### User flow
 
-Third party code the change now depends on, or would have. A new peer or dev
-dependency counts.
+The diagram shows the paths a person takes through the change. GitHub renders
+the `mermaid` block as a picture.
 
-The repo's own tooling MUST stay out: Vitest, Nx, the linter. Same for MCP
-servers, editors and agents. How the code got written is not part of the change.
+- Each path the change adds or changes MUST be drawn. Untouched paths stay out.
+- A node is an action or a screen, in plain words: "Picks a photo", "Sees the
+  size error". File and function names MUST stay out.
+- A branch (error, cancel, retry) gets its own arrow with a label:
+  `-->|over 25 MB|`.
+- A diagram SHOULD stop at ten nodes. A bigger change gets one diagram per
+  flow.
+- A label with brackets, quotes or a colon MUST sit in double quotes, or GitHub
+  fails to render the block.
 
-You MUST check the diff before writing this section. A package the manifest
+No person in the loop, as in a CI job or a migration? Draw what starts it and
+what comes out.
+
+### Try it
+
+This section is for a new or changed command: a CLI, a script, a `package.json`
+script, a Make target, a slash command, a new flag.
+
+- Show the exact line a person types, with real arguments, then what it prints.
+- Run it when it is local and safe, and paste the real output, trimmed to the
+  lines a person checks.
+- A command that touches shared systems or needs secrets MUST NOT be run. Write
+  the output from the code and add `# expected, not run` above it.
+- A command that checks its input SHOULD also show one bad input and its error.
+
+```console
+$ todo add "Buy milk" --due friday
+Added #14 "Buy milk", due Fri 10 Oct
+$ todo add ""
+error: the title is empty
+```
+
+### What belongs in Reused code and packages
+
+Reused code first, then packages.
+
+**Reused** means code that sat in the repo before this branch and the change now
+calls: a helper, a component, a hook, a service, a type.
+
+- Find it in the imports and calls the diff adds. Anything outside the files
+  the branch created counts: `git diff --diff-filter=A --name-only "$base"...HEAD`.
+- Each line names the thing, where it sits and what it does here.
+- The list SHOULD stop at five. What a reviewer would expect to see written anew
+  goes first.
+- Nothing worth naming? Leave the reused lines out.
+
+**Packages** means third party code the change now depends on, or would have. A
+new peer or dev dependency counts.
+
+The repo's own tooling MUST stay out of both: Vitest, Nx, the linter. Same for
+MCP servers, editors and agents. How the code got written is not part of the
+change.
+
+You MUST check the diff before writing about packages. A package the manifest
 doesn't show MUST NOT be claimed:
 `git diff "$base"...HEAD -- '**/package.json' 'package.json'`.
 
@@ -107,6 +173,7 @@ hand-written version is ten lines.
 
 Examples:
 
+- "Reuses `formatBytes` from `src/utils/format.ts` to print the limit."
 - "`date-fns` 3.6, 2 kB after tree shaking, formats the due dates."
 - "Turned down `moment`: 70 kB and no tree shaking."
 - "No new packages. `lodash.groupby` would have done it, but `Object.groupBy`
@@ -176,7 +243,7 @@ One or two lines: the PR link and the title. Nothing else.
 
 ## Example body
 
-```markdown
+````markdown
 PROJ-123
 
 ## What problem this solves
@@ -191,11 +258,22 @@ file several times and then gave up, so support got about 30 tickets a week.
   knows what to do next.
 - **Double submit** the upload button stays disabled while a file is in flight.
 
-## Packages
+## User flow
 
+```mermaid
+flowchart LR
+  A[Picks a photo] --> B{Size}
+  B -->|up to 25 MB| C[Upload starts, button disabled]
+  C --> D[Sees the photo in the list]
+  B -->|over 25 MB| E[Sees the limit and the file size]
+```
+
+## Reused code and packages
+
+- Reuses `formatBytes` from `src/utils/format.ts` to print both sizes.
 - `browser-image-compression` 2.0, 12 kB, shrinks a photo in the browser
   before it goes up.
 - Turned down `sharp`: it only runs on the server, and the point here is to
   cut the upload before it starts.
-- Turned down `filesize`: printing "25 MB" is three lines of our own code.
-```
+- Turned down `filesize`: `formatBytes` already prints "25 MB".
+````
