@@ -37,8 +37,7 @@ once and check. Every line below MUST be true before the answer goes out:
   skips it. The deep dive comes last: one choice per finding with its number and
   its table text, then all of them and nothing more. Search the answer for
   `- [` : a markdown checkbox means the picker tool was skipped.
-- Nothing went on the PR before the user asked for it and named the version,
-  long or short.
+- Nothing went on the PR before the user asked for it and picked a version.
 - Every link in the report shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.
@@ -49,9 +48,10 @@ once and check. Every line below MUST be true before the answer goes out:
   produces, and explains each code name in plain words the first time.
 - Every per-finding comment: one doubt and one ask, under 40 words, no
   headings, lists, fenced code, run tallies or damage. It starts with `nit: `
-  where it is one, and opens unsure or asks, even about a checked fact.
-- Every finding carries a second, shorter comment under `Shorter:`, the same
-  ask with the mechanism and the aside cut out.
+  where it is one. Outside `Assertive:` it opens unsure or asks, even about a
+  checked fact, and the openers vary.
+- Every finding carries a shorter comment under `Shorter:` and the short one
+  with no hedge under `Assertive:`, all with the same ask.
 - Every per-finding comment leads with the problem in plain words, not a chain
   of function or call names. A name or snippet shows up only where the plain
   sentence alone couldn't point at the spot.

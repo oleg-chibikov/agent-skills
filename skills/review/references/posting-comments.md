@@ -17,9 +17,9 @@ after, as the last question.
 
 ## Ask which version first
 
-The long comment block and the one under `Shorter:` say the same thing, so the
-user picks, and the pick MUST NOT be guessed. One question before any call, two
-plain choices plus "skip", put on screen the way
+The blocks under the comment, `Shorter:` and `Assertive:` say the same thing,
+so the user picks, and the pick MUST NOT be guessed. One question before any
+call, three plain choices plus "skip", put on screen the way
 [pick-lists.md](pick-lists.md) says. The answer holds for every comment in the
 review.
 

@@ -7,8 +7,8 @@ the two, in Copilot Chat and in Claude Code alike.
 
 ## The comment entry
 
-The heading, where the comment goes, the comment long and short, then the tag
-of its explanation. Nothing else, nits included.
+The heading, where the comment goes, the comment long, short and assertive,
+then the tag of its explanation. Nothing else, nits included.
 
 ````markdown
 ### C1. Blocker: the typed name is lost when the server is slow
@@ -26,6 +26,13 @@ Shorter:
 ```markdown
 clears the input before saveName comes back, so a failed save loses the name.
 clear it after it resolves ok?
+```
+
+Assertive:
+
+```markdown
+this clears the input before saveName comes back, so a failed save loses the
+name. please clear it after the call resolves ok
 ```
 
 Explanation: E1
@@ -112,8 +119,8 @@ if (saved.ok) setName("");
 - **Comment on**: opens the comment entry, same two-link shape, and says
   whether the line is in the diff.
 - **Comment for the PR**: it MUST be in the comment entry of every finding,
-  nits included. Two blocks, the second under a bare `Shorter:` line, saying
-  the same thing with the explaining cut out. The user picks one.
+  nits included. Three blocks, under bare `Shorter:` and `Assertive:` lines
+  after the first. The user picks one.
 
 Those headings MUST come in that order with nothing added. A fifth one means two
 findings.
@@ -124,5 +131,5 @@ findings.
   You MUST read [pr-links.md](pr-links.md) before the first link.
 - You MUST read [comment-style.md](comment-style.md) before the first comment
   block, and keep it in context until the last one is done. One sentence of
-  doubt and one ask, under 40 words, then the same thing halved as a second
-  block. No headings, no fenced code.
+  doubt and one ask, under 40 words, then the same thing halved, then halved
+  and assertive. No headings, no fenced code.

@@ -4,7 +4,8 @@ You MUST read this before the first per-finding comment, and keep it in context
 until the last one is written.
 
 A colleague reads this text, so the `writing-style` skill MUST be in context
-first. Run its final checklist over the comment before it goes in the answer.
+first. Run its final checklist over each block before it goes in. A search of
+each block for `never` MUST come back empty: write "the caller doesn't set it".
 
 It reads like a colleague typing in a hurry, not like a report. The long version
 sits above it in the report language. Here you raise the doubt and ask.
@@ -13,9 +14,8 @@ sits above it in the report language. Here you raise the doubt and ask.
 words.** Draft it, then halve it. The first draft always explains twice as much
 as the author needs.
 
-Two blocks per finding MUST go in, the drafted one and the halved one, so the
-user picks. Both say the same thing, so the second reads as the first with the
-explaining taken out.
+Three blocks per finding MUST go in, so the user picks: the draft, the draft
+halved, and the halved one said assertively. All three carry the same ask.
 
 The house style, copy its shape:
 
@@ -58,9 +58,11 @@ What that style is made of:
   words anyone on the team would follow, no matter the language. A name, a call
   or a snippet comes in only when the plain sentence can't point at the spot,
   and two of them chained to show how one calls the other MUST NOT appear.
-- **The comment MUST sound unsure, even about a fact you checked.** Open with
-  "I think", "seems like", "from what I see", or ask outright. The author knows
-  the code better, and a flat claim reads as a verdict.
+- **The comment MUST sound unsure, even about a fact you checked.** The author
+  knows the code better, and a flat claim reads as a verdict. The `Assertive:`
+  block is the one exception: no hedge, the ask as a plain request.
+- **The opener SHOULD change from one comment to the next**, picked from the
+  list below.
 - **The comment SHOULD end in a question.** "will this ...?", "could we ...?".
   A blocker says what breaks, still behind "I think".
 - **The claim MUST be bounded rather than vague.** "from what I see", "I only
@@ -82,6 +84,16 @@ What that style is made of:
 - Leave out headings, bold labels, bullet lists, a severity tag, a greeting, a
   sign off and thanks for the PR. Don't repeat the file name or the line number,
   the comment already sits there.
+
+Openers to rotate through:
+
+```markdown
+I think / I might be wrong, but / seems like / looks like
+from what I see / as far as I understand / if I read this right
+unless I'm missing something / correct me if I'm wrong, but
+not sure, but / I wonder if / maybe / probably
+wdyt? / does that make sense? / or am I missing something?
+```
 
 What the halving cuts, in this order:
 
@@ -113,11 +125,17 @@ survive. can we match the modifier here?
 Too sure, and the same comment softened:
 
 ```markdown
-nit: the message names variant, which the caller never set.
+nit: the message names variant. the caller doesn't set it.
 ```
 
 ```markdown
 nit: seems like the caller doesn't set variant - maybe drop it from the message?
+```
+
+The same comment under `Assertive:`:
+
+```markdown
+nit: the caller doesn't set variant. please drop it from the message
 ```
 
 Bad, and why:
