@@ -58,13 +58,11 @@ What that style is made of:
   words anyone on the team would follow, no matter the language. A name, a call
   or a snippet comes in only when the plain sentence can't point at the spot,
   and two of them chained to show how one calls the other MUST NOT appear.
-- **The comment SHOULD ask rather than state.** Most are a question: "will this
-  ...?", "could we ...?". A blocker still says plainly that it breaks.
-- **A hedge MUST match what you checked.** Grepped or read it: say it flat,
-  "the shared config already sets `restoreMocks: true`". Worked it out in
-  your head: "I think", "as far as I understand", once, at the front. Didn't
-  look: ask, "not sure which readme is meant here". A hedge on a verified fact
-  gets waved away, and a flat claim you guessed at gets you corrected.
+- **The comment MUST sound unsure, even about a fact you checked.** Open with
+  "I think", "seems like", "from what I see", or ask outright. The author knows
+  the code better, and a flat claim reads as a verdict.
+- **The comment SHOULD end in a question.** "will this ...?", "could we ...?".
+  A blocker says what breaks, still behind "I think".
 - **The claim MUST be bounded rather than vague.** "from what I see", "I only
   looked at the resolver". A call that is the author's goes back to them as a
   question, and no line lectures them on the area they work in daily.
@@ -110,6 +108,16 @@ a variant?
 I think aspect-auto doesn't cancel the variant's
 group-data-[orientation=vertical]:aspect-square - different modifier, so both
 survive. can we match the modifier here?
+```
+
+Too sure, and the same comment softened:
+
+```markdown
+nit: the message names variant, which the caller never set.
+```
+
+```markdown
+nit: seems like the caller doesn't set variant - maybe drop it from the message?
 ```
 
 Bad, and why:

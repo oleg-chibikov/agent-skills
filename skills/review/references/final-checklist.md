@@ -20,13 +20,13 @@ once and check. Every line below MUST be true before the answer goes out:
 - The whole report is in the report language from `LANGUAGE.md`, not the
   language of the user's one-line ask, unless they named one in this
   conversation. Every comment block is English, with none of the report language
-  left in it. "Never", and its version in any other language, is gone.
+  left in it. A search of every comment for `never`, and its twin in any other
+  language, finds nothing.
 - Reading settled it, or the run count stayed at a couple at most, no full
   build, install or suite.
 - The summary says what was wrong and what happens now, with no code words.
   The table sits above the findings, every row matching one below.
-- The map names every changed file, and the reading order says why each comes
-  where it does.
+- The map names every changed file and why it comes where it does.
 - Every finding: a line link, the flow, the real thing that comes out with its
   evidence marker in brackets, the fix. Nothing rests on "could" alone.
 - A deep dived finding looks like the rest: same four headings, same order.
@@ -48,8 +48,8 @@ once and check. Every line below MUST be true before the answer goes out:
 - Every finding names one real case and keeps it to the end, quotes the value it
   produces, and explains each code name in plain words the first time.
 - Every per-finding comment: one doubt and one ask, under 40 words, no
-  headings, no lists, no fenced code, no run tallies, no paragraph on the
-  damage. Every nit starts with `nit: `, and the hedge matches what you checked.
+  headings, lists, fenced code, run tallies or damage. It starts with `nit: `
+  where it is one, and opens unsure or asks, even about a checked fact.
 - Every finding carries a second, shorter comment under `Shorter:`, the same
   ask with the mechanism and the aside cut out.
 - Every per-finding comment leads with the problem in plain words, not a chain
