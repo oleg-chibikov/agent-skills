@@ -6,5 +6,6 @@ and one step up to the caller answers the rest. Still unclear after that step?
 Say so in the finding and move on. A path MUST NOT be invented, and chasing
 callers across the repo waits for the deep dive.
 
-Build the map while you read: which changed file calls which, what each is for,
-which one carries the idea. That is part 2 of the answer.
+Build the map while you read: what the person does, which changed file runs
+next, what it does to the data and what that changes on screen. That is part 2
+of the answer.

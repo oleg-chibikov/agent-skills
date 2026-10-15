@@ -37,8 +37,8 @@ files to open are in [references/repo-rules.md](references/repo-rules.md).
 
 ## 4. Trace the flow, map it as you go
 
-What a person does to make a suspicious line run, and how the changed files hang
-together. How far to chase it is in
+What a person does to make a suspicious line run, and what each changed file
+does on the way. How far to chase it is in
 [references/trace-the-flow.md](references/trace-the-flow.md).
 
 ## 5. Look for what matters
@@ -53,7 +53,7 @@ Four parts in this order, each with its own file:
 
 1. What this change is about:
    [references/part-1-summary.md](references/part-1-summary.md).
-2. The map and the reading order:
+2. The user flow and code flow diagrams, then the reading order:
    [references/part-2-map.md](references/part-2-map.md).
 3. The findings table:
    [references/part-3-table.md](references/part-3-table.md).

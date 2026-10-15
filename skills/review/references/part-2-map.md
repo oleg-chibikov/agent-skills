@@ -1,45 +1,102 @@
-# Part 2: the map and the reading order
+# Part 2: how the change works and the reading order
 
-How the changed files hang together, and in which order to open them. GitHub
-shows them alphabetically, so this part saves the reader that. Three pieces MUST
-be there:
+Two mermaid diagrams show what the change does, then a numbered list says which
+order to open the files in. GitHub lists files alphabetically, so this part
+saves the reader that.
 
-1. **One bullet per file**, the name in bold, then one plain sentence on what it
-   is for. Files that belong together share one bullet and are named as a group.
-   No prose here.
-2. **A plain text tree** in a fenced block marked `text`. Mermaid MUST NOT be
-   used: chat windows render it as an empty box. Start from the file that pulls
-   the others in, branch with `├──` and `└──`, and add a short note after a file
-   name when what travels along that edge is the point. Mark the files the PR
-   adds and the ones nothing calls yet. Hold the changed files plus the existing
-   ones they touch, nothing more, under about twelve lines. Below three files,
-   skip the tree.
-3. **The reading order**, numbered, one line each, saying why the file comes at
-   that point. Start where the data starts or where the simplest piece is, end
-   where it ties together. Tests and config last.
+## The user flow
 
-One file and a test? Write one line saying the map is not needed.
+What a person does and sees, step by step, as a `flowchart LR`.
 
-````markdown
-## How the files hang together
+- Each path the change adds or changes MUST be drawn. Untouched paths stay out.
+- A node is an action or a screen in plain words: "Picks a CSV file". File and
+  function names MUST stay out.
+- A branch (error, cancel, retry) gets its own labelled arrow:
+  `-->|some rows broken|`.
+- The step that behaves differently now gets the `changed` class.
 
-- **`import-csv.ts`** reads the uploaded file and pulls the rows out of it. It
-  leans on the two new helpers below.
-- **`parse-row.ts`, `to-record.ts`** parse one row and turn it into a record.
-- **`result.ts`** carries the outcome. This PR taught it to hold warnings.
-- **Tests and build config** only pull the new files into the run.
+No person in the loop, as in a CI job or a migration? Draw what starts it and
+what comes out.
 
-```text
-import-csv.ts (new)  the main file of the PR
-├── parse-row.ts (new)        parses one row
-├── to-record.ts (new)        turns it into a record
-└── result.ts                 warnings were added here
-    └── collect-results.ts (unchanged)   carries them to the output
+## What happens inside
 
-importButton (next PR) ···> import-csv.ts   nothing calls it yet
+The code path behind that flow, as a `flowchart TD`, one node per step.
+
+- A node MUST say what the file does in this change, after its name. Bad:
+  `parse-row.ts`. Good: `parse-row.ts (new)<br/>splits a line, a bad cell
+  becomes a warning`.
+- Each node SHOULD carry `(new)`, `(changed)` or `(unchanged)`, and new or
+  changed nodes get their class.
+- An arrow label says what passes along or what it changes: `-->|record|`,
+  `-->|writes uploads|`. A file with no caller yet joins with a dotted `-.->`.
+- The last node MUST be the effect a person or another system sees.
+- Tests and config stay out of it, they go in the reading order.
+
+One file and a test? Skip this diagram and write one line saying it isn't
+needed.
+
+## Rules for both diagrams
+
+- A label with brackets, quotes, a colon or a slash MUST sit in double quotes,
+  or the block fails to render. Backticks MUST stay out of labels.
+- A diagram SHOULD stop at twelve nodes. A bigger change gets one per flow.
+
+## A link under each diagram
+
+VS Code chat draws a `mermaid` block. Claude and the terminal show it as code,
+so each diagram MUST get a link under it that opens the picture. Build it with
+`scripts/mermaid-link.py` from this skill's folder, feeding it the block's text:
+
+```sh
+python3 <skill folder>/scripts/mermaid-link.py <<'EOF'
+flowchart LR
+  A[Picks a CSV file] --> B[Presses Import]
+EOF
 ```
 
-Reading order:
+The diagram sits after the `#` in the link, and the browser doesn't send that
+part to mermaid.live.
+
+## The reading order
+
+Numbered, one line each, saying why the file comes at that point. Start where
+the data starts or where the simplest piece is, end where it ties together.
+Every changed file MUST appear, tests and config last.
+
+````markdown
+## How the change works
+
+### User flow
+
+```mermaid
+flowchart LR
+  A[Picks a CSV file] --> B[Presses Import]
+  B --> C{Every row valid?}
+  C -->|yes| D[Sees the rows imported]
+  C -->|some rows broken| E[Sees the good rows and a warning per broken row]:::changed
+  classDef changed stroke:#d97706,stroke-width:3px
+```
+
+[Open the diagram](<link from mermaid-link.py>)
+
+### What happens inside
+
+```mermaid
+flowchart TD
+  btn["Import button (unchanged)<br/>sends the file"] --> imp
+  imp["import-csv.ts (new)<br/>reads the file, splits it into lines"]:::new
+  imp -->|one line| parse["parse-row.ts (new)<br/>splits a line into cells, a bad cell becomes a warning"]:::new
+  parse -->|cells and warnings| rec["to-record.ts (new)<br/>turns the cells into a record"]:::new
+  rec -->|record| res["result.ts (changed)<br/>now keeps warnings next to the records"]:::changed
+  res --> col["collect-results.ts (unchanged)<br/>builds what the screen shows"]
+  col -->|records and warnings| out["Import screen shows the warnings under the table"]
+  classDef new stroke:#16a34a,stroke-width:3px
+  classDef changed stroke:#d97706,stroke-width:3px
+```
+
+[Open the diagram](<link from mermaid-link.py>)
+
+### Reading order
 
 1. `result.ts`, to see what a warning is. It turns up everywhere after that.
 2. `to-record.ts` and `parse-row.ts`, small and self contained, read them with

@@ -48,8 +48,9 @@ no em dash, no AI filler. It also sets the shape: bullets instead of paragraphs,
 the point of each one in bold at the front, nothing over three lines.
 
 **`review`** reads a PR, a branch or a diff and tells you what the change
-solves, which order to read the files in, then every problem in one table, then
-each one with the line number, the input that breaks it and the fix. Every
+solves, draws the user flow and what each file does, says which order to read
+the files in, then every problem in one table, then each one with the line
+number, the input that breaks it and the fix. Every
 problem comes with a short comment ready to paste on the line.
 
 **`create-pr`** writes the PR description: the problem, the solution, a
@@ -115,9 +116,10 @@ name is gone. can we clear it after the call resolves ok?
 
 </details>
 
-Above the table: what the change solves in three bullets, and a tree of the
-changed files with the order to read them in. Below it: the findings, then one
-paste-ready comment for the PR.
+Above the table: what the change solves in three bullets, a mermaid diagram of
+the user flow and one of what each file does, and the order to read them in.
+Each diagram has a mermaid.live link for chats that show it as code. Below the
+table: the findings, then one paste-ready comment for the PR.
 
 ## Use it
 

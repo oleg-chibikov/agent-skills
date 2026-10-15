@@ -22,11 +22,11 @@ once and check. Every line below MUST be true before the answer goes out:
   conversation. Every comment block is English, with none of the report language
   left in it. A search of every comment for `never`, and its twin in any other
   language, finds nothing.
-- Reading settled it, or the run count stayed at a couple at most, no full
-  build, install or suite.
+- Reading settled it: a couple of runs at most, no full build, install or suite.
 - The summary says what was wrong and what happens now, with no code words.
   The table sits above the findings, every row matching one below.
-- The map names every changed file and why it comes where it does.
+- Part 2 has a user flow and a code flow in `mermaid` blocks, each with an
+  `Open the diagram` link. Every code node says what the file does.
 - Every finding: a line link, the flow, the real thing that comes out with its
   evidence marker in brackets, the fix. Nothing rests on "could" alone.
 - A deep dived finding looks like the rest: same four headings, same order.
