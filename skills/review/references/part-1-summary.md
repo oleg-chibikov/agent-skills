@@ -17,7 +17,7 @@ rest.
 ### Before
 
 The Save button on the profile page wiped the name field before the server had
-agreed to store the new name. A failed save lost the typed name, with nothing on
+agreed to store the new name. A failed save lost the typed name, with no message on
 screen explaining why.
 
 ### Now

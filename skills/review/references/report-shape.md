@@ -2,7 +2,7 @@
 
 Four parts MUST come in this order: the summary, the map, the findings table,
 the findings. Then the second round, then the one offer to post the comments.
-Nothing else, no closing summary.
+No closing summary.
 
 All four MUST go in the report language, whatever language the user or the code
 used. Every comment block inside part 4 goes in English.

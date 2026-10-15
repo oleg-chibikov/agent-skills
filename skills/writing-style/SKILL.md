@@ -1,6 +1,6 @@
 ---
 name: writing-style
-description: 'Use before writing or editing any text a human will read, in any repository. That means chat answers, code comments, commit messages, PR titles and bodies, review comments, README and docs, wiki pages, tickets and comments, changesets and release notes, error messages, UI copy, chat messages. Also use when asked to make text sound human, cut the AI tone, tighten wording, or check something already written, in any language: "make this sound human", "say it shorter", "clean this up". Rules: plain words, answer first, one idea per sentence, bullets over paragraphs with the point in bold, no em dash, no "never", no "not X but Y", no AI filler, then a final cut-every-spare-word pass.'
+description: 'Use before writing or editing any text a human will read, in any repository. That means chat answers, code comments, commit messages, PR titles and bodies, review comments, README and docs, wiki pages, tickets and comments, changesets and release notes, error messages, UI copy, chat messages. Also use when asked to make text sound human, cut the AI tone, tighten wording, or check something already written, in any language: "make this sound human", "say it shorter", "clean this up". Rules: plain words, answer first, one idea per sentence, bullets over paragraphs with the point in bold, no em dash, no "never", no "nothing", no "not X but Y", no AI filler, then a final cut-every-spare-word pass.'
 ---
 
 # How to write
@@ -36,12 +36,12 @@ as short as it can while staying clear.
 - Numbers MUST be digits: "2 of 11 components".
 - A sentence MUST name one example at most. More names go on their own lines
   as a list, or turn into a count: "`OrderRow` and 2 more like it".
-- Each block MUST stand on its own. Nothing rests on something said earlier.
+- Each block MUST stand on its own. No block rests on one said earlier.
 - More than two steps MUST go in a numbered list, one step per line.
 - A code block MUST stop at five lines. Cut the rest.
 - Say what you know. A guess MUST be marked as a guess.
 - After you finish a task, the result MUST come back in a line or two.
-- You MUST answer in the language the user wrote in. Nothing to go on, as in a
+- You MUST answer in the language the user wrote in. No user to go by, as in a
   README or a doc? Read `LANGUAGE.md` next to this file and use the language
   named there. No such file? Write English.
 
@@ -69,13 +69,13 @@ The reader scans first and reads second. Give them something to scan.
 Bad, three facts buried in a paragraph:
 
 > The upload fails over 5 MB, the button stays enabled while a file is in
-> flight so people submit twice, and the error text says nothing about size.
+> flight so people submit twice, and the error text doesn't mention size.
 
 Good:
 
 > - **Cap** the upload fails over 5 MB.
 > - **Double submit** the button stays enabled while a file is in flight.
-> - **Error text** says nothing about size.
+> - **Error text** doesn't mention size.
 
 ## Banned, with what to write instead
 
@@ -84,8 +84,8 @@ MAY stand between words. A hyphen MUST only glue a word together: `data-slot`,
 `parse-row.ts`. Two ideas mean a full stop and a new sentence. A comma, brackets
 or a colon also do the job.
 
-**"Never".** The loudest tell that a machine wrote the line. A plain verb says
-the same:
+**"Never" and "nothing".** The loudest tells that a machine wrote the line. A
+plain verb says the same:
 
 | Instead of | Write |
 | --- | --- |
@@ -93,6 +93,9 @@ the same:
 | this never happens | this doesn't happen |
 | components never do this | no component does this |
 | the worker never reads the JSON | the worker doesn't read the JSON |
+| nothing reads the flag | no code reads the flag |
+| the page shows nothing | the page stays blank |
+| nothing else, nits included | only those, nits included |
 
 The ban covers the plain factual sense, not only emphasis. "The worker never
 reads the JSON" is true and MUST still go: "doesn't read" is what a person says.
@@ -107,7 +110,7 @@ with no facts behind it. The real set MUST be named.
 
 | Instead of | Write |
 | --- | --- |
-| nobody outside the repo sees them | they change nothing outside the repo |
+| nobody outside the repo sees them | they stay inside the repo |
 | everyone reading the JSON guesses the type | both consumers guess the type |
 | everybody knows that | it is in the README |
 
@@ -145,7 +148,7 @@ change, and "us" and "them" point at the same team.
 
 | Instead of | Write |
 | --- | --- |
-| it reads nothing from us | it reads nothing from `api-client` |
+| it takes no data from us | it takes no data from `api-client` |
 | the shape of our JSON | the shape of `orders.json` |
 | it breaks their typecheck | it breaks the `web-app` typecheck |
 | our id reaches them as | the order id reaches the mobile app as |
@@ -282,8 +285,8 @@ every word the reader can do without MUST go. Check:
 
 1. Does the first sentence answer the question?
 2. Any `—`, `–`, `--`, or a hyphen standing alone between words? Rewrite.
-3. Any "never" at all, in any sense? Any "always" as emphasis? Rewrite with a
-   plain verb.
+3. Any "never" or "nothing" at all, in any sense? Any "always" as emphasis?
+   Rewrite with a plain verb.
 4. Any "not X, it's Y"? Flip it to the positive.
 5. Any sentence with two or more commas? Split it.
 6. Any padding phrase or emoji from the banned list? Delete it.
@@ -319,13 +322,14 @@ Find your twins once, then check for them every time:
 
 | The English tell | What to look for |
 | --- | --- |
-| never, nobody, everyone | your language's absolute words |
+| never, nothing, nobody, everyone | your language's absolute words |
 | it's not X, it's Y | the same flip, however your language builds it |
 | which, thereby allowing, in doing so | the connectors that sound most formal |
 | full stop, end of story | the closers that add emphasis and no fact |
 | Here is, Look at, Notice | the phrases that point at your own text |
 
-Russian, as a worked example. Ban «никогда», «никто», «все»; write «так не
-делаем», «такого нет ни разу». Flip «не X, а Y» into «так задумано». Cut
+Russian, as a worked example. Ban «никогда», «ничего», «никто», «все»; write
+«так не делаем», «такого нет ни разу», «код его не читает». Flip «не X, а Y»
+into «так задумано». Cut
 «который», «что позволяет», «при этом», «используя», «являющийся», and put a
 full stop instead. Drop «и точка», «от и до», «как видно», «рассмотрим».

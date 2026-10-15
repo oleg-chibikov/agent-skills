@@ -76,7 +76,7 @@ anything is posted:
 ## 8. Offer to post the comments
 
 The second round MUST close with one offer: put the comments on the PR, the
-findings of both rounds together. Nothing goes on the PR until the user asks for
+findings of both rounds together. A comment goes on the PR only once the user asks for
 it. The offer, the question that comes before the first call and the `gh` call
 per comment are in
 [references/posting-comments.md](references/posting-comments.md).
@@ -92,4 +92,4 @@ one means and how the finding comes back are in
 
 You MUST read
 [references/final-checklist.md](references/final-checklist.md) and run it over
-the whole answer. Nothing goes out before that.
+the whole answer. The answer goes out only after that.

@@ -45,7 +45,7 @@ cd agent-skills
 **`writing-style`** cleans up every line a person reads: chat, comments,
 commits, PRs, docs, UI copy. Plain words, answer first, one idea per sentence,
 no em dash, no AI filler. It also sets the shape: bullets instead of paragraphs,
-the point of each one in bold at the front, nothing over three lines.
+the point of each one in bold at the front, no block over three lines.
 
 **`review`** reads a PR, a branch or a diff and tells you what the change
 solves, draws the user flow and what each file does, says which order to read
@@ -78,7 +78,7 @@ The review opens with a table, so the whole verdict fits on one screen:
 | --- | --- | --- | --- |
 | 1 | Blocker | `SaveName.tsx:42` | the typed name is lost when the save is slow |
 | 2 | Should fix | `profile.ts:88` | the save error is swallowed, so the page stays silent |
-| 3 | Nit | `SaveName.tsx:20` | nothing reads the `isLoading` flag |
+| 3 | Nit | `SaveName.tsx:20` | no code reads the `isLoading` flag |
 
 <details>
 <summary>One finding out of that table</summary>
@@ -91,7 +91,7 @@ The review opens with a table, so the whole verdict fits on one screen:
 the person typed. Clear it after the answer.**
 
 - **Who hits it** a person opens Settings, types a new name and presses Save.
-  Nothing else reaches this code.
+  No other path reaches this code.
 - **Now** line 42 empties the field, then waits for the server:
   `setName(""); await saveName(name);`
 - **Comes out** the server answers two seconds later, or fails. The field is

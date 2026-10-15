@@ -11,8 +11,8 @@ so in one line and stop.
 The second round [architecture-pass.md](architecture-pass.md) MUST be done
 first, and the offer to put the comments on the PR closes it, next to a choice
 that skips it, in the report language and through the picker
-[pick-lists.md](pick-lists.md) describes. Nothing goes on the PR until the user
-asks for it. The findings of both rounds go up together. The deep dive comes
+[pick-lists.md](pick-lists.md) describes. A comment goes on the PR only once the
+user asks for it. The findings of both rounds go up together. The deep dive comes
 after, as the last question.
 
 ## Ask which version first

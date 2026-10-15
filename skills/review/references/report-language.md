@@ -4,7 +4,7 @@ Two languages, kept apart:
 
 - **Report language**: the four parts of the report, the text only the user
   reads. It MUST come from `LANGUAGE.md` next to `SKILL.md`. No file, or it
-  names nothing? English.
+  names no language? English.
 - **English**: every comment meant for the PR MUST be in English. The whole team
   reads a PR.
 

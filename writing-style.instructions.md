@@ -23,7 +23,7 @@ The short version binds on its own:
   what happened.
 - `—`, `–`, `--` and a lone hyphen between words MUST NOT appear. Use a comma
   or a full stop.
-- "Never" MUST go. Write "don't do X".
+- "Never" and "nothing" MUST go. Write "don't do X", "no code reads it".
 - Say it in the positive. "It's Y", not "it's not X, it's Y".
 - AI padding MUST NOT appear: "Great question", "Let's dive in", "In
   conclusion", emoji.

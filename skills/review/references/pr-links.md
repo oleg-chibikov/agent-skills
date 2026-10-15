@@ -52,5 +52,5 @@ worked out before writing the target:
   the comment with the real location, "a line up, at `report.ts:55`, ...".
 - **Two files**: the comment goes on the one the author has to edit, and names
   the other.
-- **Nothing fits**: the finding stays in the report and gets no comment. Say so
+- **No line fits**: the finding stays in the report and gets no comment. Say so
   on its "Comment on" line.

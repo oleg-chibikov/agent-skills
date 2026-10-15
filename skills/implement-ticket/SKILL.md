@@ -82,7 +82,7 @@ Write the plan in the chat, then start without asking:
 
 ### Low blast radius
 
-- The change MUST do what the ticket asks and nothing else. No renames, no
+- The change MUST do what the ticket asks and only that. No renames, no
   reformatting, no fixes to nearby code.
 - A public API, a shared config, a schema or a dependency MUST NOT change
   unless the ticket needs it. When it must, the plan names it.
@@ -138,8 +138,8 @@ context.
 
 Run the repo's checks over the change before the PR: typecheck, lint, the
 tests of the touched modules. A failing check MUST be fixed before the PR. The
-fix goes in the commit of the step it belongs to only when nothing is pushed
-yet, as a new commit otherwise.
+fix goes in the commit of the step it belongs to while the branch is unpushed,
+and in a new commit otherwise.
 
 A check that already fails on the default branch SHOULD go in the report and
 stay as it is.

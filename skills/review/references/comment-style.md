@@ -4,8 +4,8 @@ You MUST read this before the first per-finding comment, and keep it in context
 until the last one is written.
 
 A colleague reads this text, so the `writing-style` skill MUST be in context
-first. Run its final checklist over each block before it goes in. A search of
-each block for `never` MUST come back empty: write "the caller doesn't set it".
+first. Run its final checklist over each block before it goes in. A search for
+`never` and `nothing` in each block MUST come back empty.
 
 It reads like a colleague typing in a hurry, not like a report. The long version
 sits above it in the report language. Here you raise the doubt and ask.
@@ -142,7 +142,7 @@ Bad, and why:
 
 ```markdown
 This clears the input before `saveName` answers, so a slow or failed save wipes
-the name the person typed and shows them nothing. They think it saved. Could
+the name the person typed and shows them no error. They think it saved. Could
 you clear it after the call comes back ok, and leave the text alone on error?
 ```
 

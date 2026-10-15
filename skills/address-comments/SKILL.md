@@ -62,7 +62,7 @@ Put each thread in one bucket:
 
 - **Fix** the thread asks for a change, and nobody disputes it or the
   discussion settled it.
-- **Answer** a question with nothing to change. Draft a reply, no commit.
+- **Answer** a question that needs no change. Draft a reply, no commit.
 - **Open** the author pushed back and the reviewer has not agreed, the ask is
   unclear, or it needs a redesign. No commit, no reply.
 - **Done** the code already does what the thread asks, common on
@@ -79,7 +79,7 @@ ask in a few words, the bucket. Then start, without asking.
 Work through the Fix threads in file order. The smallest diff that does what
 the thread settled on MUST win, even when a bigger rewrite reads nicer.
 
-- The change MUST do what the thread asks and nothing else. No renames, no
+- The change MUST do what the thread asks and only that. No renames, no
   reformatting, no fixes to nearby code. A problem spotted nearby goes in the
   report, untouched.
 - Deleting SHOULD beat adding. Before writing a line, look for code the fix lets

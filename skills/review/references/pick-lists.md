@@ -4,7 +4,7 @@ You MUST read this before any list the user picks from: the deep dive offer and
 the question about which comment version to post both use it.
 
 A markdown checkbox, `- [ ]`, MUST NOT appear anywhere in the answer. VS Code
-draws it as a box that nothing clicks, and the text behind the box falls onto
+draws it as a box that doesn't click, and the text behind the box falls onto
 its own line.
 
 ## The host has a picker tool
@@ -31,7 +31,7 @@ the code on a real input and count how often it happens.
 
 1. Blocker: the typed name is lost when the save is slow
 2. Should fix: the save error is swallowed
-3. Nit: nothing reads the `isLoading` flag
+3. Nit: no code reads the `isLoading` flag
 4. All of them
-5. Nothing more, the review is done
+5. Stop here, the review is done
 ```

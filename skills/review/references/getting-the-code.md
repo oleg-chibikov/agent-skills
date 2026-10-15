@@ -6,7 +6,7 @@ anything.
 ## Checking out the branch
 
 Start from the diff: `GH_PAGER=cat gh pr diff <number>` or `git diff`. It
-settles most findings on its own and costs nothing to fetch.
+settles most findings on its own and is free to fetch.
 
 The branch MUST be checked out only when the diff leaves a real gap it can't
 close: a caller, a type or a config file the diff doesn't show, or a finding

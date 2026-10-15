@@ -18,13 +18,13 @@ full example. You MUST read it before writing the first finding.
 
 ## Picking the severity
 
-The size of the fix says nothing about the severity, and a nit tells the author
+The size of the fix doesn't set the severity, and a nit tells the author
 to ignore it. So:
 
-- **Nit**: the code behaves the same either way and nothing rots in a year.
+- **Nit**: the code behaves the same either way and no part rots in a year.
   Formatting, a name, a shorter way to write the same expression.
 - **Should fix**: anything that can silently drift or mislead later, even when
-  the fix is one line. Duplication, code nothing calls, a path with no test, a
+  the fix is one line. Duplication, dead code, a path with no test, a
   comment that says what the code does not do, a swallowed error, a value
   hardcoded twice, a third party's token where the project has its own.
 - Torn between two levels? The higher one MUST win, and the repo's own scale
@@ -32,7 +32,7 @@ to ignore it. So:
 
 ## Carry one real case through the whole finding
 
-The reader knows nothing about this code and will not go looking. The example,
+The reader doesn't know this code and will not go looking. The example,
 the numbers and the fix all MUST sit in the finding.
 
 A finding about the code in general reads as fog. One real case out of the repo,

@@ -11,8 +11,8 @@ the report language, one choice per finding plus two standing ones. Each finding
 choice MUST carry the same number and the same short text as the findings table,
 so the user picks without scrolling back.
 
-The two standing choices MUST come last, in this order: all of them, and nothing
-more. It is the last question of the review.
+The two standing choices MUST come last, in this order: all of them, and stop
+here. It is the last question of the review.
 
 You MUST read [pick-lists.md](pick-lists.md) before writing the offer: how to
 put the choices on screen, and why a markdown checkbox MUST NOT be used.

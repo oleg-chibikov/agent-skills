@@ -8,7 +8,7 @@ the two, in Copilot Chat and in Claude Code alike.
 ## The comment entry
 
 The heading, where the comment goes, the comment long, short and assertive,
-then the tag of its explanation. Nothing else, nits included.
+then the tag of its explanation. Only those, nits included.
 
 ````markdown
 ### C1. Blocker: the typed name is lost when the server is slow
@@ -57,7 +57,7 @@ the person typed. Clear it after the answer.**
 
 #### Who hits it
 
-A person opens Settings, types a new name and presses Save. Nothing else reaches
+A person opens Settings, types a new name and presses Save. No other path reaches
 this code.
 
 #### Now
@@ -122,7 +122,7 @@ if (saved.ok) setName("");
   nits included. Three blocks, under bare `Shorter:` and `Assertive:` lines
   after the first. The user picks one.
 
-Those headings MUST come in that order with nothing added. A fifth one means two
+Those headings MUST come in that order with no extra ones. A fifth one means two
 findings.
 
 ## The two files that finish a finding

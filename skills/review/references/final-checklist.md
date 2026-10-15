@@ -20,24 +20,24 @@ once and check. Every line below MUST be true before the answer goes out:
 - The whole report is in the report language from `LANGUAGE.md`, not the
   language of the user's one-line ask, unless they named one in this
   conversation. Every comment block is English, with none of the report language
-  left in it. A search of every comment for `never`, and its twin in any other
-  language, finds nothing.
+  left in it. A search of every comment for `never` and `nothing`, and their
+  twins in any other language, comes back empty.
 - Reading settled it: a couple of runs at most, no full build, install or suite.
 - The summary says what was wrong and what happens now, with no code words.
   The table sits above the findings, every row matching one below.
 - Part 2 has a user flow and a code flow in `mermaid` blocks, each with an
   `Open the diagram` link. Every code node says what the file does.
 - Every finding: a line link, the flow, the real thing that comes out with its
-  evidence marker in brackets, the fix. Nothing rests on "could" alone.
+  evidence marker in brackets, the fix. No finding rests on "could" alone.
 - A deep dived finding looks like the rest: same four headings, same order.
   Only the marker, the value and the count differ.
 - The four parts went on screen before the second round, and the second round
   came before the posting offer. Its findings carry on the numbering.
 - The answer ends with an offer to post the comments, next to a choice that
   skips it. The deep dive comes last: one choice per finding with its number and
-  its table text, then all of them and nothing more. Search the answer for
+  its table text, then all of them and stop here. Search the answer for
   `- [` : a markdown checkbox means the picker tool was skipped.
-- Nothing went on the PR before the user asked for it and picked a version.
+- No comment went on the PR before the user asked for it and picked a version.
 - Every link in the report shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.
@@ -56,8 +56,8 @@ once and check. Every line below MUST be true before the answer goes out:
   of function or call names. A name or snippet shows up only where the plain
   sentence alone couldn't point at the spot.
 - You checked whether the repo or a dependency already does this, and the second
-  round checked the shape against the task. Found nothing? Say so in one line.
+  round checked the shape against the task. Found no match? Say so in one line.
 - The reviewed branch is still checked out, the user's own checkout is as you
   found it, and the answer says where the code sits.
-- Nothing on the list is something the repo rules told you to do, and a person
+- No item on the list is something the repo rules told you to do, and a person
   outside the team could act on any finding.

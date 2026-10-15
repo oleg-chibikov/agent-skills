@@ -8,7 +8,7 @@ review.
 
 The whole first pass report MUST be on screen before this round starts, so the
 user has the findings in hand while it runs. Then one line saying the second
-round is starting, then the round, then the offer to post. Nothing goes on the
+round is starting, then the round, then the offer to post. No comment goes on the
 PR before it is done, since it can add findings that need a comment.
 
 ## What to ask
@@ -18,15 +18,15 @@ and say in one sentence what the change has to achieve. Then ask:
 
 - Does the design achieve all of it? Name the part it misses.
 - What is missing around it: a new endpoint with no permission check, state
-  nobody owns, an error path nothing handles, a migration with no way back.
+  nobody owns, an error path no code handles, a migration with no way back.
 - Is anything here for a problem the repo doesn't have: a flag with one value,
-  an abstraction with one implementation, a field nothing reads? Say what it
+  an abstraction with one implementation, a field no code reads? Say what it
   costs to carry.
 - Is the work in the right place? A server check sitting in the browser, logic
   in a component every other screen will need, a package reaching into another
   package's internals.
 - Would a plainer version do the same? Describe it in two or three sentences,
-  with the file it lives in. Nothing plainer in mind? Say the shape is fine.
+  with the file it lives in. No plainer version in mind? Say the shape is fine.
 - Does it match how this repo does the same thing elsewhere? Link one existing
   example.
 
