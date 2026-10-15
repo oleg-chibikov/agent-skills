@@ -85,3 +85,9 @@ unless the edit is about them.
 4. No rule copied out of `writing-style`.
 5. Fenced blocks untouched unless the edit is about them.
 6. The `writing-style` final checklist run over the prose.
+
+## Commit and push
+
+- Each change MUST get its own commit once the checks above pass, then a push
+  to `origin`. Don't wait to be asked.
+- The subject SHOULD open with the skill it touches: `review: ...`.
