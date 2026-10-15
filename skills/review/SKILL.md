@@ -81,14 +81,7 @@ it. The offer, the question that comes before the first call and the `gh` call
 per comment are in
 [references/posting-comments.md](references/posting-comments.md).
 
-## 9. Offer the deep dive
-
-Once the posting is done or the user closed it, offer which findings to dig
-into. This is the last question of the review. The choices, what digging into
-one means and how the finding comes back are in
-[references/deep-dive.md](references/deep-dive.md).
-
-## 10. Before you send
+## 9. Before you send
 
 You MUST read
 [references/final-checklist.md](references/final-checklist.md) and run it over

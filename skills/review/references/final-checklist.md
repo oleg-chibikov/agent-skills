@@ -29,14 +29,11 @@ once and check. Every line below MUST be true before the answer goes out:
   `Open the diagram` link. Every code node says what the file does.
 - Every finding: a line link, the flow, the real thing that comes out with its
   evidence marker in brackets, the fix. No finding rests on "could" alone.
-- A deep dived finding looks like the rest: same four headings, same order.
-  Only the marker, the value and the count differ.
 - The four parts went on screen before the second round, and the second round
   came before the posting offer. Its findings carry on the numbering.
 - The answer ends with an offer to post the comments, next to a choice that
-  skips it. The deep dive comes last: one choice per finding with its number and
-  its table text, then all of them and stop here. Search the answer for
-  `- [` : a markdown checkbox means the picker tool was skipped.
+  skips it. Search the answer for `- [`: a markdown checkbox means the picker
+  tool was skipped.
 - No comment went on the PR before the user asked for it and picked a version.
 - Every link in the report shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each

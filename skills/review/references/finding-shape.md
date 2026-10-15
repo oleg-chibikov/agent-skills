@@ -112,8 +112,8 @@ if (saved.ok) setName("");
 - **Comes out**: the actual value, quoted, not a summary, then the evidence
   marker in brackets. A finding without a concrete outcome and a marker MUST
   NOT be sent.
-- **Costs**: what the person or the business loses, and how often. No count
-  until the deep dive has grepped one? Say what it turns on instead.
+- **Costs**: what the person or the business loses. Frequency MUST NOT be
+  claimed without evidence.
 - **Fix**: one line of words, then the code, up to roughly ten lines. Unsure?
   Give the idea and name what needs checking.
 - **Comment on**: opens the comment entry, same two-link shape, and says

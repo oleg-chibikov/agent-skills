@@ -44,9 +44,7 @@ rather than an invented `Foo`, MUST run from "Who hits it" to the fix:
 - Say what the result tells the reader, and what it leaves out, in the reader's
   own words: "the page says 40 rows imported, and says nowhere that two came
   out shifted."
-- Close it with how you know, in brackets: `(read the diff)` on the first pass,
-  `(walked the code with that input)` or `(ran it)` after the deep dive.
-- Then how often it happens, once the deep dive has counted it.
+- Close it with how you know, in brackets: `(read the diff)`.
 
 ```markdown
 #### Who hits it
