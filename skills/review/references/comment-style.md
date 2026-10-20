@@ -61,10 +61,10 @@ What that style is made of:
 - **The comment MUST sound unsure, even about a fact you checked.** The author
   knows the code better, and a flat claim reads as a verdict. The `Assertive:`
   block is the one exception: no hedge, the ask as a plain request.
-- **The opener SHOULD change from one comment to the next**, picked from the
-  list below.
+- **A hedge phrase MUST appear in one finding only.** Openers and closers both
+  count, while a finding's own versions MAY share one. List used up? Ask bare.
 - **The comment SHOULD end in a question.** "will this ...?", "could we ...?".
-  A blocker says what breaks, still behind "I think".
+  A blocker says what breaks, still behind a hedge.
 - **The claim MUST be bounded rather than vague.** "from what I see", "I only
   looked at the resolver". A call that is the author's goes back to them as a
   question, and no line lectures them on the area they work in daily.
@@ -85,7 +85,7 @@ What that style is made of:
   sign off and thanks for the PR. Don't repeat the file name or the line number,
   the comment already sits there.
 
-Openers to rotate through:
+Hedges to pick from, each one used once per review:
 
 ```markdown
 I think / I might be wrong, but / seems like / looks like

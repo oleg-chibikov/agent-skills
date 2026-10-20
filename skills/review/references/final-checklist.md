@@ -46,7 +46,7 @@ once and check. Every line below MUST be true before the answer goes out:
 - Every per-finding comment: one doubt and one ask, under 40 words, no
   headings, lists, fenced code, run tallies or damage. It starts with `nit: `
   where it is one. Outside `Assertive:` it opens unsure or asks, even about a
-  checked fact, and the openers vary.
+  checked fact. No hedge phrase shows up in two findings.
 - Every finding carries a shorter comment under `Shorter:` and the short one
   with no hedge under `Assertive:`, all with the same ask.
 - Every per-finding comment leads with the problem in plain words, not a chain
