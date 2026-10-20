@@ -35,6 +35,7 @@ once and check. Every line below MUST be true before the answer goes out:
   skips it. Search the answer for `- [`: a markdown checkbox means the picker
   tool was skipped.
 - No comment went on the PR before the user asked for it and picked a version.
+- In a stack, no finding flags what a PR above already fixes.
 - Every link in the report shows its line number in the visible text, as
   `[file.ts:42](path/to/file.ts#L42)`. Search the answer for `](` and check each
   one: a visible text with no `:42` is the mistake to fix before sending.

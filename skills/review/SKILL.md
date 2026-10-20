@@ -30,6 +30,9 @@ against its base. You MUST NOT ask when the target is obvious. The order, the
 commands and when you MAY ask are in
 [references/find-the-target.md](references/find-the-target.md).
 
+A PR MUST be checked for a stack around it, so no finding flags what a PR
+above already fixes: [references/stacked-prs.md](references/stacked-prs.md).
+
 ## 3. Read the repo rules first
 
 Repo rules beat your habits, and what the repo requires MUST NOT be flagged. The
