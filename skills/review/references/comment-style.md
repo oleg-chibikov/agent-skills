@@ -72,6 +72,7 @@ What that style is made of:
   of them beats a paragraph of reasoning.
 - **`nit: ` MUST open anything that only makes the code nicer**: formatting, a
   name, a shorter way to write the same thing. Give the replacement bare.
+- **`blocker: ` MUST open a sure blocker only**, the rest go without a prefix.
 - **The impact paragraph and the evidence MUST stay out.** "so the user loses
   data", counts, tool output and "I ran X over Y" belong in the finding.
 - **The case MUST be named and the theory dropped.** A real input or snippet
@@ -81,9 +82,8 @@ What that style is made of:
 - **Wording for a message or a string MAY be offered**, after "eg", in quotes.
 - **Loose punctuation is fine**: a lowercase start, a hyphen where a comma would
   do, a missing backtick. Polishing it makes it read like a machine.
-- Leave out headings, bold labels, bullet lists, a severity tag, a greeting, a
-  sign off and thanks for the PR. Don't repeat the file name or the line number,
-  the comment already sits there.
+- Leave out headings, bold labels, lists, a greeting, a sign off and thanks.
+  Skip the file name and line number, the comment already sits there.
 
 Hedges to pick from, each one used once per review:
 

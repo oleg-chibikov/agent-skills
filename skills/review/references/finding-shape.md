@@ -17,22 +17,22 @@ then the tag of its explanation. Only those, nits included.
 line 42, added in this PR, the green side of the diff.
 
 ```markdown
-this clears the input before saveName comes back - if the save fails the typed
-name is gone. can we clear it after the call resolves ok?
+blocker: this clears the input before saveName comes back - if the save fails
+the typed name is gone. can we clear it after the call resolves ok?
 ```
 
 Shorter:
 
 ```markdown
-clears the input before saveName comes back, so a failed save loses the name.
-clear it after it resolves ok?
+blocker: clears the input before saveName comes back, so a failed save loses
+the name. clear it after it resolves ok?
 ```
 
 Assertive:
 
 ```markdown
-this clears the input before saveName comes back, so a failed save loses the
-name. please clear it after the call resolves ok
+blocker: this clears the input before saveName comes back, so a failed save
+loses the name. please clear it after the call resolves ok
 ```
 
 Explanation: E1

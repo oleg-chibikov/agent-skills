@@ -70,8 +70,8 @@ unchanged.
 ## Before the call
 
 - Every body MUST be English, with none of the report language left in it.
-- One body per finding, the picked version alone, `nit: ` in front where it
-  belongs.
+- One body per finding, the picked version alone, `nit: ` or `blocker: ` in
+  front where it belongs.
 - Fenced code, evidence markers, counts and the impact paragraph MUST stay out.
   They live in the finding.
 - `path` and `line` MUST come from that finding's "Comment on" line, with the

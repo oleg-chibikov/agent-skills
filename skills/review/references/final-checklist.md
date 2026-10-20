@@ -45,8 +45,9 @@ once and check. Every line below MUST be true before the answer goes out:
   produces, and explains each code name in plain words the first time.
 - Every per-finding comment: one doubt and one ask, under 40 words, no
   headings, lists, fenced code, run tallies or damage. It starts with `nit: `
-  where it is one. Outside `Assertive:` it opens unsure or asks, even about a
-  checked fact. No hedge phrase shows up in two findings.
+  where it is one, and `blocker: ` on a sure blocker alone. Outside `Assertive:`
+  it opens unsure or asks, even about a checked fact. No hedge phrase shows up
+  in two findings.
 - Every finding carries a shorter comment under `Shorter:` and the short one
   with no hedge under `Assertive:`, all with the same ask.
 - Every per-finding comment leads with the problem in plain words, not a chain
