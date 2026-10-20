@@ -29,8 +29,8 @@ once and check. Every line below MUST be true before the answer goes out:
   `Open the diagram` link. Every code node says what the file does.
 - Every finding: a line link, the flow, the real thing that comes out with its
   evidence marker in brackets, the fix. No finding rests on "could" alone.
-- The four parts went on screen before the second round, and the second round
-  came before the posting offer. Its findings carry on the numbering.
+- The four parts went on screen before the later rounds, and every round came
+  before the posting offer. Their findings carry on the numbering.
 - The answer ends with an offer to post the comments, next to a choice that
   skips it. Search the answer for `- [`: a markdown checkbox means the picker
   tool was skipped.

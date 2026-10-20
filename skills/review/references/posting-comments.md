@@ -6,13 +6,14 @@ the last call returns.
 Reviewing a branch, a pasted diff or uncommitted work, with no PR behind it? Say
 so in one line and stop.
 
-## Offer it after the second round
+## Offer it after the last round
 
-The second round [architecture-pass.md](architecture-pass.md) MUST be done
-first, and the offer to put the comments on the PR closes it, next to a choice
-that skips it, in the report language and through the picker
-[pick-lists.md](pick-lists.md) describes. A comment goes on the PR only once the
-user asks for it. The findings of both rounds go up together.
+The rounds in [architecture-pass.md](architecture-pass.md) and
+[focused-passes.md](focused-passes.md) MUST be done first, and the offer to put
+the comments on the PR closes the last one, next to a choice that skips it, in
+the report language and through the picker [pick-lists.md](pick-lists.md)
+describes. A comment goes on the PR only once the user asks for it. The findings
+of every round go up together.
 
 ## Ask which version first
 

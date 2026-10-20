@@ -76,15 +76,21 @@ asking whether the design fits the task at all and what it leaves out, before
 anything is posted:
 [references/architecture-pass.md](references/architecture-pass.md).
 
-## 8. Offer to post the comments
+## 8. Run the focused rounds: security, speed, accessibility
 
-The second round MUST close with one offer: put the comments on the PR, the
-findings of both rounds together. A comment goes on the PR only once the user asks for
+Then one round each on security and speed, plus accessibility for a change on
+screen. Which ones run and what each one asks:
+[references/focused-passes.md](references/focused-passes.md).
+
+## 9. Offer to post the comments
+
+The last round MUST close with one offer: put the comments on the PR, the
+findings of every round together. A comment goes on the PR only once the user asks for
 it. The offer, the question that comes before the first call and the `gh` call
 per comment are in
 [references/posting-comments.md](references/posting-comments.md).
 
-## 9. Before you send
+## 10. Before you send
 
 You MUST read
 [references/final-checklist.md](references/final-checklist.md) and run it over

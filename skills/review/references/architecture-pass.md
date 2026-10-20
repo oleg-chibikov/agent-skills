@@ -8,7 +8,8 @@ review.
 
 The whole first pass report MUST be on screen before this round starts, so the
 user has the findings in hand while it runs. Then one line saying the second
-round is starting, then the round, then the offer to post. No comment goes on the
+round is starting, then the round, then the rounds in
+[focused-passes.md](focused-passes.md). No comment goes on the
 PR before it is done, since it can add findings that need a comment.
 
 ## What to ask
