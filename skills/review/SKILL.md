@@ -47,7 +47,8 @@ does on the way. How far to chase it is in
 ## 5. Look for what matters
 
 Six things in order, breakage first and style last, plus the duplicate check
-that runs on every review:
+that runs on every review. Then two quick checks: skip what a thread or a check
+already says, and try to knock each finding down:
 [references/what-to-look-for.md](references/what-to-look-for.md).
 
 ## 6. Write the report
