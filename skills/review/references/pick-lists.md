@@ -29,5 +29,32 @@ Which comment version should I post?
 1. Full version
 2. Shorter version
 3. Assertive version
-4. Skip posting
+4. Best fit per comment, mixed
+5. Let me pick per comment
+6. Skip posting
+```
+
+## One question per comment
+
+For "Let me pick per comment", each question names the comment, and the choices
+are the versions.
+
+- The question SHOULD be the comment's tag and heading: `C1. Blocker: the typed
+  name is lost`.
+- The choices are `Full`, `Shorter` and `Assertive`, with the comment text in
+  each choice's description field.
+- No description field? The three texts go in the question's message field,
+  and the choices stay bare.
+
+No picker tool? Write each comment with its numbered versions, then one line on
+how to answer:
+
+```markdown
+C1. Blocker: the typed name is lost when the server is slow
+
+1. Full: this clears the input before saveName comes back ...
+2. Shorter: clears the input before saveName comes back ...
+3. Assertive: this clears the input before saveName comes back ...
+
+Answer with one number per comment, like: C1 2, C2 1
 ```

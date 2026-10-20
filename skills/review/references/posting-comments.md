@@ -17,10 +17,26 @@ user asks for it. The findings of both rounds go up together.
 ## Ask which version first
 
 The blocks under the comment, `Shorter:` and `Assertive:` say the same thing,
-so the user picks, and the pick MUST NOT be guessed. One question before any
-call, three plain choices plus "skip", put on screen the way
-[pick-lists.md](pick-lists.md) says. The answer holds for every comment in the
-review.
+so the user picks how they go up, and the pick MUST NOT be guessed. One question
+before any call, with the choices and the layout [pick-lists.md](pick-lists.md)
+gives: one version for every comment, the best fit per comment, the user's pick
+per comment, or skip.
+
+## Best fit per comment
+
+- Each comment SHOULD get the version that suits it: `Assertive:` for a blocker
+  with a clear fix, the full one where the reader needs the context, `Shorter:`
+  for a nit or an obvious ask.
+- With two or more comments, the picks MUST NOT all land on one version. That
+  is the template look this choice exists to avoid.
+
+## Let me pick per comment
+
+- Ask one question per comment, in finding order, through the picker
+  [pick-lists.md](pick-lists.md) describes.
+- The questions SHOULD go in as few calls as the tool allows, so they come up
+  one after another.
+- The first `gh` call MUST wait until every comment has an answer.
 
 ## One comment per finding, on its own line
 
@@ -63,5 +79,5 @@ unchanged.
 
 ## After the call
 
-Print one line per comment, `file:line` and its first few words, with the URL the
-call returned. A comment that failed MUST be named with the reason.
+Print one line per comment, `file:line`, the version it went up in and its first
+few words, with the URL the call returned. A comment that failed MUST be named with the reason.
