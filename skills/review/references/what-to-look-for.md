@@ -4,14 +4,17 @@ In this order of importance:
 
 1. **Breaks for the user**: wrong result, crash, data loss, lost input, stuck
    spinner, a forgotten case (empty list, no network, slow reply, two clicks in
-   a row).
+   a row). Then the machine it runs on: a tool missing, a GUI app's short
+   `PATH`, Linux, a detached HEAD.
 2. **Security**: anything from the OWASP Top 10. Unescaped user input, secrets
    in code or logs, a missing permission check, an open redirect, a query built
    by string concatenation.
 3. **Money and speed**: work repeated in a loop, a request per item, a file read
    on every render, an unbounded list held in memory.
 4. **Will bite later**: a silent `catch`, a `TODO` that hides a known bug, two
-   sources of truth for the same value, a test that cannot fail.
+   sources of truth for the same value. A comment, a doc line or the PR
+   description the code now contradicts. A test that cannot fail, named by the
+   one-character edit it lets through: `|| exit 0` turned into `&& exit 0`.
 5. **Already written somewhere**, does the repo or a dependency do this today.
 6. **Style**. It MUST NOT be flagged unless the repo asks for it in writing.
 
@@ -47,7 +50,10 @@ Before a finding goes in, give it one look for the reason it is wrong: a guard
 in the caller, a type that rules the case out, a test that covers it, a config
 that turns it off.
 
-- One look per finding: a file already open or one search. No runs.
+- One look per finding: a file already open or one search.
+- A run, a dependency's source or another repo MAY come in only as the last
+  resort, when the finding stands or falls on it. One command on stubs, no
+  network, no writes to the repo. Its marker reads `(ran it)`.
 - **Knocked down**: the finding MUST go.
 - **Can't tell**: keep it, marked as not proven.
 
