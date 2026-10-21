@@ -77,10 +77,11 @@ asking whether the design fits the task at all and what it leaves out, before
 anything is posted:
 [references/architecture-pass.md](references/architecture-pass.md).
 
-## 8. Run the focused rounds: security, speed, accessibility
+## 8. Run the focused rounds
 
-Then one round each on security and speed, plus accessibility for a change on
-screen. Which ones run and what each one asks:
+Then one round each on security and speed. State and failure, accessibility and
+agent instructions run when the change touches what they check. Which ones run
+and what each one asks:
 [references/focused-passes.md](references/focused-passes.md).
 
 ## 9. Offer to post the comments

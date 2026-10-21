@@ -1,17 +1,22 @@
-# The focused rounds: security, speed, accessibility
+# The focused rounds
 
 Each round reads the same change again with one question in mind. They run
 after the second round [architecture-pass.md](architecture-pass.md), in the
-order below, each opened by one line naming it.
+order of the list below, each opened by one line naming it.
 
 ## Which rounds run
 
 - **Security** MUST run on every review.
+- **State and failure** MUST run when the change writes a file, a table or a
+  lock, or starts a background process: [state-pass.md](state-pass.md).
 - **Speed** MUST run when the change holds code that runs. Docs, copy and
   comments alone skip it.
 - **Accessibility** MUST run when the change touches what a person sees or
   uses on screen: markup, components, styles, UI text.
-- **A skipped round** gets one line saying why.
+- **Agent instructions** MUST run when the change touches a file an agent
+  reads as orders: [instructions-pass.md](instructions-pass.md).
+
+A skipped round gets one line saying why.
 
 ## Security
 
@@ -23,8 +28,8 @@ Follow each input from where it enters to where it lands.
 - Does a secret, a token or personal data end up in code, logs, a URL, an error
   or the browser bundle?
 - Did sessions, cookies, CORS or CSRF settings change, and do they still hold?
-- A new dependency: is it maintained, with no known hole, and no more access
-  than it needs?
+- A new dependency, or code or data fetched at run time: is it pinned,
+  maintained, with no known hole, and no more access than it needs?
 
 ## Speed
 
@@ -36,6 +41,8 @@ Follow each input from where it enters to where it lands.
   bundle, an image with no size that shifts the layout.
 - **Server**: a new query with no index, a lock held over a network call, a slow
   call on the hot path.
+- **Every session pays**: a hook or a startup step that runs for everyone, where
+  only the feature needs it. The cheap filter goes first.
 
 A speed finding MUST name the size where it starts to hurt: "slow past 1,000
 rows". A guess is marked as one.

@@ -31,6 +31,9 @@ and say in one sentence what the change has to achieve. Then ask:
 - Does it match how this repo does the same thing elsewhere? Link one existing
   example.
 
+A bug fixed by hand SHOULD get one more question: what stops the next one? Name
+the lint rule or the check that would catch it.
+
 ## What comes out
 
 A finding here MUST carry a cost: what breaks, what gets slower, what the next
